@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class InstructorController extends Controller
+class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class InstructorController extends Controller
      */
     public function index()
     {
-        return view('Admin.pages.instructor.index');
+        return view('Admin/pages/course/index');
     }
 
     /**
@@ -23,7 +23,7 @@ class InstructorController extends Controller
      */
     public function create()
     {
-        return view('Admin.pages.instructor.create');
+        return view('Admin.pages.course.create');
     }
 
     /**
@@ -34,22 +34,7 @@ class InstructorController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'=>['required','string'],
-            'specialty'=>['required','string'],
-            'nid'=>['required','numeric'],
-            'designation'=>['required','string'],
-            'father_name'=>['required','string'],
-            'mother_name'=>['required','string'],
-            'mobile'=>['required','numeric'],
-            'email'=>['required','email'],
-            'join_date'=>['required','date'],
-            'salary'=>['required','numberic'],
-            'avatar'=>['nullable','image']
-        ]);
-
-        
-
+        //
     }
 
     /**
@@ -60,7 +45,7 @@ class InstructorController extends Controller
      */
     public function show($id)
     {
-        
+        //
     }
 
     /**

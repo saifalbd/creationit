@@ -3,8 +3,13 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\BatchController;
+use App\Http\Controllers\InstructorController;
 
-/*
+
+
+/* 
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -26,3 +31,12 @@ Route::get('/home',[HomeController::class,'index'])->name('home');
 Route::get('/', function () {
     return view('welcome');
 });
+
+// course
+Route::resource('course', CourseController::class);
+
+// Batch
+Route::resource('batch', BatchController::class);
+
+// instructor
+Route::resource('instructor', InstructorController::class);

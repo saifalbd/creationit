@@ -3,7 +3,7 @@
                 <div class="container-fluid"><div class="mt-4 mb-3 page-title">
                 <div class="row">
                 <div class="col-md-9 my-auto">
-                    <i class="far fa-list-alt"></i> Course Information <i class="fas fa-angle-right"></i> Instructor Info List 
+                    <i class="far fa-list-alt"></i> Course Information <i class="fas fa-angle-right"></i> Course List
                 </div>
                     <div class="col-md-3 my-auto">
                     <a href="add_course.php" class="btn btn-outline-primary  float-right"> <i class="fas fa-plus-square"></i> Add Course</a>
