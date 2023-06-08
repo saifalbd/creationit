@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+Route::get('/login',[AuthController::class,'loginPage'])->name('login');
+Route::post('/login',[AuthController::class,'login'])->name('login.store');
+
+Route::get('/home',[HomeController::class,'index'])->name('home');
+
+
 
 Route::get('/', function () {
     return view('welcome');
