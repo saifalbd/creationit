@@ -1,6 +1,6 @@
 <x-admin-layout>
 <main>
-                <div class="container-fluid"> 
+<div class="container-fluid"> 
  
  
  <div class="card mb-4 mt-4">
@@ -11,7 +11,7 @@
        </div>
        <div class="col-md-3 text-right">
    
-          <a href="{{route('course.index)}}" class="btn btn-outline-primary"> <i class="fas fa-folder-open"></i> Course List</a>
+          <a href="{{route('course.index')}}" class="btn btn-outline-primary"> <i class="fas fa-folder-open"></i> Course List</a>
        </div>
     </div>
     </div>
