@@ -71,7 +71,7 @@ class InstructorController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('Admin.pages.instructor.edit');
     }
 
     /**

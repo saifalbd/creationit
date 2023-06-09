@@ -11,7 +11,7 @@
        </div>
        <div class="col-md-3 text-right">
    
-          <a href="list_instructor.php" class="btn btn-outline-primary"> <i class="fas fa-folder-open"></i> Instructor List</a>
+          <a href="{{url('instructor')}}" class="btn btn-outline-primary"> <i class="fas fa-folder-open"></i> Instructor List</a>
        </div>
     </div>
  </div>
