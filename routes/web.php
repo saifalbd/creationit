@@ -8,6 +8,9 @@ use App\Http\Controllers\BatchController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\FeesController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ReportController;
 
 
 
@@ -50,12 +53,14 @@ Route::resource('student', StudentController::class);
 // fees controller
 Route::resource('fees', FeesController::class);
 
+// attendance
+Route::resource('attendance', AttendanceController::class);
 
+// invoice
+Route::resource('invoice', InvoiceController::class);
 
-
-
-
-
+// reporte
+Route::resource('report', ReportController::class);
 
 
 

@@ -156,8 +156,8 @@
                      </a>
                      <div class="collapse" id="attednace" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                           <a class="nav-link text-white" href="add_attendance.php"> Attednace Entry  </a>
-                           <a class="nav-link text-white" href="list_attendance.php"> Attednace Record </a>
+                           <a class="nav-link text-white" href="{{url('attendance/create')}}"> Attednace Entry  </a>
+                           <a class="nav-link text-white" href="{{url('attendance')}}"> Attednace Record </a>
                          
                         </nav>
                      </div>
@@ -198,8 +198,8 @@
 					 </a>
 					 <div class="collapse" id="invoice" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
 						<nav class="sb-sidenav-menu-nested nav">
-						   <a class="nav-link" href="add_invoice.php"> New Invoice </a>
-						   <a class="nav-link" href="list_invoice.php"> List Invoice</a>
+						   <a class="nav-link" href="{{url('invoice/create')}}"> New Invoice </a>
+						   <a class="nav-link" href="{{url('invoice')}}"> List Invoice</a>
 						</nav>
 					 </div>
 
@@ -227,7 +227,7 @@
 						</nav>
 					 </div>
 					 
-					 <a class="nav-link collapsed" href="reports.php" >
+					 <a class="nav-link collapsed" href="{{url('report/create')}}" >
 						<div class="sb-nav-link-icon"><i class="fas fa-print"></i></div>
 					Reports
 					 </a>
