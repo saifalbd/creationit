@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
+use App\Models\Instructor;
 use Illuminate\Http\Request;
 
 class InstructorController extends Controller
@@ -44,9 +46,34 @@ class InstructorController extends Controller
             'mobile'=>['required','numeric'],
             'email'=>['required','email'],
             'join_date'=>['required','date'],
-            'salary'=>['required','numberic'],
-            'avatar'=>['nullable','image']
+            'salary'=>['required','numeric'],
+            'photo'=>['nullable','image'],
+            'address'=>['required','string']
         ]);
+
+        $name = $request->name;
+        $specialty = $request->specialty;
+        $nid = $request->nid;
+        $designation = $request->designation;
+        $father_name = $request->father_name;
+        $mother_name = $request->mother_name;
+        $mobile = $request->mobile;
+        $email = $request->email;
+        $join_date = $request->join_date;
+        $salary = $request->salary;
+        $address = $request->address;
+        $avatar_id = 1;
+
+        if($request->hasFile('photo')){
+            $avatar = Attachment::add($request->photo,Instructor::class);
+            $avatar_id = $avatar->id;
+        }
+
+
+        $data = compact('name','specialty','nid','designation','father_name','mother_name','mobile','email','join_date','salary','avatar_id','address');
+
+        Instructor::create($data);
+        return redirect()->route('instructor.index');
 
         
 

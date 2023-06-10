@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
+use App\Models\Course;
+use App\Models\Instructor;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -13,7 +16,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return view('Admin/pages/course/index');
+        $items = Course::query()->with('instructor')->paginate(20);
+        return view('Admin/pages/course/index',compact('items'));
     }
 
     /**
@@ -23,7 +27,9 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('Admin.pages.course.create');
+
+        $instructors = Instructor::query()->select(['id','name'])->get();
+        return view('Admin.pages.course.create',compact('instructors'));
     }
 
     /**
@@ -34,7 +40,34 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>['required','string'],
+            'duration'=>['required','numeric'],
+            'fee'=>['required','numeric'],
+            'instructor_id'=>['required','numeric'],
+            'details'=>['nullable','string'],
+            'photo'=>['nullable','image']
+        ]);
+
+        $name = $request->name;
+        $duration = $request->duration;
+        $fee = $request->fee;
+        $instructor_id = $request->instructor_id;
+        $details = $request->details;
+        $avatar_id = 1;
+
+        if($request->hasFile('photo')){
+            $avatar = Attachment::add($request->photo,Course::class);
+            $avatar_id = $avatar->id;
+        }
+        
+
+
+        Course::create(compact('name','duration','fee','instructor_id','details','avatar_id'));
+
+        return redirect()->route('course.index');
+
+
     }
 
     /**

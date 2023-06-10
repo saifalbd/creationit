@@ -33,10 +33,10 @@ Route::get('/', function () {
 });
 
 // course
-Route::resource('course', CourseController::class);
+Route::resource('/courses', CourseController::class)->names('course');
 
 // Batch
-Route::resource('batch', BatchController::class);
+Route::resource('/batches', BatchController::class)->names('batch');
 
 // instructor
-Route::resource('instructor', InstructorController::class);
+Route::resource('/instructors', InstructorController::class)->names('instructor');

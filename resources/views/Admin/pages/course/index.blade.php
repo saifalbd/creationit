@@ -6,7 +6,7 @@
                     <i class="far fa-list-alt"></i> Course Information <i class="fas fa-angle-right"></i> Course List
                 </div>
                     <div class="col-md-3 my-auto">
-                    <a href="add_course.php" class="btn btn-outline-primary  float-right"> <i class="fas fa-plus-square"></i> Add Course</a>
+                    <a href="{{route('course.create')}}" class="btn btn-outline-primary  float-right"> <i class="fas fa-plus-square"></i> Add Course</a>
                 </div>
                 </div>
             </div>
@@ -29,20 +29,22 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($items as $item)
                         <tr>
-                            <td width="0%" class="bn-font">1</td>
-                            <td > Diploma In Graphic Design</td>
+                            <td width="0%" class="bn-font">{{$item->id}}</td>
+                            <td >{{$item->name}}</td>
                             
                             
-                            <td> 4 Months</td>
-                            <td  > 10000</td>
-                            <td > Wasim Ahmed Nishan</td>
+                            <td> {{$item->duration}} Months</td>
+                            <td  >{{$item->fee}}</td>
+                            <td >{{$item->instructor->name}}</td>
                             
                             <td width="10%">
                                 <a href="" class="btn btn-success btn-sm" > <i class="fa fa-edit ">  </i></a>  
                                 <a data-appd="1" class="delete btn btn-danger btn-sm" href="#"><i class="fa fa-trash "> </i></a>
                             </td>
                             </tr>
+                            @endforeach
                                         
                                    
                             </tbody>

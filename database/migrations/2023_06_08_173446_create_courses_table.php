@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->tinyInteger('duration');
             $table->double('fee');
-            $table->foreignId('instructor');
+            $table->foreignId('instructor_id');
             $table->foreignId('avatar_id');
             $table->text('details');
             $table->timestamps();
