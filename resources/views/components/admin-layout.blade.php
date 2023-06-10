@@ -109,8 +109,8 @@
                      </a>
                      <div class="collapse" id="batch" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                           <a class="nav-link text-white" href="{{url('batch/create')}}">Batch Entry</a>
-                           <a class="nav-link text-white" href=" {{url('batch')}}">List of Batch</a>
+                           <a class="nav-link text-white" href="{{route('batch.create')}}">Batch Entry</a>
+                           <a class="nav-link text-white" href=" {{route('batch.index')}}">List of Batch</a>
                         </nav>
                      </div>
  

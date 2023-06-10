@@ -34,7 +34,7 @@ class BatchController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -45,7 +45,7 @@ class BatchController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('Admin.pages.batch.view');
     }
 
     /**
@@ -56,7 +56,7 @@ class BatchController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('Admin.pages.batch.edit');
     }
 
     /**
