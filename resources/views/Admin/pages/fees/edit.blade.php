@@ -10,7 +10,7 @@
          <i class="far fa-list-alt"></i>  Fees Collection <i class="fas fa-angle-right"></i> Edit  Fees Collection
       </div>
       <div class="col-md-3 text-right">
-         <a href="list_fee_collection.php" class="btn btn-outline-primary float-right"> <i class="fas fa-folder-open"></i> Received Record</a>
+         <a href="{{route('fees.index')}}" class="btn btn-outline-primary float-right"> <i class="fas fa-folder-open"></i> Received Record</a>
       </div>
    </div>
 </div>

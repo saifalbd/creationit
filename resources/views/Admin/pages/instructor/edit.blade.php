@@ -10,7 +10,7 @@
          Instructor Info <i class="fas fa-angle-right"></i>       Edit Instructor Account
       </div>
       <div class="col-md-3 text-right">
-         <a href="{{url('instructor')}}" class="btn btn-outline-primary float-right"> <i class="fas fa-folder-open"></i> Instructor List</a>
+         <a href="{{route('instructor.index')}}" class="btn btn-outline-primary float-right"> <i class="fas fa-folder-open"></i> Instructor List</a>
       </div>
    </div>
 </div>

@@ -6,7 +6,7 @@
          <i class="far fa-list-alt"></i> Course Information <i class="fas fa-angle-right"></i> Course List
       </div>
        <div class="col-md-3 my-auto">
-		 <a href="{{url('attendance/create')}}" class="btn btn-outline-primary float-right"> <i class="fas fa-plus-square"></i> Attedance Entry</a>
+		 <a href="{{route('attendance.create')}}" class="btn btn-outline-primary float-right"> <i class="fas fa-plus-square"></i> Attedance Entry</a>
       </div>
    </div>
 </div>

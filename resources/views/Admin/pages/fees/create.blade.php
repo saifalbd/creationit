@@ -11,7 +11,7 @@
       </div>
       <div class="col-md-3 text-right">
   
-         <a href="{{url('fees')}}" class="btn btn-outline-primary"> <i class="fas fa-folder-open"></i> Received Record</a>
+         <a href="{{route('fees.index')}}" class="btn btn-outline-primary"> <i class="fas fa-folder-open"></i> Received Record</a>
       </div>
    </div>
 </div>

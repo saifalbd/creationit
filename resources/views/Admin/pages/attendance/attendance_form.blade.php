@@ -11,7 +11,7 @@
       </div>
       <div class="col-md-3 text-right">
   
-         <a href="list_attendance.php" class="btn btn-outline-primary"> <i class="fas fa-folder-open text-warning"></i> Attedance Record</a>
+         <a href="{{route('attendance.index')}}" class="btn btn-outline-primary"> <i class="fas fa-folder-open text-warning"></i> Attedance Record</a>
       </div>
    </div>
 </div>

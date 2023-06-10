@@ -11,7 +11,7 @@
       </div>
       <div class="col-md-3 text-right">
   
-         <a href="{{url('attendance')}}" class="btn btn-outline-primary"> <i class="fas fa-folder-open"></i> Attendance Record</a>
+         <a href="{{route('attendance.index')}}" class="btn btn-outline-primary"> <i class="fas fa-folder-open"></i> Attendance Record</a>
       </div>
    </div>
 </div>

@@ -6,7 +6,7 @@
          <i class="far fa-list-alt"></i> Fees Collection Information  
       </div>
        <div class="col-md-3 my-auto">
-		 <a href="{{url('fees/create')}}" class="btn btn-outline-primary float-right"> <i class="fas fa-plus-square"></i> Fees Receive</a>
+		 <a href="{{route('fees.create')}}" class="btn btn-outline-primary float-right"> <i class="fas fa-plus-square"></i> Fees Receive</a>
       </div>
    </div>
 </div>

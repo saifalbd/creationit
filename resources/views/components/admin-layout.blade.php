@@ -122,8 +122,8 @@
                      </a>
                      <div class="collapse" id="admission" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                           <a class="nav-link text-white" href="{{url('student/create')}}"> Admission  </a>
-                           <a class="nav-link text-white" href="{{url('student')}}"> Pending Admission   </a>
+                           <a class="nav-link text-white" href="{{route('student.create')}}"> Admission  </a>
+                           <a class="nav-link text-white" href="{{route('student.index')}}"> Pending Admission   </a>
                            <a class="nav-link text-white" href="list_admission.php"> Current Student</a>
                            <a class="nav-link text-white" href="list_course_completed.php"> Course Completed</a>
                            
@@ -142,8 +142,8 @@
                      </a>
                      <div class="collapse" id="fees" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-						<a class="nav-link" href="{{url('fees/create')}}"> Fees Receive</a>
-						<a class="nav-link" href="{{url('fees')}}"> Received List</a>
+						<a class="nav-link" href="{{route('fees.create')}}"> Fees Receive</a>
+						<a class="nav-link" href="{{route('fees.index')}}"> Received List</a>
 						
                         </nav>
                      </div>
@@ -156,8 +156,8 @@
                      </a>
                      <div class="collapse" id="attednace" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                           <a class="nav-link text-white" href="{{url('attendance/create')}}"> Attednace Entry  </a>
-                           <a class="nav-link text-white" href="{{url('attendance')}}"> Attednace Record </a>
+                           <a class="nav-link text-white" href="{{route('attendance.create')}}"> Attednace Entry  </a>
+                           <a class="nav-link text-white" href="{{route('attendance.index')}}"> Attednace Record </a>
                          
                         </nav>
                      </div>
@@ -198,8 +198,8 @@
 					 </a>
 					 <div class="collapse" id="invoice" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
 						<nav class="sb-sidenav-menu-nested nav">
-						   <a class="nav-link" href="{{url('invoice/create')}}"> New Invoice </a>
-						   <a class="nav-link" href="{{url('invoice')}}"> List Invoice</a>
+						   <a class="nav-link" href="{{route('invoice.create')}}"> New Invoice </a>
+						   <a class="nav-link" href="{{route('invoice.index')}}"> List Invoice</a>
 						</nav>
 					 </div>
 
