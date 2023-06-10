@@ -1,76 +1,61 @@
 <x-admin-layout>
+
 <main>
-                <div class="container-fluid"><div class="mt-4 mb-3 page-title">
-                <div class="row">
-                <div class="col-md-9 my-auto">
-                    <i class="far fa-list-alt"></i> Course Information <i class="fas fa-angle-right"></i> Instructor Info List 
-                </div>
-                    <div class="col-md-3 my-auto">
-                    <a href="add_course.php" class="btn btn-outline-primary  float-right"> <i class="fas fa-plus-square"></i> Add Course</a>
-                </div>
-                </div>
+               <div class="container-fluid"><div class="container">
+<div class="mt-4 mb-3 page-title">
+   <div class="row">
+      <div class="col-md-9 title">
+	  Instructor Info <i class="fas fa-angle-right"></i> Instructor Info List
+	  </div>
+      <div class="col-md-3">
+         <a href="{{url('instructor/create')}}" class="btn btn-outline-primary float-right">  <i class="fas fa-plus-square "></i>  Add Instructor</a>
+      </div>
+   </div>
+</div>
+<div class="row">
+      <div class="col-md-6 col-xl-4">
+      <div class="card m-b-30">
+         <div class="card-body row" style="padding: 15px 5px 1px 20px;">
+            <div class="col-4">
+               <a href=""><img src="/assets/img/logo.jpeg" alt="" class="img-fluid rounded-circle w-60"></a>
             </div>
-            <div class="card mb-4">
-                <div class="card-body">
-                <div class="table-responsive">
-                    <br>
-                    <table class="table table-hover " id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                            <th width="0%"> #</th>
-                            <th> Name  </th>
-                            
-                            
-                            <th> Duration </th> 
-                            <th> Fee</th>
-                            <th> Instructor </th>
-                            
-                            <th width="10%"> </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td width="0%" class="bn-font">1</td>
-                            <td > Diploma In Graphic Design</td>
-                            
-                            
-                            <td> 4 Months</td>
-                            <td  > 10000</td>
-                            <td > Wasim Ahmed Nishan</td>
-                            
-                            <td width="10%">
-                                <a href="" class="btn btn-success btn-sm" > <i class="fa fa-edit ">  </i></a>  
-                                <a data-appd="1" class="delete btn btn-danger btn-sm" href="#"><i class="fa fa-trash "> </i></a>
-                            </td>
-                            </tr>
-                                        
-                                   
-                            </tbody>
-             <tfoot>
-          </table>
-       </div>
-    </div>
- </div>
- <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
- <script>
-    $(document).on('click','.delete',function(){
-    var element = $(this);
-    var del_id = element.attr("data-appd");
-    var info = 'delcourse=' + del_id;
-    if(confirm("Are you sure you want to delete this?"))
-    {
-     $.ajax({
-       type: "POST",
-       url: "ajaxdelete.php",
-       data: info,
-       success: function(){
-     }
-    });
-      $(this).parents("tr").animate({ backgroundColor: "#003" }, "slow")
-      .animate({ opacity: "hide" }, "slow");
-     }
-    return false;
-    });
- </script>
-  </main>
+            <div class="col-8 card-title align-self-center mb-0" style="line-height: 20px;">
+               <h5>Wasim Ahmed Nishan</h5>
+               <p class="m-0">Motion Graphics & VFX</p>
+            </div>
+         </div>
+         <hr>
+         <ul class="mb-0" style="line-height: 20px;">
+            <li class="mb-1">NID:   </li>
+            <li class="mb-1">Father:  Mohammed Rafik Ahmed   </li>
+            <li class="mb-1">Mother:  Mrs Runa Begum   </li>
+            <li class="mb-1 font-bn" > Joining Date: 01-12-2018  </li>
+            <li class="mb-1 font-bn"> Monthly Salary: 30000   </li>
+         </ul>
+         <hr>
+         <div class="card-body mb-0" style="padding: 0px 5px 1px 20px;">
+            <i class="fas fa-map-marker-alt"></i> Moulvibazar  <br>
+            <i class="far fa-envelope "></i> nishansmedia@gmail.com  <br>
+            <i class="fas fa-mobile-alt "></i> 01714517239 
+         </div>
+         <div class="card-body mb-0" >
+            <div class="float-right btn-group btn-group-sm">
+               <a href="#update_user.php?id=1" class="btn btn-warning tooltips" data-placement="top" data-toggle="tooltip" data-original-title="ইউজার পসাওয়ার্ড"><i class="fas fa-user-lock"></i> </a>
+               <a href="{{route('instructor.edit',2)}}" class="btn btn-success tooltips" data-placement="top" data-toggle="tooltip" data-original-title="সম্পাদন"><i class="fas fa-user-edit"></i> </a>
+               <a href="delete_instructor.php?id=1" class="btn btn-danger tooltips" data-placement="top" data-toggle="tooltip" data-original-title="ডিলিট"><i class="fas fa-times"></i></a>
+            </div>
+         </div>
+      </div>
+   </div>
+     
+      
+      
+   </div>
+<script type="text/javascript">
+   $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+   })
+   
+</script>
+ </main>
 </x-admin-layout>

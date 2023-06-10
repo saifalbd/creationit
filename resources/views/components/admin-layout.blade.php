@@ -7,7 +7,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       <meta name="description" content="" />
       <meta name="author" content="" />
-      <link rel="shortcut icon" href="assets/img/logo.jpeg" type="image/x-icon">
+      <link rel="shortcut icon" href="/assets/img/logo.jpeg" type="image/x-icon">
       <title>Creation IT</title>
       <link href="/assets/css/style.css" rel="stylesheet" />
       <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
@@ -28,7 +28,7 @@
 
       <nav class="sb-topnav navbar navbar-expand navbar-light bg-light">
 	  
-         <a class="navbar-brand" href="index.php"> <img src="assets/img/logo.jpeg" alt="" class="thumb-sm"> </a>
+         <a class="navbar-brand" href="index.php"> <img src="/assets/img/logo.jpeg" alt="" class="thumb-sm"> </a>
          <button class="btn btn-link btn-md order-1 order-lg-0 sidebar-btn" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
 		 
          <div class="form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0 d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -84,7 +84,7 @@
                <div class="sb-sidenav-menu">
                   <div class="nav">
                      <div class="sb-sidenav-menu-heading"> </div>
-                     <a class="nav-link dahboard-btn" style="padding: 9px;color: #fff!important;" href="index.php">
+                     <a class="nav-link dahboard-btn" style="padding: 9px;color: #fff!important;" href="{{url('home')}}">
                         <div class="sb-nav-link-icon "><i class="fas fa-tachometer-alt"  ></i></div>
                         Dashboard
                      </a>
@@ -109,8 +109,8 @@
                      </a>
                      <div class="collapse" id="batch" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                           <a class="nav-link text-white" href="add_batch.php">Batch Entry</a>
-                           <a class="nav-link text-white" href="list_batch.php">List of Batch</a>
+                           <a class="nav-link text-white" href="{{url('batch/create')}}">Batch Entry</a>
+                           <a class="nav-link text-white" href=" {{url('batch')}}">List of Batch</a>
                         </nav>
                      </div>
  
@@ -122,8 +122,8 @@
                      </a>
                      <div class="collapse" id="admission" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                           <a class="nav-link text-white" href="add_applicaion.php"> Admission  </a>
-                           <a class="nav-link text-white" href="list_new_applicaion.php"> Pending Admission   </a>
+                           <a class="nav-link text-white" href="{{url('student/create')}}"> Admission  </a>
+                           <a class="nav-link text-white" href="{{url('student')}}"> Pending Admission   </a>
                            <a class="nav-link text-white" href="list_admission.php"> Current Student</a>
                            <a class="nav-link text-white" href="list_course_completed.php"> Course Completed</a>
                            
@@ -142,8 +142,8 @@
                      </a>
                      <div class="collapse" id="fees" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-						<a class="nav-link" href="add_payment.php"> Fees Receive</a>
-						<a class="nav-link" href="list_fee_collection.php"> Received List</a>
+						<a class="nav-link" href="{{url('fees/create')}}"> Fees Receive</a>
+						<a class="nav-link" href="{{url('fees')}}"> Received List</a>
 						
                         </nav>
                      </div>
@@ -156,8 +156,8 @@
                      </a>
                      <div class="collapse" id="attednace" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                           <a class="nav-link text-white" href="add_attendance.php"> Attednace Entry  </a>
-                           <a class="nav-link text-white" href="list_attendance.php"> Attednace Record </a>
+                           <a class="nav-link text-white" href="{{url('attendance/create')}}"> Attednace Entry  </a>
+                           <a class="nav-link text-white" href="{{url('attendance')}}"> Attednace Record </a>
                          
                         </nav>
                      </div>
@@ -198,8 +198,8 @@
 					 </a>
 					 <div class="collapse" id="invoice" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
 						<nav class="sb-sidenav-menu-nested nav">
-						   <a class="nav-link" href="add_invoice.php"> New Invoice </a>
-						   <a class="nav-link" href="list_invoice.php"> List Invoice</a>
+						   <a class="nav-link" href="{{url('invoice/create')}}"> New Invoice </a>
+						   <a class="nav-link" href="{{url('invoice')}}"> List Invoice</a>
 						</nav>
 					 </div>
 
@@ -227,7 +227,7 @@
 						</nav>
 					 </div>
 					 
-					 <a class="nav-link collapsed" href="reports.php" >
+					 <a class="nav-link collapsed" href="{{url('report/create')}}" >
 						<div class="sb-nav-link-icon"><i class="fas fa-print"></i></div>
 					Reports
 					 </a>

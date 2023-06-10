@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class BatchController extends Controller
+class FeesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class BatchController extends Controller
      */
     public function index()
     {
-        return view('Admin.pages.batch.index');
+        return view('Admin.pages.fees.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class BatchController extends Controller
      */
     public function create()
     {
-        return view('Admin.pages.batch.create');
+        return view('Admin.pages.fees.create');
     }
 
     /**
@@ -45,7 +45,7 @@ class BatchController extends Controller
      */
     public function show($id)
     {
-        //
+       
     }
 
     /**
@@ -56,7 +56,7 @@ class BatchController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('Admin.pages.fees.edit');
     }
 
     /**

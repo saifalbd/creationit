@@ -6,6 +6,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\InstructorController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\FeesController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ReportController;
+
 
 
 
@@ -38,5 +44,21 @@ Route::resource('/courses', CourseController::class)->names('course');
 // Batch
 Route::resource('/batches', BatchController::class)->names('batch');
 
-// instructor
 Route::resource('/instructors', InstructorController::class)->names('instructor');
+
+Route::resource('/instructor', InstructorController::class);
+
+// student
+Route::resource('/student', StudentController::class);
+
+// fees controller
+Route::resource('/fees', FeesController::class);
+
+// attendance
+Route::resource('/attendance', AttendanceController::class);
+
+// invoice
+Route::resource('/invoice', InvoiceController::class);
+
+// reporte
+Route::resource('/report', ReportController::class);
