@@ -40,9 +40,15 @@
                             <td >{{$item->instructor->name}}</td>
                             
                             <td width="10%">
-                                <a href="{{route('course.edit',2)}}" class="btn btn-success btn-sm" > <i class="fa fa-edit ">  </i></a>  
-                                
-                                <a data-appd="1" class="delete btn btn-danger btn-sm" href="#"><i class="fa fa-trash "> </i></a>
+                                <div class="d-flex">
+                                    <a href="{{route('course.edit',2)}}" class="btn btn-success btn-sm" > <i class="fa fa-edit ">  </i></a>  
+                                    <form action="{{route('course.destroy',$item->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <a data-id="{{$item->id}}" class="delete btn btn-danger btn-sm" href="#"><i class="fa fa-trash "> </i></a>
+                                    </form>
+                                </div>
+                               
                             
                             </td>
                             </tr>
@@ -56,25 +62,39 @@
     </div>
  </div>
  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
+
  <script>
-    $(document).on('click','.delete',function(){
-    var element = $(this);
-    var del_id = element.attr("data-appd");
-    var info = 'delcourse=' + del_id;
-    if(confirm("Are you sure you want to delete this?"))
-    {
-     $.ajax({
-       type: "POST",
-       url: "ajaxdelete.php",
-       data: info,
-       success: function(){
-     }
+$('.delete').click(function(e){
+    e.preventDefault();
+    var form = $(this).closest('form');
+    var dataId = $(this).data('id');
+
+    swal({
+      title: "Are you sure?",
+      text: "Delete the category",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+        
+      if (willDelete) {
+        form.submit();
+        swal("succeess! category deleted success!", {
+          icon: "success",
+        });
+      } else {
+        swal("something is wrong!");
+      }
     });
-      $(this).parents("tr").animate({ backgroundColor: "#003" }, "slow")
-      .animate({ opacity: "hide" }, "slow");
-     }
-    return false;
-    });
+
+});
+
+
  </script>
+
+
+
   </main>
 </x-admin-layout>
