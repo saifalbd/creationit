@@ -41,7 +41,9 @@
                             
                             <td width="10%">
                                 <a href="{{route('course.edit',2)}}" class="btn btn-success btn-sm" > <i class="fa fa-edit ">  </i></a>  
+                                
                                 <a data-appd="1" class="delete btn btn-danger btn-sm" href="#"><i class="fa fa-trash "> </i></a>
+                            
                             </td>
                             </tr>
                             @endforeach
