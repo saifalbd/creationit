@@ -15,7 +15,8 @@ class InstructorController extends Controller
      */
     public function index()
     {
-        return view('Admin.pages.instructor.index');
+        $instructors = Instructor::all();
+        return view('Admin.pages.instructor.index',compact('instructors'));
     }
 
     /**
@@ -120,7 +121,12 @@ class InstructorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {   
+
+        $del = Instructor::find($id);
+        if($del){
+            $del->delete();
+            return redirect()->route('instructor.index')->with('danger','Instructor Successfully Deleted !');;
+        }
     }
 }

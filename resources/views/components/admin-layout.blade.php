@@ -255,6 +255,7 @@
             </nav>
          </div>
          <div id="layoutSidenav_content">
+            <script src="/assets/js/sweetalert.js"></script>
          {{ $slot }}
  
 </div>
@@ -272,7 +273,7 @@
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js'></script>
 <script src="/assets/js/select2.js"></script>
-<script src="/assets/js/sweetalert.js"></script>
+
     
   <!-- partial -->
  <script src='https://cdnjs.cloudflare.com/ajax/libs/summernote/0.6.6/summernote.min.js'></script>
