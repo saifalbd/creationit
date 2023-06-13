@@ -27,6 +27,11 @@
                         <div class="form-group col-md-3">
                            <label for="inputEmail4">Name</label>
                            <input type="text" class="form-control" required name="name" value="{{old('name')}}">
+                           @error('name')
+                              <div class="alert alert-danger">
+                                 {{$message}}
+                              </div>
+                           @enderror
                         </div>
 
                         <div class="form-group col-md-3">
@@ -41,17 +46,31 @@
                               <option value="Digital Marketing">Digital Marketing</option>
                               <option value="Spoken English">Spoken English</option>
                            </select>
-
+                           @error('specialty')
+                              <div class="alert alert-danger">
+                                 {{$message}}
+                              </div>
+                           @enderror
                         </div>
 
                         <div class="form-group col-md-2">
                            <label for="inputEmail4">NID</label>
                            <input type="text" class="form-control" name="nid" value="{{old('nid')}}">
+                           @error('nid')
+                              <div class="alert alert-danger">
+                                 {{$message}}
+                              </div>
+                           @enderror
                         </div>
 
                         <div class="form-group col-md-4">
                            <label for="inputEmail4">Designation</label>
                            <input type="text" class="form-control" name="designation" value="{{old('designation')}}">
+                           @error('designation')
+                           <div class="alert alert-danger">
+                              {{$message}}
+                           </div>
+                           @enderror
                         </div>
 
 
@@ -61,33 +80,68 @@
                         <div class="form-group col-md-3">
                            <label for="inputAddress2">Father's Name</label>
                            <input type="text" class="form-control" required name="father_name" value="{{old('father_name')}}">
+                           @error('father_name')
+                           <div class="alert alert-danger">
+                              {{$message}}
+                           </div>
+                         @enderror
                         </div>
                         <div class="form-group col-md-3">
                            <label for="inputAddress2">Mother's Name</label>
                            <input type="text" class="form-control" name="mother_name"  value="{{old('mother_name')}}">
+                           @error('nid')
+                           <div class="alert alert-danger">
+                              {{$message}}
+                           </div>
+                        @enderror
                         </div>
                         <div class="form-group col-md-2">
                            <label for="inputCity">Mobile</label>
                            <input type="number" class="form-control" name="mobile"  value="{{old('mobile')}}">
+                           @error('mobile')
+                           <div class="alert alert-danger">
+                              {{$message}}
+                           </div>
+                           @enderror
                         </div>
                         <div class="form-group col-md-4">
                            <label for="inputCity">E-mail</label>
                            <input type="email" class="form-control" id="email" name="email"  value="{{old('email')}}">
+                           @error('email')
+                           <div class="alert alert-danger">
+                              {{$message}}
+                           </div>
+                           @enderror
                         </div>
                      </div>
                      <div class="form-row">
                         <div class="form-group col-md-8">
                            <label for="inputCity">Address</label>
                            <input type="text" class="form-control" name="address" value="{{old('address')}}">
+                           @error('address')
+                           <div class="alert alert-danger">
+                              {{$message}}
+                           </div>
+                           @enderror
                         </div>
 
                         <div class="form-group col-md-2">
                            <label for="inputCity">Joining Date</label>
                            <input type="date" class="form-control" name="join_date" value="{{old('join_date')}}">
+                           @error('join_date')
+                           <div class="alert alert-danger">
+                              {{$message}}
+                           </div>
+                           @enderror
                         </div>
                         <div class="form-group col-md-2">
                            <label for="inputCity">Monthly Salary</label>
                            <input type="number" class="form-control" name="salary"  value="{{old('salary')}}">
+                           @error('salary')
+                           <div class="alert alert-danger">
+                              {{$message}}
+                           </div>
+                           @enderror
                         </div>
 
                      </div>

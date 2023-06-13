@@ -1,10 +1,10 @@
 <x-admin-layout>
 
 <main>
-               <div class="container-fluid">
-
+<div class="container-fluid">
+   <form method="post" action="{{route('batch.store')}}" enctype="multipart/form-data">
+      @csrf
 <div class="card mt-4">
-	
 	<div class="card-header">
    <div class="row">
       <div class="col-md-9 my-auto">
@@ -18,60 +18,60 @@
 </div>
 
 
-   <div class="card-body">
- <form name="frmUser" method="post" action="" enctype="multipart/form-data">
+<div class="card-body">
+      <div class="form-row">
+         <div class="form-group col-md-4">
+            <label for="inputEmail4">Batch Title</label>
+            <input type="text" class="form-control" name="name" placeholder="Ex: 2nd Batch (Microsoft Office)">
+         </div> 
+         </div> 
          <div class="form-row">
-            <div class="form-group col-md-4">
-               <label for="inputEmail4">Batch Title</label>
-               <input type="text" class="form-control" required="" name="name" placeholder="Ex: 2nd Batch (Microsoft Office)">
-            </div> 
-            </div> 
-			 <div class="form-row">
-			<div class="form-group col-md-2">
-               <label for="inputEmail4"> Saturday</label>
-                <input type="text" class="form-control" name="saturday" placeholder="Ex: 10:30-11:30">
-            </div> 			
-			
-			<div class="form-group col-md-2">
-               <label for="inputEmail4"> Sunday</label>
-                <input type="text" class="form-control" name="sunday">
-            </div> 
-			
-			<div class="form-group col-md-2">
-			<label for="inputEmail4"> Monday</label>
-			<input type="text" class="form-control" name="monday">
-			</div>			
-			
- 
-
-			<div class="form-group col-md-2">
-               <label for="inputEmail4"> Tuesday</label>
-                <input type="text" class="form-control" name="tuesday">
-            </div> 
-
-
-			<div class="form-group col-md-2">
-               <label for="inputEmail4"> Wednesday</label>
-                <input type="text" class="form-control" name="wednesday">
-            </div> 
-
-			<div class="form-group col-md-2">
-               <label for="inputEmail4"> Thursday</label>
-                <input type="text" class="form-control" name="thursday">
-            </div> 	
-
-	<div class="form-group col-md-2">
-			<label for="inputEmail4"> Friday</label>
-			<input type="text" class="form-control" name="friday">
-			</div>			
-         </div>
-    </form></div>
-	<div class="card-footer">
-         <input type="submit" name="submit" value="Save" class="btn btn-primary ">
-         <button type="reset" class="btn btn-secondary">Reset</button>
+      <div class="form-group col-md-2">
+            <label for="inputEmail4"> Saturday</label>
+               <input type="text" class="form-control" name="saturday" placeholder="Ex: 10:30-11:30">
+         </div> 			
       
+      <div class="form-group col-md-2">
+            <label for="inputEmail4"> Sunday</label>
+               <input type="text" class="form-control" name="sunday">
+         </div> 
+      
+      <div class="form-group col-md-2">
+      <label for="inputEmail4"> Monday</label>
+      <input type="text" class="form-control" name="monday">
+      </div>			
+      
+
+
+      <div class="form-group col-md-2">
+            <label for="inputEmail4"> Tuesday</label>
+               <input type="text" class="form-control" name="tuesday">
+         </div> 
+
+
+      <div class="form-group col-md-2">
+            <label for="inputEmail4"> Wednesday</label>
+               <input type="text" class="form-control" name="wednesday">
+         </div> 
+
+      <div class="form-group col-md-2">
+            <label for="inputEmail4"> Thursday</label>
+               <input type="text" class="form-control" name="thursday">
+         </div> 	
+
+      <div class="form-group col-md-2">
+      <label for="inputEmail4"> Friday</label>
+      <input type="text" class="form-control" name="friday">
+      </div>			
    </div>
 </div>
- </div></main>
+<div class="card-footer">
+   <input type="submit" name="submit" value="Save" class="btn btn-primary ">
+   <button type="reset" class="btn btn-secondary">Reset</button>
+</div>
+</div>
+</form>
+ </div>
+</main>
 
 </x-admin-layout>
