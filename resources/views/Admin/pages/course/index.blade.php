@@ -96,5 +96,6 @@ $('.delete').click(function(e){
 
 
 
+
   </main>
 </x-admin-layout>
