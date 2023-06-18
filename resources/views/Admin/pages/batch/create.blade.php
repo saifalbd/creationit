@@ -23,22 +23,42 @@
          <div class="form-group col-md-4">
             <label for="inputEmail4">Batch Title</label>
             <input type="text" class="form-control" name="name" placeholder="Ex: 2nd Batch (Microsoft Office)">
+            @error('name')
+               <div class="alert alert-danger mt-2">
+                  <span>{{$message}}</span>
+               </div>
+            @enderror
          </div> 
          </div> 
          <div class="form-row">
       <div class="form-group col-md-2">
             <label for="inputEmail4"> Saturday</label>
                <input type="text" class="form-control" name="saturday" placeholder="Ex: 10:30-11:30">
+            @error('saturday')
+               <div class="alert alert-danger mt-2">
+                  <span>{{$message}}</span>
+               </div>
+            @enderror
          </div> 			
       
       <div class="form-group col-md-2">
             <label for="inputEmail4"> Sunday</label>
                <input type="text" class="form-control" name="sunday">
+            @error('sunday')
+               <div class="alert alert-danger mt-2">
+                  <span>{{$message}}</span>
+               </div>
+            @enderror
          </div> 
       
       <div class="form-group col-md-2">
       <label for="inputEmail4"> Monday</label>
       <input type="text" class="form-control" name="monday">
+      @error('monday')
+         <div class="alert alert-danger mt-2">
+            <span>{{$message}}</span>
+         </div>
+      @enderror
       </div>			
       
 
@@ -46,22 +66,42 @@
       <div class="form-group col-md-2">
             <label for="inputEmail4"> Tuesday</label>
                <input type="text" class="form-control" name="tuesday">
+            @error('tuesday')
+               <div class="alert alert-danger mt-2">
+                  <span>{{$message}}</span>
+               </div>
+            @enderror
          </div> 
 
 
       <div class="form-group col-md-2">
             <label for="inputEmail4"> Wednesday</label>
                <input type="text" class="form-control" name="wednesday">
+            @error('wednesday')
+               <div class="alert alert-danger mt-2">
+                  <span>{{$message}}</span>
+               </div>
+            @enderror
          </div> 
 
       <div class="form-group col-md-2">
             <label for="inputEmail4"> Thursday</label>
                <input type="text" class="form-control" name="thursday">
+            @error('thursday')
+               <div class="alert alert-danger mt-2">
+                  <span>{{$message}}</span>
+               </div>
+            @enderror
          </div> 	
 
       <div class="form-group col-md-2">
       <label for="inputEmail4"> Friday</label>
       <input type="text" class="form-control" name="friday">
+      @error('friday')
+         <div class="alert alert-danger mt-2">
+            <span>{{$message}}</span>
+         </div>
+      @enderror
       </div>			
    </div>
 </div>

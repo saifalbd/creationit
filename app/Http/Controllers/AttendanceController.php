@@ -87,4 +87,7 @@ class AttendanceController extends Controller
     public function attendanceCreate($id){
         return view('Admin.pages.attendance.attendance_form');
     }
+
+
+
 }

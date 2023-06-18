@@ -36,6 +36,13 @@ class BatchController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
+            'saturday' => 'required|string',
+            'sunday' => 'required|string',
+            'monday' => 'required|string',
+            'tuesday' => 'required|string',
+            'wednesday' => 'required|string',
+            'thursday' => 'required|string',
+            'friday' => 'required|string',
         ]);
     }
 

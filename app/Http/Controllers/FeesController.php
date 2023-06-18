@@ -34,7 +34,12 @@ class FeesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'amount' => 'required|numeric',
+            'date' => 'required|date',
+            'payment_method' => 'required',
+            'text_number' => 'nullable|string',
+        ]);
     }
 
     /**
@@ -81,4 +86,8 @@ class FeesController extends Controller
     {
         //
     }
+
+
+
+
 }

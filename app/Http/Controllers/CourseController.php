@@ -117,4 +117,11 @@ class CourseController extends Controller
         return redirect()->route('course.index');
 
     }
+
+
+    // course complete form
+
+    public function courseComplete(){
+        return view('Admin.pages.course.course_complete');
+    }
 }
