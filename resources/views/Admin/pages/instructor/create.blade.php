@@ -26,17 +26,8 @@
                      <div class="form-row">
                         <div class="form-group col-md-3">
                            <label for="inputEmail4">Name</label>
-<<<<<<< HEAD
                            <input type="text" class="form-control @error('name') is-invalid @enderror" required name="name" value="{{old('name')}}">
                            @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
-=======
-                           <input type="text" class="form-control" required name="name" value="{{old('name')}}">
-                           @error('name')
-                              <div class="alert alert-danger">
-                                 {{$message}}
-                              </div>
-                           @enderror
->>>>>>> ba556d6ef9961579c3fa8333781bf28bbc2753e5
                         </div>
 
                         <div class="form-group col-md-3">
@@ -52,46 +43,20 @@
                               @endforeach
                               
                            </select>
-<<<<<<< HEAD
                            @error('specialty')<div class="invalid-feedback">{{ $message }}</div>@enderror
 
-=======
-                           @error('specialty')
-                              <div class="alert alert-danger">
-                                 {{$message}}
-                              </div>
-                           @enderror
->>>>>>> ba556d6ef9961579c3fa8333781bf28bbc2753e5
                         </div>
 
                         <div class="form-group col-md-2">
                            <label for="inputEmail4">NID</label>
-<<<<<<< HEAD
                            <input type="text" class="form-control  @error('nid') is-invalid @enderror" name="nid" value="{{old('nid')}}">
                            @error('nid')<div class="invalid-feedback">{{ $message }}</div>@enderror
-=======
-                           <input type="text" class="form-control" name="nid" value="{{old('nid')}}">
-                           @error('nid')
-                              <div class="alert alert-danger">
-                                 {{$message}}
-                              </div>
-                           @enderror
->>>>>>> ba556d6ef9961579c3fa8333781bf28bbc2753e5
                         </div>
 
                         <div class="form-group col-md-4">
                            <label for="inputEmail4">Designation</label>
-<<<<<<< HEAD
                            <input type="text" class="form-control @error('designation') is-invalid @enderror" name="designation" value="{{old('designation')}}">
                            @error('designation')<div class="invalid-feedback">{{ $message }}</div>@enderror
-=======
-                           <input type="text" class="form-control" name="designation" value="{{old('designation')}}">
-                           @error('designation')
-                           <div class="alert alert-danger">
-                              {{$message}}
-                           </div>
-                           @enderror
->>>>>>> ba556d6ef9961579c3fa8333781bf28bbc2753e5
                         </div>
 
 
@@ -100,7 +65,6 @@
                      <div class="form-row">
                         <div class="form-group col-md-3">
                            <label for="inputAddress2">Father's Name</label>
-<<<<<<< HEAD
                            <input type="text" class="form-control @error('father_name') is-invalid @enderror" required name="father_name" value="{{old('father_name')}}">
                            @error('father_name')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
@@ -118,62 +82,17 @@
                            <label for="inputCity">E-mail</label>
                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email"  value="{{old('email')}}">
                            @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
-=======
-                           <input type="text" class="form-control" required name="father_name" value="{{old('father_name')}}">
-                           @error('father_name')
-                           <div class="alert alert-danger">
-                              {{$message}}
-                           </div>
-                         @enderror
-                        </div>
-                        <div class="form-group col-md-3">
-                           <label for="inputAddress2">Mother's Name</label>
-                           <input type="text" class="form-control" name="mother_name"  value="{{old('mother_name')}}">
-                           @error('nid')
-                           <div class="alert alert-danger">
-                              {{$message}}
-                           </div>
-                        @enderror
-                        </div>
-                        <div class="form-group col-md-2">
-                           <label for="inputCity">Mobile</label>
-                           <input type="number" class="form-control" name="mobile"  value="{{old('mobile')}}">
-                           @error('mobile')
-                           <div class="alert alert-danger">
-                              {{$message}}
-                           </div>
-                           @enderror
-                        </div>
-                        <div class="form-group col-md-4">
-                           <label for="inputCity">E-mail</label>
-                           <input type="email" class="form-control" id="email" name="email"  value="{{old('email')}}">
-                           @error('email')
-                           <div class="alert alert-danger">
-                              {{$message}}
-                           </div>
-                           @enderror
->>>>>>> ba556d6ef9961579c3fa8333781bf28bbc2753e5
                         </div>
                      </div>
                      <div class="form-row">
                         <div class="form-group col-md-8">
                            <label for="inputCity">Address</label>
-<<<<<<< HEAD
                            <input type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{old('address')}}">
                            @error('address')<div class="invalid-feedback">{{ $message }}</div>@enderror
-=======
-                           <input type="text" class="form-control" name="address" value="{{old('address')}}">
-                           @error('address')
-                           <div class="alert alert-danger">
-                              {{$message}}
-                           </div>
-                           @enderror
->>>>>>> ba556d6ef9961579c3fa8333781bf28bbc2753e5
                         </div>
 
                         <div class="form-group col-md-2">
                            <label for="inputCity">Joining Date</label>
-<<<<<<< HEAD
                            <input type="date" class="form-control @error('join_date') is-invalid @enderror" name="join_date" value="{{old('join_date')}}">
                            @error('join_date')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
@@ -181,23 +100,6 @@
                            <label for="inputCity">Monthly Salary</label>
                            <input type="number" class="form-control  @error('salary') is-invalid @enderror" name="salary"  value="{{old('salary')}}">
                            @error('salary')<div class="invalid-feedback">{{ $message }}</div>@enderror
-=======
-                           <input type="date" class="form-control" name="join_date" value="{{old('join_date')}}">
-                           @error('join_date')
-                           <div class="alert alert-danger">
-                              {{$message}}
-                           </div>
-                           @enderror
-                        </div>
-                        <div class="form-group col-md-2">
-                           <label for="inputCity">Monthly Salary</label>
-                           <input type="number" class="form-control" name="salary"  value="{{old('salary')}}">
-                           @error('salary')
-                           <div class="alert alert-danger">
-                              {{$message}}
-                           </div>
-                           @enderror
->>>>>>> ba556d6ef9961579c3fa8333781bf28bbc2753e5
                         </div>
 
                      </div>

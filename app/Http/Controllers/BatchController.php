@@ -38,7 +38,6 @@ class BatchController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
 
 
         $request->validate([
@@ -56,11 +55,6 @@ class BatchController extends Controller
         Batch::create($request->toArray());
 
         return redirect()->route('batch.index');
-=======
-        $request->validate([
-            'name' => 'required|string',
-        ]);
->>>>>>> ba556d6ef9961579c3fa8333781bf28bbc2753e5
     }
 
     /**
