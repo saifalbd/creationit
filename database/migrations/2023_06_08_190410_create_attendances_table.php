@@ -23,9 +23,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('attendance_id');
             $table->foreignId('student_id');
-            $table->string('remark');
-            $table->time('entry');
-            $table->time('leave');
+            $table->string('remark')->nullable();
+            $table->time('entry')->nullable();
+            $table->time('leave')->nullable();
+            $table->boolean('attend')->nullable();
             $table->timestamps();
         });
     }

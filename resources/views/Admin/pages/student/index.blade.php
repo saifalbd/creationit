@@ -27,10 +27,11 @@
                </tr>
             </thead>
             <tbody>
+               @foreach($students as $student)
                <tr>
                   <td width="0%" ><samp >153</samp></td>
                   <td width="0%" > 01.05.2023 </td>
-                  <td> <a href="preview_student.php?id=153" >Sumi Rani Deb </a></td>
+                  <td> <a href="{{route('student.show',['student'=>$student->id])}}" >{{$student->name}} </a></td>
 				  <td> Computer Hardware</td>
 				  <td> </td>
 				  <td> 01933912179</td>
@@ -41,6 +42,7 @@
 					<a data-appd="153" class="delete btn btn-danger btn-sm" href="#"><i class="fa fa-trash"> </i>  </a>
 					</td>
                </tr>
+               @endforeach
                              
                </tbody>
             <tfoot>

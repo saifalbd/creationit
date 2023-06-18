@@ -10,12 +10,31 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    
+
 
     public function loginPage(){
         return view('Admin.pages.login');
     }
 
+    public  function  logout(){
+        auth()->logout();
+        return redirect()->route('login');
+    }
+
+    public  function  resetPassword(Request $request){
+       return view('Admin.pages.resetPassword');
+    }
+
+    public  function  resetPasswordStore(Request $request){
+        $request->validate(['password'=>['required','string','confirmed']]);
+        $password = Hash::make($request->password);
+
+        $user = $request->user();
+        $user->update(compact('password'));
+
+        \auth()->logout();
+        return redirect()->route('login');
+    }
     public function login(Request $request){
 
     $request->validate([
@@ -38,7 +57,7 @@ class AuthController extends Controller
         ]);
     }
 
-    
+
 
     }
 }

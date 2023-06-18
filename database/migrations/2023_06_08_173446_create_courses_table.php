@@ -20,7 +20,7 @@ return new class extends Migration
             $table->double('fee');
             $table->foreignId('instructor_id');
             $table->foreignId('avatar_id');
-            $table->text('details');
+            $table->text('details')->nullable();
             $table->timestamps();
         });
     }

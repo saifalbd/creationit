@@ -18,31 +18,33 @@
             <thead>
                <tr>
                   <th> Date  </th>
-                  <th> Batch </th> 
+                  <th> Batch </th>
 				  <th> Session</th>
                   <th> Students </th>
                   <th width="10%"> </th>
                </tr>
             </thead>
             <tbody>
+            @foreach($attendances as $attendance)
                               <tr>
 
-                  <td> <a href="list_attendance_recordes.php?d_ate=2023-03-13&batch=" >   13.03.2023</a></td>
+                  <td> <a href="list_attendance_recordes.php?d_ate=2023-03-13&batch=" >{{$attendance->date}}</a></td>
+					<td>{{$attendance->batch->title}}</td>
 					<td> </td>
-					<td> </td>
-					<td> 4</td>
-                  
+					<td>{{$attendance->list_count}}</td>
+
                   <td width="10%">
                      <a href="{{route('attendance.edit',2)}}" > <i class="fa fa-folder-open text-success">  </i>  </a>
- 
+
                   </td>
                </tr>
-                              
+            @endforeach
+
                            </tbody>
             <tfoot>
          </table>
       </div>
    </div>
-</div> 
+</div>
  </main>
 </x-admin-layout>
