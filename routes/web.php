@@ -11,16 +11,9 @@ use App\Http\Controllers\FeesController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ReportController;
-// frontend class
-use App\Http\Controllers\Frontend\FrontendController;
-use App\Http\Controllers\Frontend\AdmissionController;
+use App\Http\Controllers\UtilityController;
 
-
-
-
-
-
-/* 
+/*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -31,64 +24,77 @@ use App\Http\Controllers\Frontend\AdmissionController;
 |
 */
 
-//=============================  auth routes ==============================
 
-Route::get('/login',[AuthController::class,'loginPage'])->name('login');
-Route::post('/login',[AuthController::class,'login'])->name('login.store');
+@include('./jkweb.php');
 
-Route::get('/home',[HomeController::class,'index'])->name('home');
+Route::controller(AuthController::class)->group(function (){
 
+    Route::get('/login','loginPage')->name('login');
+    Route::post('/login','login')->name('login.store');
+    Route::post('/logout','logout')->name('logout')->middleware('auth');
+    Route::get('/reset-password','resetPassword')->name('resetPassword')->middleware('auth');
+    Route::post('/resetPassword.store','resetPasswordStore')->name('resetPassword.store')->middleware('auth');
 
-
-
-//=============================  frontend routes ==============================
-Route::get('/', [FrontendController::class, "index"])->name('frontend');
-// it pages wil be dynamic
-Route::get('/about-us', [FrontendController::class, "about"])->name('frontend.about');
-Route::get('/mission-vision', [FrontendController::class, "mission"])->name('frontend.mission');
-Route::get('/mission-vision', [FrontendController::class, "missionVision"])->name('frontend.mission');
-Route::get('/strategy', [FrontendController::class, "strategy"])->name('frontend.strategy');
-Route::get('/success', [FrontendController::class, "success"])->name('frontend.success');
-// it pages wil be dynamic
-
-Route::get('/team', [FrontendController::class, "instructor"])->name('frontend.instructor');
-Route::get('/contact', [FrontendController::class, "contact"])->name('frontend.contact');
-Route::get('/course', [FrontendController::class, "course"])->name('frontend.course');
-Route::get('/syllabus', [FrontendController::class, "syllabus"])->name('frontend.syllabus');
-Route::get('/verification', [FrontendController::class, "verificationCreate"])->name('frontend.verification.create');
-Route::get('/verification-result', [FrontendController::class, "verificationResult"])->name('frontend.verification.result');
-Route::get('/notice', [FrontendController::class, "notice"])->name('frontend.notice');
-Route::get('/admission-form',[AdmissionController::class,'create'])->name('frontend.admission');
+});
 
 
-//=============================  backend routes ==============================
-//course
-Route::resource('/courses', CourseController::class)->names('course');
-Route::get('/course-completed', [CourseController::class, 'courseComplete'])->name('course.complete');
+Route::middleware('auth')->group(function (){
+
+    Route::get('/home',[HomeController::class,'index'])->name('home');
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+
+
+    Route::controller(UtilityController::class)->group(function(){
+        Route::get('/settings','viewSetting')->name('viewSetting');
+        Route::post('/setting-store','storeSetting')->name('storeSetting');
+        Route::get('/profile','authInfo')->name('authInfo');
+        Route::post('/profile-store','authUpdate')->name('authInfo.store');
+    });
+
+
+
+
+// course
+    Route::resource('/courses', CourseController::class)->names('course');
 
 // Batch
-Route::resource('/batches', BatchController::class)->names('batch');
+    Route::resource('/batches', BatchController::class)->names('batch');
 
-Route::resource('/instructors', InstructorController::class)->names('instructor');
+    Route::resource('/instructors', InstructorController::class)->names('instructor');
 
-Route::resource('/instructor', InstructorController::class);
+
 
 // student
-Route::resource('/student', StudentController::class);
 
+    Route::controller(StudentController::class)->name('student.')->group(function(){
+        Route::get('/course-current-students','currentStudents')->name('current');
+        Route::get('/course-completed-students','courseCompleted')->name('courseCompleted');
+
+    });
+    Route::resource('/students', StudentController::class)->names('student');
 
 // fees controller
-Route::resource('/fees', FeesController::class);
+    Route::resource('/fees', FeesController::class)->names('fee');
 
 // attendance
-Route::resource('/attendance', AttendanceController::class);
+    Route::post('/attendance-list/{attendance}',[AttendanceController::class,'attendenceListStore'])->name('attendanceList.store');
+    Route::resource('/attendances', AttendanceController::class)->names('attendance');
 
+    // Message
+    Route::controller(\App\Http\Controllers\MessageController::class)
+        ->name('message.')->group(function (){
+            Route::get('/bulk-sms','bulk')->name('bulk');
+            Route::post('bulk-sms-send','bulkStore')->name('bulkStore');
+            Route::get('/attendance-sms','attendance')->name('attendance');
+            Route::get('due-sms','due')->name('due');
+        });
 // invoice
-Route::resource('/invoice', InvoiceController::class);
+    Route::resource('/invoice', InvoiceController::class);
 
 // reporte
-Route::resource('/report', ReportController::class);
-
-
-
-
+    Route::resource('/report', ReportController::class);
+});

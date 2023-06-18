@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Attendance;
+use App\Models\Batch;
+use App\Models\Course;
+use App\Models\FeeReceipt;
+use App\Models\Instructor;
+use App\Models\Student;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -47,6 +53,15 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
         });
+
+        Route::model('student',Student::class);
+        Route::model('fee',FeeReceipt::class);
+        Route::model('course',Course::class);
+        Route::model('batch',Batch::class);
+        Route::model('instructor',Instructor::class);
+        Route::model('attendance',Attendance::class);
+
+
     }
 
     /**

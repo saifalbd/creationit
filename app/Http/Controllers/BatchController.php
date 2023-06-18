@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Batch;
 use Illuminate\Http\Request;
 
 class BatchController extends Controller
@@ -13,7 +14,9 @@ class BatchController extends Controller
      */
     public function index()
     {
-        return view('Admin.pages.batch.index');
+        $batches = Batch::query()->paginate();
+
+        return view('Admin.pages.batch.index',compact('batches'));
     }
 
     /**
@@ -23,6 +26,7 @@ class BatchController extends Controller
      */
     public function create()
     {
+
         return view('Admin.pages.batch.create');
     }
 
@@ -34,16 +38,23 @@ class BatchController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $request->validate([
-            'name' => 'required|string',
-            'saturday' => 'required|string',
-            'sunday' => 'required|string',
-            'monday' => 'required|string',
-            'tuesday' => 'required|string',
-            'wednesday' => 'required|string',
-            'thursday' => 'required|string',
-            'friday' => 'required|string',
+            'title'=>['required','string'],
+            'saturday'=>['nullable','string'],
+            'sunday'=>['nullable','string'],
+            'monday'=>['nullable','string'],
+            'tuesday'=>['nullable','string'],
+            'wednesday'=>['nullable','string'],
+            'thursday'=>['nullable','string'],
+            'friday'=>['nullable','string'],
         ]);
+
+
+        Batch::create($request->toArray());
+
+        return redirect()->route('batch.index');
     }
 
     /**
@@ -52,9 +63,9 @@ class BatchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Batch $batch)
     {
-        return view('Admin.pages.batch.view');
+        return view('Admin.pages.batch.view',compact('batch'));
     }
 
     /**
@@ -63,9 +74,9 @@ class BatchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Batch $batch)
     {
-        return view('Admin.pages.batch.edit');
+        return view('Admin.pages.batch.edit',compact('batch'));
     }
 
     /**
@@ -75,9 +86,25 @@ class BatchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Batch $batch)
     {
-        //
+        $request->validate([
+            'title'=>['required','string'],
+            'saturday'=>['nullable','string'],
+            'sunday'=>['nullable','string'],
+            'monday'=>['nullable','string'],
+            'tuesday'=>['nullable','string'],
+            'wednesday'=>['nullable','string'],
+            'thursday'=>['nullable','string'],
+            'friday'=>['nullable','string'],
+        ]);
+
+        $batch->update($request->toArray());
+
+        return redirect()->route('batch.index');
+
+
+        
     }
 
     /**
@@ -86,8 +113,9 @@ class BatchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Batch $batch)
     {
-        //
+        $batch->delete();
+        return redirect()->route('batch.index');
     }
 }

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\FeeReceipt;
+use App\Models\FeeReceiptVoucher;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class FeesController extends Controller
@@ -13,7 +17,15 @@ class FeesController extends Controller
      */
     public function index()
     {
-        return view('Admin.pages.fees.index');
+
+        //['student','batches','course']
+        $items = FeeReceiptVoucher::query()->with(['student','details'=>fn($q)=>$q->with(['course','batches'])])->get();
+
+        // return  $items->map(function($student){
+        //     return $student->details->pluck('course')->pluck('name')->join(',');
+        // })->first();
+
+        return view('Admin.pages.fees.index',compact('items'));
     }
 
     /**
@@ -23,7 +35,11 @@ class FeesController extends Controller
      */
     public function create()
     {
-        return view('Admin.pages.fees.create');
+
+        $students = Student::query()->select(['mobile','name','id'])->get();
+        $courses = Course::query()->select(['id','name'])->get();
+
+        return view('Admin.pages.fees.create',compact('students','courses'));
     }
 
     /**
@@ -34,12 +50,38 @@ class FeesController extends Controller
      */
     public function store(Request $request)
     {
+        /*
+        after oew day impliment those in vue then request items are array collection on voucers details
+        */
+
         $request->validate([
-            'amount' => 'required|numeric',
-            'date' => 'required|date',
-            'payment_method' => 'required',
-            'text_number' => 'nullable|string',
+            'student_id'=>['required','numeric'],
+            'course_id'=>['required','numeric'],
+            'date'=>['required','date'],
+            'amount'=>['required','numeric'],
+            'trx_mode'=>['required','string'],
+            'trx_no'=>['nullable','string'],
+            'remark'=>['nullable','string'],
         ]);
+
+        $student_id = $request->student_id;
+        $course_id = $request->course_id;
+        $date = $request->date;
+        $amount = $request->amount;
+        $trx_mode = $request->trx_mode;
+        $trx_no  = $request->trx_no;
+        $remark = $request->remark;
+
+
+        $voucher = FeeReceiptVoucher::create(compact('student_id','amount','date','remark'));
+        $fee = $voucher->details()->create(compact('amount','amount','date','remark','course_id','trx_mode','trx_no'));
+
+        $student = Student::findOrFail($request->student_id);
+        $batches = $student->courses->pluck('batch_id')->toArray();
+      
+        $fee->batches()->sync($batches);
+
+        return redirect()->route('fee.index');
     }
 
     /**
@@ -48,9 +90,16 @@ class FeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(FeeReceiptVoucher $v)
     {
-       
+
+        $v->load('details.course','student');
+
+
+     
+
+        return view('Admin.pages.fees.show',compact('v'));
+
     }
 
     /**
@@ -59,9 +108,11 @@ class FeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(FeeReceiptVoucher $fee)
     {
-        return view('Admin.pages.fees.edit');
+     
+        $students = Student::query()->select(['id','name'])->get();
+        return view('Admin.pages.fees.edit',compact('fee','students'));
     }
 
     /**
@@ -71,9 +122,23 @@ class FeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, FeeReceipt $fee)
     {
-        //
+        $request->validate([
+            'student_id'=>['required','numeric'],
+            'date'=>['required','date'],
+            'amount'=>['required','numeric'],
+            'trx_mode'=>['required','string'],
+            'trx_no'=>['nullable','string'],
+            'remark'=>['nullable','string'],
+
+        ]);
+
+        $student = Student::findOrFail($request->student_id);
+        $batches = $student->courses->pluck('batch_id')->toArray();
+        $fee->update($request->toArray());
+        $fee->batches()->sync($batches);
+        return redirect()->route('fee.index');
     }
 
     /**
@@ -82,12 +147,10 @@ class FeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(FeeReceipt $feeReceipt)
     {
-        //
+        $feeReceipt->delete();
+        return redirect()->route('fee.index');
+        
     }
-
-
-
-
 }

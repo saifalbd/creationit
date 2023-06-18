@@ -8,13 +8,13 @@
       Instructor Info <i class="fas fa-angle-right"></i> Instructor Info List
       </div>
          <div class="col-md-3">
-            <a href="{{url('instructor/create')}}" class="btn btn-outline-primary float-right">  <i class="fas fa-plus-square "></i>  Add Instructor</a>
+            <a href="{{route('instructor.create')}}" class="btn btn-outline-primary float-right">  <i class="fas fa-plus-square "></i>  Add Instructor</a>
          </div>
       </div>
    </div>
-@if($message = Session()->get('danger'))
+@if(Session()->get('danger'))
    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      {{$message}}
+      <strong>Deleted!</strong>Instructor Successfully Deleted
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -51,7 +51,7 @@
          <div class="card-body mb-0">
             <div class="float-right btn-group btn-group-sm">
                <a href="#update_user.php?id=6" class="btn btn-warning tooltips" data-placement="top" data-toggle="tooltip" data-original-title="ইউজার পসাওয়ার্ড"><svg class="svg-inline--fa fa-user-lock fa-w-20" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-lock" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" data-fa-i2svg=""><path fill="currentColor" d="M224 256A128 128 0 1 0 96 128a128 128 0 0 0 128 128zm96 64a63.08 63.08 0 0 1 8.1-30.5c-4.8-.5-9.5-1.5-14.5-1.5h-16.7a174.08 174.08 0 0 1-145.8 0h-16.7A134.43 134.43 0 0 0 0 422.4V464a48 48 0 0 0 48 48h280.9a63.54 63.54 0 0 1-8.9-32zm288-32h-32v-80a80 80 0 0 0-160 0v80h-32a32 32 0 0 0-32 32v160a32 32 0 0 0 32 32h224a32 32 0 0 0 32-32V320a32 32 0 0 0-32-32zM496 432a32 32 0 1 1 32-32 32 32 0 0 1-32 32zm32-144h-64v-80a32 32 0 0 1 64 0z"></path></svg><!-- <i class="fas fa-user-lock"></i> --> </a>
-               <a href="edit_instructor.php?id=6" class="btn btn-success tooltips" data-placement="top" data-toggle="tooltip" data-original-title="সম্পাদন"><svg class="svg-inline--fa fa-user-edit fa-w-20" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-edit" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" data-fa-i2svg=""><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h274.9c-2.4-6.8-3.4-14-2.6-21.3l6.8-60.9 1.2-11.1 7.9-7.9 77.3-77.3c-24.5-27.7-60-45.5-99.9-45.5zm45.3 145.3l-6.8 61c-1.1 10.2 7.5 18.8 17.6 17.6l60.9-6.8 137.9-137.9-71.7-71.7-137.9 137.8zM633 268.9L595.1 231c-9.3-9.3-24.5-9.3-33.8 0l-37.8 37.8-4.1 4.1 71.8 71.7 41.8-41.8c9.3-9.4 9.3-24.5 0-33.9z"></path></svg><!-- <i class="fas fa-user-edit"></i> --> </a>
+               <a href="{{route('instructor.edit',['instructor'=>$data->id])}}" class="btn btn-success tooltips" data-placement="top" data-toggle="tooltip" data-original-title="সম্পাদন"><svg class="svg-inline--fa fa-user-edit fa-w-20" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-edit" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" data-fa-i2svg=""><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h274.9c-2.4-6.8-3.4-14-2.6-21.3l6.8-60.9 1.2-11.1 7.9-7.9 77.3-77.3c-24.5-27.7-60-45.5-99.9-45.5zm45.3 145.3l-6.8 61c-1.1 10.2 7.5 18.8 17.6 17.6l60.9-6.8 137.9-137.9-71.7-71.7-137.9 137.8zM633 268.9L595.1 231c-9.3-9.3-24.5-9.3-33.8 0l-37.8 37.8-4.1 4.1 71.8 71.7 41.8-41.8c9.3-9.4 9.3-24.5 0-33.9z"></path></svg><!-- <i class="fas fa-user-edit"></i> --> </a>
                <form action="{{route('instructor.destroy',$data->id)}}" method="post" style="margin: 0px;">
                   @csrf
                   @method('delete')
