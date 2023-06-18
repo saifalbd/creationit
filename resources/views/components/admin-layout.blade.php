@@ -11,7 +11,10 @@
       <title>Creation IT</title>
       <link href="/assets/css/style.css" rel="stylesheet" />
      
-      {{$style}}
+      @isset($style)
+          {{$style}}
+      @endisset
+    
    </head>
 
    <body class="sb-nav-fixed">
@@ -252,13 +255,17 @@
             </nav>
          </div>
          <div id="layoutSidenav_content">
-            <script src="/assets/js/sweetalert.js"></script>
+          
          {{ $slot }}
 
 </div>
 </div>
+<script src="/assets/js/sweetalert.js"></script>
 
+
+@isset($script)
 {{$script}}
+@endisset
 
    </body>
 
