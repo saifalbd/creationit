@@ -1,57 +1,53 @@
 <x-frontend-layout>
-<!-- Breadcrumb -->
-<div class="breadcrumbs" >
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="bread-inner">
-                    <!-- Bread Menu -->
-                    <div class="bread-menu">
-                        <ul>
-                            <li><a href="{{route('frontend')}}">Home</a></li>
-                            <li><a href="{{route('frontend.contact')}}">Contact</a></li>
-                        </ul>
-                    </div>
-            
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--/ End Breadcrumb -->
 
 <!-- Contact Us -->
 <section class="contact-us section-space">
     <div class="container">
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success mt-2">{{$message}}</div>
+        @endif
         <div class="row">
             <div class="col-lg-7 col-md-7 col-12">
                 <!-- Contact Form -->
                 <div class="contact-form-area m-top-30">
                     <h4>Get In Touch</h4>
-                    <form class="form" method="post" action="">
+                    <form class="form" method="post" action="{{route('contact.store')}}">
+                        @csrf
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-12">
                                 <div class="form-group">
                                     <div class="icon"><i class="fa fa-user"></i></div>
-                                    <input type="text" name="first_name" placeholder="First Name">
+                                    <input type="text" name="name" placeholder="First Name">
+                                    @error('name')
+                                    <div class="alert alert-danger mt-2">{{$message}}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-12">
                                 <div class="form-group">
-                                    <div class="icon"><i class="fa fa-user"></i></div>
-                                    <input type="text" name="last_name" placeholder="Last Name">
+                                    <div class="icon"><i class="fa fa-phone"></i></div>
+                                    <input type="text" name="phone" placeholder="Valid Mobile">
+                                    @error('mobile')
+                                    <div class="alert alert-danger mt-2">{{$message}}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-12">
                                 <div class="form-group">
                                     <div class="icon"><i class="fa fa-envelope"></i></div>
-                                    <input type="email" name="email" placeholder="Type Subjects">
+                                    <input type="email" name="email" placeholder="Valid E-mail">
+                                    @error('email')
+                                    <div class="alert alert-danger mt-2">{{$message}}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-12">
                                 <div class="form-group">
                                     <div class="icon"><i class="fa fa-tag"></i></div>
                                     <input type="text" name="subject" placeholder="Type Subjects">
+                                    @error('subject')
+                                    <div class="alert alert-danger mt-2">{{$message}}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-12">
@@ -62,7 +58,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group button">
-                                    <button type="submit" name="submit" class="bizwheel-btn theme-2">Send Now</button>
+                                    <button type="submit" class="bizwheel-btn theme-2">Send Now</button>
                                 </div>
                             </div>
                         </div>

@@ -10,6 +10,12 @@
       <link rel="shortcut icon" href="/assets/img/logo.jpeg" type="image/x-icon">
       <title>Creation IT</title>
       <link href="/assets/css/style.css" rel="stylesheet" />
+ 
+      <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+
+      <link href="/assets/css/theme.css" rel="stylesheet" />
+      <link href="/assets/css/typography.css" rel="stylesheet" />
      
       @isset($style)
           {{$style}}
@@ -233,15 +239,17 @@
 					 </a>
 
 					       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fas fa-globe"></i></div> Front End
+                        <div class="sb-nav-link-icon"><i class="fas fa-globe"></i></div> Web Site
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                      </a>
                      <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                           <a class="nav-link" href="page_create.php">Add Page</a>
-                           <a class="nav-link" href="page_archive.php">Page Archive</a>
-                           <a class="nav-link" href="slider.php">Slider</a>
-                           <a class="nav-link" target="_blank" href="../web"> Preview</a>
+                           <a class="nav-link" href="{{route('page.create')}}">Add Page</a>
+                           <a class="nav-link" href="{{route('page.index')}}">Page Archive</a>
+                           <a class="nav-link" href="{{route('slider.create')}}">Slider</a>
+                           <a class="nav-link" href="{{route('successfull.index')}}">Successfull Student</a>
+                           <a class="nav-link" href="">Contact</a>
+                           <a class="nav-link" target="_blank" href="{{route('frontend')}}">Visit Website</a>
                         </nav>
                      </div>
 
@@ -260,14 +268,16 @@
 
 </div>
 </div>
+
+
+<style>
+   form {
+	display: inline !important;
+}
+</style>
 <script src="/assets/js/sweetalert.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</script>
 
-
-@isset($script)
-{{$script}}
-@endisset
-
-   </body>
-
-
-</html>
+</body>

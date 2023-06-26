@@ -33,12 +33,14 @@
                 </div>
             </div>
             <div class="row">
-                      
+                     @foreach ($data as  $item)
+                         
+                    
                 <div class="col-lg-4 col-md-6 col-12">
                     <!-- Single Team -->
                     <div class="single-team">
                         <div class="team-head">
-                            <img src="/frontend/img/team.png" alt="#">
+                            <img src="{{$item->avatar->url}}" alt="#">
                             <ul class="team-social">
                                 <li><a href="#"><i class="fa fa-facebook-official"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter-square"></i></a></li>
@@ -58,6 +60,7 @@
                     </div>
                     <!--/ End Single Team -->
                 </div> 
+                @endforeach 
              
               </div>
         </div>

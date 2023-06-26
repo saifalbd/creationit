@@ -1,4 +1,9 @@
 <?php
+// backend
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\SliderController;
+use App\Http\Controllers\SuccessStudentController;
+
 
 // frontend class
 use App\Http\Controllers\Frontend\FrontendController;
@@ -14,15 +19,29 @@ Route::get('/success', [FrontendController::class, "success"])->name('frontend.s
 // it pages wil be dynamic
 
 Route::get('/team', [FrontendController::class, "instructor"])->name('frontend.instructor');
-Route::get('/contact', [FrontendController::class, "contact"])->name('frontend.contact');
+Route::view('/contact', 'frontend/contact')->name('frontend.contact');
+Route::post('/store', [FrontendController::class, 'store'])->name('contact.store');
+Route::view('freelancing','frontend.course.freelancing')->name('course.freelancing');
 Route::get('/course', [FrontendController::class, "course"])->name('frontend.course');
 Route::get('/syllabus', [FrontendController::class, "syllabus"])->name('frontend.syllabus');
 Route::get('/verification', [FrontendController::class, "verificationCreate"])->name('frontend.verification.create');
 Route::get('/verification-result', [FrontendController::class, "verificationResult"])->name('frontend.verification.result');
-Route::get('/notice', [FrontendController::class, "notice"])->name('frontend.notice');
+Route::get('/news', [FrontendController::class, "news"])->name('frontend.news');
+Route::get('/news/{detail}', [FrontendController::class, "newsDetail"])->name('news.detail');
 Route::get('/admission-form',[AdmissionController::class,'create'])->name('frontend.admission');
+Route::get('/success-student',[FrontendController::class, "StudentSuccess"])->name('success.student');
+Route::get('about-us/{id}', [FrontendController::class, "aboutUs"])->name('about.us');
+Route::get('founder', [FrontendController::class, "founder"])->name('founder');
+Route::get('other-institute', [FrontendController::class, "otherInstitute"])->name('other.institute');
+
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::resource('/page', PageController::class);
+    Route::resource('successfull', SuccessStudentController::class);
     
+    Route::get('slider/create', [SliderController::class, 'create'])->name('slider.create');
+    Route::post('slider/store', [SliderController::class, 'store'])->name('slider.store');
+    Route::get('slider/destroy/{id}', [SliderController::class, 'destroy'])->name('slider.destroy');
+    // Route::get('contact/', [SliderController::class, 'contactView'])->name('contact.show');
 });

@@ -54,33 +54,19 @@
 			<div class="topbar">
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-8 col-12">
+						<div class="col-lg-12 col-12">
 							<!-- Top Contact -->
 							<div class="top-contact"> 
-								<div class="single-contact"><i class="fas fa-phone"></i>Mobile: 01777560463</div> 
-								<div class="single-contact"><i class="fas fa-envelope-open"></i>Email: creationit2020@gmail.com</div>	
-								<div class="single-contact"><i class="fa fa-clock-o"></i>Opening: 09AM - 09PM</div> 
+								<div class="single-contact"><i class="fas fa-phone"></i>01777560463</div> 
+								<div class="single-contact"><i class="fas fa-envelope-open"></i>creationit2020@gmail.com</div>	
+								<div class="single-contact"><i class="fas fa-clock-o"></i>Opening Time: 9:30AM - 8:30PM</div> 
+								<div class="single-contact"><i class="fab fa-facebook"></i>Creationtechnology</div> 
+								<div class="single-contact"><a href="{{route('frontend.verification.create')}}" class="header-link"><i class="fas fa-search"></i>  Verification</a></div> 
+								<div class="single-contact"><a href="{{route('frontend.admission')}}" class="header-link"> <i class="far fa-file"> </i> Admission</a></div> 
 							</div>
 							<!-- End Top Contact -->
 						</div>	
-						<div class="col-lg-4 col-12">
-							<div class="topbar-right">
-								<!-- Social Icons -->
-								<ul class="social-icons">
-									<li><a href="https://web.facebook.com/CreationITechnology"><i class="fab fa-facebook"></i></a></li>
-									<li><a href="https://www.instagram.com/creation_institute/?fbclid=IwAR15MZNbZHK9Bwj7hLxNC7390FjcukMYEt5DgGQRXVuLIMs8sT3cGxHqMWs"><i class="fab fa-instagram"></i></a></li>
-								</ul>															
-						 
 
-					 
-									<div class="top-search float-left"><a href="{{route('frontend.verification.create')}}" class="btn btn-link text-warning"><i class="fa fa-search"></i> Verification </a> </div>
-									<a href="{{route('frontend.admission')}}" class="btn btn-link text-warning"><i class="fas fa-pencil"></i>  Admission</a>
-										 
-							 
-												
-							 
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -117,20 +103,22 @@
 																<li><a href="{{route('frontend')}}"><i style="font-size: 1rem;"class="fa fa-home"></i> </a></li>
 															<li class="icon-active"><a href="#">আমাদের সম্পর্কে <i class="fas fa-angle-down"></i> </a>
 																	<ul class="sub-menu">
-																		<li><a href="page.php?id=1">আমাদের সম্পর্কে</a></li>
-																		<li><a href="page.php?id=2">মিশন এন্ড ভিশন</a></li>
-																		<li><a href="page.php?id=3">আমাদের কৌশল</a></li>
-																		<li><a href="page.php?id=4">সাফল্যের গল্প</a></li>
+																		<li><a href="{{route('about.us',1)}}">আমাদের সম্পর্কে</a></li>
+																		<li><a href="{{route('founder')}}">আমাদের ফাউন্ডার</a></li>
+																	</ul>
+																</li>
+																<li class="icon-active"><a href="#">কোর্স <i class="fas fa-angle-down"></i> </a>
+																	<ul class="sub-menu">
+																		<li><a href="{{route('success.student')}}">Successfull Students</a></li>
+																		<li><a href="{{route('course.freelancing')}}">Freelancing</a></li>
 																	</ul>
 																</li>
 														 
 																
-																	<li><a href="#">সিলেবাস </a></li>
 																
-																
-																<li><a href="{{route('frontend.instructor')}}">আমাদের মেন্টরস</a></li>
-																<li><a href="{{route('frontend.notice')}}">নোটিশ</a></li>
-																<li><a href="blog.php">ব্লগ</a></li>
+																<li><a href="{{route('frontend.instructor')}}">আমাদের প্রতিনিধি</a></li>
+																<li><a href="{{route('frontend.news')}}">নিউজ</a></li>
+																<li><a href="{{route('other.institute')}}">অঙ্গ প্রতিষ্ঠান </a></li>
 														 
 																
 													 
@@ -144,15 +132,7 @@
 											</nav>
 											<!--/ End Main Menu -->	
 											<!-- Right Bar -->
-											<div class="right-bar">
-												<!-- Search Bar -->
-												<ul class="right-nav">
-													<li class=""> <a href="" class="course-btn"> <img src="/frontend/img/book.png" alt="">  ব্রাউজ কোর্স </a></li>
-												</ul>
-												<!--/ End Search Bar -->
-										
-											</div>	
-											<!--/ End Right Bar -->
+											
 										</div>
 									</div>
 								</div>
@@ -228,7 +208,7 @@
 						<div class="col-12">
 							<div class="copyright-content">
 								<!-- Copyright Text -->
-								<p>© Copyright <a href="#">Creation Institute of Technology</a>. Design &amp; Development By <a target="_blank" href="http://www.exploreit.com.bd">NS IT</a></p>
+								<p>© Copyright <a href="#">Creation Institute of Technology</a>. Design &amp; Development By <a target="_blank" href="https://web.facebook.com/NSITCompnay">NS IT</a></p>
 							</div>
 						</div>
 					</div>
