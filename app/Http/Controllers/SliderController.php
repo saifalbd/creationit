@@ -5,6 +5,7 @@ use App\Models\Attachment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Slider;
+use App\Models\contact;
 class SliderController extends Controller
 {
     // create 
@@ -53,4 +54,16 @@ class SliderController extends Controller
     }
 
 
+
+    public function contactView(){
+        $data = contact::latest()->get();
+        return view("Admin.frontend.page.contact_view", compact('data'));
+    }
+
+
+    public function delete(Request $request){
+        $data = contact::find($request->contact_id);
+        $data->delete();
+        return redirect()->route('contact.show')->with('danger','Contact Message Successfully Deleted !');
+    }
 }

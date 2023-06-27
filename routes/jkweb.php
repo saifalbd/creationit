@@ -3,6 +3,7 @@
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SuccessStudentController;
+use App\Http\Controllers\AchivementController;
 
 
 // frontend class
@@ -24,11 +25,13 @@ Route::post('/store', [FrontendController::class, 'store'])->name('contact.store
 Route::view('freelancing','frontend.course.freelancing')->name('course.freelancing');
 Route::get('/course', [FrontendController::class, "course"])->name('frontend.course');
 Route::get('/syllabus', [FrontendController::class, "syllabus"])->name('frontend.syllabus');
-Route::get('/verification', [FrontendController::class, "verificationCreate"])->name('frontend.verification.create');
-Route::get('/verification-result', [FrontendController::class, "verificationResult"])->name('frontend.verification.result');
+// Route::get('/verification-result', [FrontendController::class, "verificationResult"])->name('frontend.verification.result');
 Route::get('/news', [FrontendController::class, "news"])->name('frontend.news');
 Route::get('/news/{detail}', [FrontendController::class, "newsDetail"])->name('news.detail');
 Route::get('/admission-form',[AdmissionController::class,'create'])->name('frontend.admission');
+Route::get('/verification', [AdmissionController::class, "verificationCreate"])->name('frontend.verification.create');
+Route::post('/check/verification',[AdmissionController::class,'checkVerification'])->name('check.verification');
+
 Route::get('/success-student',[FrontendController::class, "StudentSuccess"])->name('success.student');
 Route::get('about-us/{id}', [FrontendController::class, "aboutUs"])->name('about.us');
 Route::get('founder', [FrontendController::class, "founder"])->name('founder');
@@ -39,9 +42,12 @@ Route::get('other-institute', [FrontendController::class, "otherInstitute"])->na
 Route::middleware(['auth'])->group(function () {
     Route::resource('/page', PageController::class);
     Route::resource('successfull', SuccessStudentController::class);
+    Route::resource('achivement', AchivementController::class);
     
     Route::get('slider/create', [SliderController::class, 'create'])->name('slider.create');
     Route::post('slider/store', [SliderController::class, 'store'])->name('slider.store');
     Route::get('slider/destroy/{id}', [SliderController::class, 'destroy'])->name('slider.destroy');
-    // Route::get('contact/', [SliderController::class, 'contactView'])->name('contact.show');
+    Route::get('contact/view', [SliderController::class, 'contactView'])->name('contact.show');
+    Route::post('contact', [SliderController::class, 'delete'])->name('contact.delete');
+
 });

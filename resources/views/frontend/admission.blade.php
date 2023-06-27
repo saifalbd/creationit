@@ -73,7 +73,7 @@
         
         <div class="form-group col-md-4">
         <label for="inputCity">Highest Educational Qualification</label>
-        <input type="text" class="form-control"  name="education" placeholder="Ex: HSC with GPA 4.50" required>
+        <input type="text" class="form-control"  name="qualification" placeholder="Ex: HSC with GPA 4.50" required>
         </div>
         <div class="form-group col-md-2">
         <label for="inputCity">Mobile</label>
@@ -81,7 +81,7 @@
         </div>
         <div class="form-group col-md-2">
         <label for="inputCity">Guardian's Mobile</label>
-        <input type="number" class="form-control"  name="mobile_guardian">
+        <input type="number" class="form-control"  name="guardian_mobile">
         </div>
         <div class="form-group col-md-4">
         <label for="inputCity">E-mail</label>
@@ -101,7 +101,7 @@
 
         <div class="form-group col-md-6">
         <label for="inputEmail4">Photo (Maximum 50 KB) </label>
-        <input type="file" class="form-control" name="photo"  required>
+        <input type="file" class="form-control" name="avatar_id" >
         </div>	  
         
         <div class="form-group col-md-6">

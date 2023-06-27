@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Achivement;
 use Illuminate\Http\Request;
 use App\Models\Slider;
 use App\Models\Course;
@@ -80,9 +81,6 @@ public function contact(){
 }
 
 // verification form create
-public function verificationCreate(){
-    return view('frontend.verification.create');
-}
 
 
 // verificatioon result show
@@ -101,8 +99,13 @@ public function StudentSuccess(){
 public function aboutUs($id){
     
     $data = Page::where(['menu'=>$id])->get();
-
-    return view('frontend.about.about', compact('data'));
+    
+    if( count($data) > 0){
+        return view('frontend.about.about', compact('data'));
+    }{
+        return redirect()->route('frontend');
+    }
+    
     // dd($data);
 }
 
@@ -110,13 +113,19 @@ public function aboutUs($id){
 public function founder(){
     // dd($id);
     $courses = Course::orderBy('id','desc')->paginate(9);
+    $achives = Achivement::where('condition','achive')->get();
     $data = Page::where('menu', 4)->get();
-    return view("frontend.about.founder",compact(['data','courses']));
+    // dd($achives);
+    if(count($data) > 0){
+
+        return view("frontend.about.founder",compact(['data','courses','achives']));
+    }
 }
 
 public function otherInstitute(){
-    $sliders = Slider::orderBy('serial','asc')->get();
-    return view("frontend.other_institute",compact(['sliders']));
+    $institutes = Achivement::where('condition','institute')->get();
+    // dd($institutes);
+    return view("frontend.other_institute",compact(['institutes']));
 }
 
 }

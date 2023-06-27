@@ -18,7 +18,6 @@
 }
 
 .ahive-img img {
-	height: 250px;
 	width: 95% !important;
 }
 .achive-content {
@@ -68,41 +67,44 @@ h2{
         <div class="">
             <!-- Single Testimonial -->
             <div class="container">
-                <div class="row mb-5">
+                <div class="row p-5">
                     <div class="co-sm-12">
-                        <h2>Our Founder Achivement & Award</h2>
+                        <h2>আমাদের অঙ্গ প্রতিষ্ঠান </h2>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <img src="/frontend/img/partial_website_bannr.png" alt="">
+                    </div>
+                </div>
+                
                 <div class="row testimonial-slider">
+                    @foreach ($institutes as $item )
+                        
+                    
                     <div class="col-sm-12 d-md-flex single-slider align-items-center justify-content-center">
                         <div class="custom-item">
-                            <div class="ahive-img"><img src="frontend/img/slider-3.jpg" alt="#"></div>
+                            <div class="ahive-img"><img src="{{$item->photo}}" alt="#"></div>
                         </div>
                         <div class="custom-item">
                             <div class="achive-content">
-                                <h2>Best design Award 2022</h2>
-                                <h5>From </h5>
-                                <h4>Mr.Abdul manan MP</h4>
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores, laboriosam odio!
-                                
+                                <h2>{{$item->title}}</h2>
+                                <h4>{{$item->sub_title}}</h4>
+                                <p>{{$item->description}}</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 d-md-flex single-slider align-items-center justify-content-center">
-                        <div class="custom-item">
-                            <div class="ahive-img"><img src="frontend/img/slider-3.jpg" alt="#"></div>
-                        </div>
-                        <div class="custom-item">
-                            <div class="achive-content">
-                                <h2>Best design Award 2022</h2>
-                                <h5>From </h5>
-                                <h4>Mr.Abdul manan MP</h4>
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores, laboriosam odio!
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>                                                                     
+
+                    @endforeach
+                </div>      
+                <div class="right-bar mt-5">
+                    <!-- Search Bar -->
+                    <ul class="right-nav">
+                        <li class=""> <a href="" class="course-btn"> Visit Web Site</a></li>
+                    </ul>
+                    <!--/ End Search Bar -->
+                </div>
+
             </div>
         </div>
     </div>
