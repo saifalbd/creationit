@@ -26,7 +26,22 @@ class MessageSender
     public  function  sendSingle($to,$message){
         $url = $this->url;
         $token = $this->token;
-        $result = Http::post($url,compact('token','to','message'));
+        // dd(compact('url','token'));
+        $data = compact('token','to','message');
+
+        $ch = curl_init(); // Initialize cURL
+curl_setopt($ch, CURLOPT_URL,$url);
+curl_setopt($ch, CURLOPT_ENCODING, '');
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$smsresult = curl_exec($ch);
+
+//Result
+// dd($smsresult);
+
+//Error Display
+// echo curl_error($ch);
+      //  $result = Http::post($url,compact('token','to','message'));
     }
 
 
@@ -42,8 +57,23 @@ class MessageSender
 
         }
         $items = collect($list)->toJson();
-        $smsdata="$items";
-        $result = Http::post($url,compact('token','smsdata'));
+        $smsdata=$items;
+        $data= array(
+            'smsdata'=>"$smsdata",
+            'token'=>"$token"
+            ); // Add parameters in key value
+            $ch = curl_init(); // Initialize cURL
+            curl_setopt($ch, CURLOPT_URL,$url);
+            curl_setopt($ch, CURLOPT_ENCODING, '');
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $smsresult = curl_exec($ch);
+            
+            // //Result
+            // dd($smsresult);
+            
+            // //Error Display
+            // echo curl_error($ch);
     }
 
 

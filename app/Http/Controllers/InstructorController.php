@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attachment;
 use App\Models\Instructor;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class InstructorController extends Controller
 {
@@ -15,7 +16,7 @@ class InstructorController extends Controller
      */
     public function index()
     {
-        $instructors = Instructor::all();
+        $instructors = Instructor::query()->with('avatar')->latest()->paginate();
         return view('Admin.pages.instructor.index',compact('instructors'));
     }
 
@@ -44,8 +45,8 @@ class InstructorController extends Controller
             'designation'=>['required','string'],
             'father_name'=>['required','string'],
             'mother_name'=>['required','string'],
-            'mobile'=>['required','numeric'],
-            'email'=>['required','email'],
+            'mobile'=>['required','numeric',Rule::unique('instructors')],
+            'email'=>['required','email',Rule::unique('instructors')],
             'join_date'=>['required','date'],
             'salary'=>['required','numeric'],
             'photo'=>['nullable','image'],
@@ -76,7 +77,7 @@ class InstructorController extends Controller
         Instructor::create($data);
         return redirect()->route('instructor.index');
 
-        
+
 
     }
 
@@ -88,7 +89,7 @@ class InstructorController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -118,8 +119,8 @@ class InstructorController extends Controller
             'designation'=>['required','string'],
             'father_name'=>['required','string'],
             'mother_name'=>['required','string'],
-            'mobile'=>['required','numeric'],
-            'email'=>['required','email'],
+            'mobile'=>['required','numeric',Rule::unique('instructors')->whereNot('id',$instructor->id)],
+            'email'=>['required','email',Rule::unique('instructors')->whereNot('id',$instructor->id)],
             'join_date'=>['required','date'],
             'salary'=>['required','numeric'],
             'photo'=>['nullable','image'],
@@ -142,6 +143,7 @@ class InstructorController extends Controller
         if($request->hasFile('photo')){
             $avatar = Attachment::add($request->photo,Instructor::class);
             $avatar_id = $avatar->id;
+            Attachment::remove($instructor->avatar);
         }
 
 
@@ -157,13 +159,13 @@ class InstructorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {   
+    public function destroy(Instructor $instructor)
+    {
 
-        $del = Instructor::find($id);
-        if($del){
-            $del->delete();
-            return redirect()->route('instructor.index')->with('danger','Instructor Successfully Deleted !');;
-        }
+        $this->authorize('delete',$instructor);
+        $instructor->delete();
+
+        return redirect()->back();
+       
     }
 }

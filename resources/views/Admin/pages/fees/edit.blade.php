@@ -22,7 +22,7 @@
                             @method('PUT');
                             <div class="form-row">
 
-                                <div class="form-group col-md-8">
+                                <div class="form-group col-md-6">
                                     <label for="inputAddress2">Admission ID</label>
 
                                     <select name="student_id" class="form-control js-select2 @error('student_id') is-invalid @enderror">
@@ -34,6 +34,18 @@
                                     </select>
                                     @error('student_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
+                                <div class="form-group col-md-6">
+									<label for="inputCourse">Course ID</label>
+
+									<select name="course_id" class="form-control js-select2 @error('course_id') is-invalid @enderror">
+										<option value="">---</option>
+										@foreach($courses as $course)
+										<option value="{{$course->id}}" @selected($course->id==$detail->course_id)> {{$course->id}}/ {{$course->name}}</option>
+										@endforeach
+
+									</select>
+                                    @error('course_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+								</div>
                             </div>
                             <div class="form-row">
 
@@ -51,7 +63,7 @@
                                     <label for="inputAddress2"> Payment Mode </label>
                                     <select type="text" class="form-control @error('trx_mode') is-invalid @enderror" required name="trx_mode" value="{{$fee->trx_mode}}">
                                         @foreach(["Cash","Bkash","Nagad","Roket","Bank"] as $mode)
-                                        <option value="{{$mode}}" @selected($mode==$fee->trx_mode)>{{$mode}}</option>
+                                        <option value="{{$mode}}" @selected($mode==$detail->trx_mode)>{{$mode}}</option>
                                         @endforeach
                                      
 
@@ -62,7 +74,8 @@
 
                                 <div class="form-group col-md-2">
                                     <label for="inputAddress2">Trx No</label>
-                                    <input type="text" class="form-control @error('trx_no') is-invalid @enderror" name="trx_no" value="{{$fee->trx_no}}">
+                                    <input type="text" class="form-control @error('trx_no') is-invalid @enderror"
+                                     name="trx_no" value="{{$detail->trx_no}}">
                                     @error('trx_no')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                             </div>

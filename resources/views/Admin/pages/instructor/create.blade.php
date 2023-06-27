@@ -16,10 +16,7 @@
                </div>
             </div>
             <div class="card mb-4">
-               <!---div class="card-header">
-       <i class="fas fa-user-plus mr-1"></i>
-       গ্রাহক এন্ট্রি
-       </div--->
+          
                <div class="mt-3 card-body">
                   <form name="frmUser" method="post" action="{{route('instructor.store')}}" enctype="multipart/form-data">
                      @csrf

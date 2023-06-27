@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('mother_name');
             $table->string('gender');
             $table->date('date_of_birth');
-            $table->date('qualification')->nullable();
+            $table->string('education')->nullable();
             $table->string('occupation');
             $table->string('mobile',15);
             $table->string('guardian_mobile',15);
@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreignId('avatar_id');
             $table->text('present_address');
             $table->text('permanent_address');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
 
@@ -40,7 +41,7 @@ return new class extends Migration
             $table->integer('roll');
             $table->integer('registration_no');
             $table->integer('academic_year');
-            $table->integer('session');
+            $table->string('session');
             $table->double('fee');
             $table->double('discount');
             $table->double('first_ins');
@@ -52,7 +53,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-     
+
         Schema::create('student_references', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id');

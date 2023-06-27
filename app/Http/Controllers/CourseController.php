@@ -16,8 +16,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $items = Course::query()->with('instructor')->paginate(20);
-        return view('Admin/pages/course/index',compact('items'));
+        $items = Course::query()->with('instructor')->latest()->paginate(20);
+        return view('Admin.pages.course.index',compact('items'));
     }
 
     /**
@@ -87,9 +87,10 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Course $course)
     {
-        //
+        $instructors = Instructor::query()->select(['id','name'])->get();
+        return view('Admin.pages.course.edit',compact('instructors','course'));
     }
 
     /**
@@ -99,9 +100,39 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Course $course)
     {
-        //
+        $request->validate([
+            'name'=>['required','string'],
+            'duration'=>['required','numeric'],
+            'fee'=>['required','numeric'],
+            'instructor_id'=>['required','numeric'],
+            'details'=>['nullable','string'],
+            'photo'=>['nullable','image']
+        ]);
+
+        $name = $request->name;
+        $duration = $request->duration;
+        $fee = $request->fee;
+        $instructor_id = $request->instructor_id;
+        $details = $request->details;
+        $avatar_id = $course->avatar_id;
+
+        if($request->hasFile('photo')){
+            $avatar = Attachment::add($request->photo,Course::class);
+            $avatar_id = $avatar->id;
+         Attachment::remove($course->avatar);
+
+            
+        }
+
+
+        
+
+
+        $course->update(compact('name','duration','fee','instructor_id','details','avatar_id'));
+
+        return redirect()->route('course.index');
     }
 
     /**
@@ -110,11 +141,11 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Course $course)
     {
-        $del = Course::find($id);
-        $del->delete();
-        return redirect()->route('course.index');
+        $this->authorize('delete',$course);
+       $course->delete();
+       return redirect()->route('course.index',['success'=>'Succfully remove Course']);
 
     }
 }

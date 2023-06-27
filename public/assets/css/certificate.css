@@ -1,0 +1,86 @@
+ body {
+   background: #00968842;
+   color: #163758;
+   ;
+   font-size: 0.9rem;
+   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto"
+   }
+   .container {
+	background-image: url(certificate.png);
+    width: 11.3in;
+    height: 8.1in;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 100px;
+    background-size: contain;
+   }
+   
+   .header {margin-top: 80px;}
+   .title {
+   text-align: center;
+   color: #23369e;
+   font-size: 30px;
+   margin-top: 5px!important;
+   /* text-shadow: -1px 0px 3px #b5261b; */
+   /* font-family: none; */
+   }
+   .address {
+   text-align: center;
+   font-size: 19px;
+   }
+ 
+   .logo {
+float: left;
+    margin-left: 90px;
+	position: absolute;
+   }
+ .certificate {
+    text-align: center;
+    color: #3f51b5;
+    font-size: 42px;
+    margin-top: 17px!important;
+    font-family: serif;
+}
+   .name {
+   font-size: 29px;
+   font-weight: bold;
+   text-align: center;
+   color: #23369e;
+   margin-top: 95px;
+   } 
+   label {color: #ff5722; }
+   p {
+    font-size: 20px;
+    font-style: italic;
+    padding: 20px 120px 20px 120px;
+    text-align: justify;
+    line-height: 34px;
+    }
+   
+ 
+   @media print {
+	   
+	     body {
+   background: none;
+  
+   }
+   
+   
+   .container {
+   width: 100%;
+   position: fixed;
+   top:0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   margin: auto;
+   margin-top: 0px;
+background-size: contain;
+   }
+   
+         
+                    }

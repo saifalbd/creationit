@@ -27,22 +27,31 @@
                       
                     <div class="form-group ">
                         <label> USER ID</label>
-                        <input type="text" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror" placeholder="Email" name="email" required>
+                        <input type="text" value="creation@gmail.com" class="form-control @error('email') is-invalid @enderror" placeholder="Email" name="email" required>
                         <span class="help-block"></span>
                         @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
        
                     </div>
                     <div class="form-group ">
                         <label>PASSWORD</label>
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" value="1234" name="password" required>
                         <span class="help-block"></span>
                         @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
        
                     </div>
                     <div class="myform-button">
                         <button type="submit" class="myform-btn">LOGIN</button>
-                        <p>
-                       
+                    </div>
+                    <div class="container pt-2">
+                        {{-- <a class="btn btn-sm btn-rounded btn-info mt-2">
+                            Admin Login
+                        </a>
+                        <a class="btn btn-sm btn-rounded btn-info mt-2">
+                            Student Login
+                        </a>
+                        <a class="btn btn-sm btn-rounded btn-info mt-2">
+                            Instractor Login
+                        </a> --}}
                     </div>
             </form>
          </form>
@@ -54,7 +63,7 @@
 
     <br>
     <p class="copyright-text text-center text-secondary"> &copy; 2021
-        <a rel="nofollow" href="http://www.exploreit.com.bd">explore IT </a> All right reserved
+        <a rel="nofollow" href="https://iqrasoft.net">Iqra Software Solutions</a> All right reserved
     </p>
 
 </div>

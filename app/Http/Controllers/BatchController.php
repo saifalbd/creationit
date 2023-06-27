@@ -14,7 +14,11 @@ class BatchController extends Controller
      */
     public function index()
     {
-        $batches = Batch::query()->paginate();
+        $batches = Batch::query()
+        ->withCount(['students'=>fn($q)=>$q->where('status',1)])
+        ->latest()->paginate();
+
+       
 
         return view('Admin.pages.batch.index',compact('batches'));
     }
@@ -115,7 +119,9 @@ class BatchController extends Controller
      */
     public function destroy(Batch $batch)
     {
-        $batch->delete();
-        return redirect()->route('batch.index');
+        // $this->authorize('delete',$batch);
+        // $batch->delete();
+        // return $this->removeAlert('Batch '.$batch->title);
+        return redirect()->route('batch.index',$this->removeAlert('Batch '.$batch->title));
     }
 }

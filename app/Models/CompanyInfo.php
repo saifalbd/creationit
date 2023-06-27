@@ -15,4 +15,9 @@ class CompanyInfo extends Model
 'mobile',
 'email',
 'avatar_id'];
+
+
+    public  function  avatar(){
+        return $this->belongsTo(Attachment::class,'avatar_id');
+    }
 }

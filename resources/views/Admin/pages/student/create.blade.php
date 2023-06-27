@@ -7,7 +7,7 @@
                         Admission  <i class="fas fa-angle-right"></i>      New Admission
                     </div>
                     <div class="col-md-3 text-right">
-                        <a href="{{url('student')}}" class="btn btn-outline-primary"> <i class="fas fa-folder-open"></i> Admission List</a>
+                        <a href="{{route('student.index')}}" class="btn btn-outline-primary"> <i class="fas fa-folder-open"></i> Admission List</a>
                     </div>
                 </div>
             </div>
@@ -284,8 +284,10 @@
 
                         <input type="submit" name="submit" value="Save" class="btn btn-primary ">
                         <button type="reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                </div>
             </form>
-        </div>
+        
         </div>
     </main>
 </x-admin-layout>

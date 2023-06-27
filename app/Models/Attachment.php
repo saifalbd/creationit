@@ -14,16 +14,16 @@ class Attachment extends Model
 
     protected $appends = ['url'];
 
-    protected static function booted()
-    {
-        static::deleting(function($model){
-            $disk = Storage::disk($model->disk);
-            $disk->delete($model->path);
-        });
+  
+
+    public static function remove($avatar){
+        if(!$avatar->is_default){
+            $avatar->delete();
+        }
     }
 
 
- 
+
     public static function add(UploadedFile $file,string $model):Attachment{
         $model = class_basename($model);
        $type = $file->getClientMimeType();
@@ -32,29 +32,29 @@ class Attachment extends Model
        $slug = $model;
        $uid = uniqid();
        $name = $uid.'.'.$ex;
-       $path  =$slug.'/'.$name;
-      
+       $path  =$slug;
 
-        Storage::disk($disk)->put($path,$file);
+        $path = Storage::disk($disk)->putFileAs($path,$file,$name);
 
-       
 
-    
 
-       
+
+
+
+
       return static::create(compact('disk','path','model'));
-       
+
     }
-   
+
 
     public function getUrlAttribute()
     {
         $disk = Storage::disk($this->disk);
         return $disk->url($this->path);
     }
-    
 
- 
+
+
 
     public function deleteWithAttach(){
         $disk = $this->disk;

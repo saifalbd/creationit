@@ -26,27 +26,31 @@
            <th>Wednesday </th>
            <th>Thrusday </th>
            <th>Friday </th>
+           @can('view', auth()->user())
            <th width="10%"> </th>
+           @endcan
         </tr>
      </thead>
      <tbody>
         <tr>
             <td width="0%" class="bn-font">1</td>
-            <td > Diploma In Graphic Design</td>
+            <td >{{$batch->title}}</td>
             
             
-            <td> 10:00 - 11:00</td>
-            <td> 10:00 - 11:00</td>
-            <td> 10:00 - 11:00</td>
-            <td> 10:00 - 11:00</td>
-            <td> 10:00 - 11:00</td>
-            <td> 10:00 - 11:00</td>
-            <td> 10:00 - 11:00</td>
+            <td>{{$batch->saturday}}</td>
+            <td>{{$batch->sunday}}</td>
+            <td>{{$batch->monday}}</td>
+            <td>{{$batch->tuesday}}</td>
+            <td>{{$batch->wednesday}}</td>
+            <td>{{$batch->thrusday}}</td>
+            <td>{{$batch->friday}}</td>
             
+            @can('view', auth()->user())
             <td width="10%">
-                <a href="" class="btn btn-success btn-sm" > <i class="fa fa-edit ">  </i></a>  
-                <a data-appd="1" class="delete btn btn-danger btn-sm" href="#"><i class="fa fa-trash "> </i></a>
+                <a href="{{route('batch.edit',['batch'=>$batch->id])}}" class="btn btn-success btn-sm" > <i class="fa fa-edit ">  </i></a>  
+             
             </td>
+            @endcan
         </tr>      
         </tbody>
      <tfoot>

@@ -16,13 +16,15 @@ return new class extends Migration
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
             $table->foreignId('batch_id');
-            $table->date('date');
+            $table->string('month');
+            $table->year('year');
             $table->timestamps();
         });
         Schema::create('attendance_students', function (Blueprint $table) {
             $table->id();
             $table->foreignId('attendance_id');
             $table->foreignId('student_id');
+            $table->string('day_number');
             $table->string('remark')->nullable();
             $table->time('entry')->nullable();
             $table->time('leave')->nullable();

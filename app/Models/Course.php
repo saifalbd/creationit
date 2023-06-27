@@ -16,4 +16,8 @@ class Course extends Model
         return $this->belongsTo(Instructor::class,'instructor_id');
     }
 
+    public function inrolls(){
+        return $this->hasMany(StudentCourse::class,'course_id');
+    }
+
 }

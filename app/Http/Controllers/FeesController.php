@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\FeeReceipt;
+use App\Models\FeeReceiptVoucher;
 use App\Models\Student;
+use App\Models\StudentCourse;
 use Illuminate\Http\Request;
+use stdClass;
 
 class FeesController extends Controller
 {
@@ -16,9 +19,12 @@ class FeesController extends Controller
      */
     public function index()
     {
-        $items = FeeReceipt::query()->with(['student','batches','course'])->paginate();
 
-       // return  $items;
+        //['student','batches','course']
+        $items = FeeReceiptVoucher::query()
+        ->with(['student','details'=>fn($q)=>$q->with(['course','batches'])])->latest()->paginate();
+
+    
 
         return view('Admin.pages.fees.index',compact('items'));
     }
@@ -28,13 +34,25 @@ class FeesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
 
         $students = Student::query()->select(['mobile','name','id'])->get();
         $courses = Course::query()->select(['id','name'])->get();
 
-        return view('Admin.pages.fees.create',compact('students','courses'));
+        $byStudent_id = $request->get('student',false);
+        if($byStudent_id){
+        $courses = StudentCourse::query()->where('student_id',$byStudent_id)->with('course')->get()->map(function($item){
+            $ob = new stdClass;
+            $ob->id = $item->course_id;
+            $ob->name = $item->course->name;
+            return $ob;
+        });
+        }
+
+        
+
+        return view('Admin.pages.fees.create',compact('students','courses','byStudent_id'));
     }
 
     /**
@@ -45,6 +63,9 @@ class FeesController extends Controller
      */
     public function store(Request $request)
     {
+        /*
+        after oew day impliment those in vue then request items are array collection on voucers details
+        */
 
         $request->validate([
             'student_id'=>['required','numeric'],
@@ -56,12 +77,24 @@ class FeesController extends Controller
             'remark'=>['nullable','string'],
         ]);
 
+        $student_id = $request->student_id;
+        $course_id = $request->course_id;
+        $date = $request->date;
+        $amount = $request->amount;
+        $trx_mode = $request->trx_mode;
+        $trx_no  = $request->trx_no;
+        $remark = $request->remark;
+
+
+        $voucher = FeeReceiptVoucher::create(compact('student_id','amount','date','remark'));
+        $fee = $voucher->details()->create(compact('amount','amount','date','remark','course_id','trx_mode','trx_no'));
+
         $student = Student::findOrFail($request->student_id);
         $batches = $student->courses->pluck('batch_id')->toArray();
-        $fee = FeeReceipt::create($request->toArray());
+      
         $fee->batches()->sync($batches);
 
-        return redirect()->route('fee.index');
+        return redirect()->route('fee.index',$this->insertAlert('Fee Voucher'));
     }
 
     /**
@@ -70,8 +103,15 @@ class FeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(FeeReceiptVoucher $v)
     {
+
+        $v->load('details.course','student');
+
+
+     
+
+        return view('Admin.pages.fees.show',compact('v'));
 
     }
 
@@ -81,11 +121,18 @@ class FeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(FeeReceipt $fee)
+    public function edit(FeeReceiptVoucher $fee)
     {
+
+        $fee->load('details');
+
+        $detail = $fee->details->first();
+
+    
      
+        $courses = Course::query()->select(['id','name'])->get();
         $students = Student::query()->select(['id','name'])->get();
-        return view('Admin.pages.fees.edit',compact('fee','students'));
+        return view('Admin.pages.fees.edit',compact('fee','students','courses','detail'));
     }
 
     /**
@@ -95,8 +142,9 @@ class FeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FeeReceipt $fee)
+    public function update(Request $request, FeeReceiptVoucher $voucher)
     {
+        
         $request->validate([
             'student_id'=>['required','numeric'],
             'date'=>['required','date'],
@@ -104,14 +152,32 @@ class FeesController extends Controller
             'trx_mode'=>['required','string'],
             'trx_no'=>['nullable','string'],
             'remark'=>['nullable','string'],
+            'course_id'=>['required','numeric'],
 
         ]);
 
+        $student_id = $request->student_id;
+        $course_id = $request->course_id;
+        $date = $request->date;
+        $amount = $request->amount;
+        $trx_mode = $request->trx_mode;
+        $trx_no  = $request->trx_no;
+        $remark = $request->remark;
+
+        
+        $voucher->details->each(function($fee){
+            $fee->batches()->detach();
+        });
+        $voucher->details()->delete();
+        $voucher->update(compact('student_id','amount','date','remark'));
+        $fee = $voucher->details()->create(compact('amount','amount','date','remark','course_id','trx_mode','trx_no'));
         $student = Student::findOrFail($request->student_id);
         $batches = $student->courses->pluck('batch_id')->toArray();
-        $fee->update($request->toArray());
+      
         $fee->batches()->sync($batches);
-        return redirect()->route('fee.index');
+
+        return redirect()->route('fee.index',$this->updateAlert('Fee Voucher'));
+      
     }
 
     /**
@@ -120,10 +186,16 @@ class FeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FeeReceipt $feeReceipt)
+    public function destroy(FeeReceiptVoucher $voucher)
     {
-        $feeReceipt->delete();
-        return redirect()->route('fee.index');
+
+        $voucher->details->each(function($fee){
+            $fee->batches()->detach();
+        });
+        
+        $voucher->details()->delete();
+        $voucher->delete();
+        return redirect()->route('fee.index',$this->removeAlert('Fee Voucher'));
         
     }
 }

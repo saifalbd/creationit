@@ -38,7 +38,7 @@
     <td width="20%" nowrap>Date of Birth</td>
     <td width="5%" align="center">: </td>
     <td><strong>
-      {{$student->date_of_birth}}      </strong> </td>
+      {{format($student->date_of_birth)}}      </strong> </td>
     <td width="20%" rowspan="10" align="right" valign="top"><img src="{{$student->avatar->url}}" height="180px;" /></td>
   </tr>
   <tr>

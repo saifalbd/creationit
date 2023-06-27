@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,8 @@ class AuthController extends Controller
 
 
     public function loginPage(){
+
+        // return Attachment::query()->first();
         return view('Admin.pages.login');
     }
 

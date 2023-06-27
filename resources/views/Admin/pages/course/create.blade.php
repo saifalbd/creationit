@@ -21,31 +21,36 @@
           <div class="form-row">
              <div class="form-group col-md-4">
                 <label for="inputEmail4">Course Name</label>
-                <input type="text" class="form-control  @error('name') is-invalid @enderror" required  name="name"  required >
+                <input type="text" class="form-control  @error('name') is-invalid @enderror"   name="name" value="{{old('name')}}"   required>
+                @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
              </div> 
              <div class="form-group col-md-2">
                 <label for="inputEmail4"> Duration</label>
-                 <input type="text" class="form-control @error('duration') is-invalid @enderror" required  name="duration"  placeholder="Month" required >
+                 <input type="text" class="form-control @error('duration') is-invalid @enderror"   name="duration" value="{{old('duration')}}"  placeholder="Month" required >
+                 @error('duration')<div class="invalid-feedback">{{ $message }}</div>@enderror
                
              </div>
                 <div class="form-group col-md-2">
                 <label for="inputAddress2">Fee</label>
-                <input type="text" class="form-control @error('fee') is-invalid @enderror" required  name="fee" required >
+                <input type="text" class="form-control @error('fee') is-invalid @enderror"   name="fee" value="{{old('fee')}}"  required>
+                @error('fee')<div class="invalid-feedback">{{ $message }}</div>@enderror
              </div>
                   <div class="form-group col-md-4">
                 <label for="inputAddress2">Instructor</label>
                 
-                <select name="instructor_id" class="form-control js-select2 @error('instructor_id') is-invalid @enderror"  >
+                <select name="instructor_id" class="form-control js-select2 @error('instructor_id') is-invalid @enderror"   required>
                     <option value="">---</option>
                     @foreach($instructors as $instructor)
-                    <option value="{{$instructor->id}}">{{$instructor->name}}</option>
+                    <option value="{{$instructor->id}}" @selected(old('instructor_id')==$instructor->id)>{{$instructor->name}}</option>
                     @endforeach
                 </select>
+                @error('instructor_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
              </div>
               <div class="form-group col-md-12">
                 <label for="inputEmail4">Details</label>
              
-                <textarea name="details"  class="form-control @error('details') is-invalid @enderror" cols="20" rows="6" id="code_preview0"></textarea>
+                <textarea name="details"  class="form-control @error('details') is-invalid @enderror" cols="20" rows="6" id="code_preview0">{{old('details')}}</textarea>
+                @error('details')<div class="invalid-feedback">{{ $message }}</div>@enderror
              </div>
              
             

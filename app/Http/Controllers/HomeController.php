@@ -2,10 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
+use App\Services\ChartInfoService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+
+
+
+    private function duePaymentStudent(){
+
+        return Student::query()->select(['id'])->get()->map(function($student){
+        
+            $id = $student->id;
+            $fee = $student->courses->sum('fee');
+            $discount = $student->courses->sum('discount');
+            $payable  = $fee - $discount;
+            $paid = $student->vouchers->sum('amount');
+            $due = $payable - $paid;
+            return compact('id','fee',
+                'discount','payable','paid','due');
+        })->sum('due');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +32,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('Admin.pages.home');
+
+        $due = $this->duePaymentStudent();
+        $currentStudent = Student::query()->count();
+        $expireStudent = Student::query()->count();
+        $rep = new ChartInfoService();
+        $courseWiseChats = $rep->courseWiseAdmission();
+        $data = compact('due','currentStudent','expireStudent','courseWiseChats');
+        return view('Admin.pages.home',$data);
     }
 
     /**

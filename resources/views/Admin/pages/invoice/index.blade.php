@@ -6,13 +6,12 @@
    Invoice <i class="fas fa-angle-right"></i> Invoice list
       </div>
       <div class="col-md-4 text-right">
-		  <a class="btn btn-outline-primary "  href="{{url('invoice/create')}}" > <i class="fas fa-plus-square"></i> New Invoice </a>
+		  <a class="btn btn-outline-primary "  href="{{route('invoice.create')}}" > <i class="fas fa-plus-square"></i> New Invoice </a>
       </div>
-   </div> 
+   </div>
 </div>
 <div class="card mb-4">
 
-	
    <div class="card-body">
       <div class="table-responsive">
          <br>
@@ -20,51 +19,42 @@
             <thead>
                <tr>
 				<th width="0%"> Invoice #</th>
-					<th> Date </th>
+                   <th> Date </th>
                   <th> Name </th>
                   <th> Mobile</th>
                   <th> Total</th>
                   <th> Paid </th>
                   <th> Due</th>
-	
+
 				<th  > </th>
                </tr>
             </thead>
             <tbody>
+            @foreach($items as $item)
                               <tr>
-				  <td width="0%" class="bn-font">1678866132</td>
-					<td> 15.03.2023</td>
-					<td> Md. Sadi</td>
-					<td> 01310698640</td>
-					<td> 3950</td>
-					<td> 2500</td>
-					<td> 1450</td>
+				  <td width="0%" class="bn-font">{{$item->id}}</td>
+					<td>{{format($item->date)}}</td>
+					<td>{{$item->customer_name}}</td>
+					<td>{{$item->mobile}}</td>
+					<td>{{$item->total}}</td>
+					<td>{{$item->paid}}</td>
+					<td>{{$item->due}}</td>
                   <td nowrap align="right">
-					<a href="view_invoice.php?unique_id=1678866132" class="btn btn-primary btn-sm"> <i class="fa fa-print "></i></a>
+					<a href="{{route('invoice.show',['invoice'=>$item->id])}}" class="btn btn-primary btn-sm"> <i class="fa fa-print "></i></a>
 					<a data-appd="6" class="delete btn btn-danger btn-sm" href="#"><i class="fa fa-trash-alt "> </i>  </a>
                   </td>
                </tr>
-                <tr>
-				  <td width="0%" class="bn-font">1678876439</td>
-					<td> 15.03.2023</td>
-					<td> Health Care</td>
-					<td> 01749777850</td>
-					<td> 9480</td>
-					<td> 6000</td>
-					<td> 3480</td>
-                  <td nowrap align="right">
-					<a href="view_invoice.php?unique_id=1678876439" class="btn btn-primary btn-sm"> <i class="fa fa-print "></i></a>
-					<a data-appd="7" class="delete btn btn-danger btn-sm" href="#"><i class="fa fa-trash-alt "> </i>  </a>
-                  </td>
-               </tr>
-                              
+            @endforeach
+
+
                 </tbody>
             <tfoot>
          </table>
+         <x-page-info :items="$items"></x-page-info>
       </div>
    </div>
 </div>
- 
+
  </main>
 
 </x-admin-layout>

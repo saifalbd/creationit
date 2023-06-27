@@ -6,7 +6,7 @@
          Admission <i class="fas fa-angle-right"></i> New Application
       </div>
    <div class="col-sm-4">
-		 <a href="{{url('student/create')}}" class="btn btn-outline-primary float-right"> <i class="fas fa-plus-square"></i> Add Admission </a>
+		 <a href="{{route('student.create')}}" class="btn btn-outline-primary float-right"> <i class="fas fa-plus-square"></i> Add Admission </a>
       </div>
    </div>
 </div>
@@ -29,47 +29,32 @@
             <tbody>
                @foreach($students as $student)
                <tr>
-                  <td width="0%" ><samp >153</samp></td>
-                  <td width="0%" > 01.05.2023 </td>
+                  <td width="0%" ><samp >{{$student->id}}</samp></td>
+                  <td width="0%" > {{format($student->created_at->toDateString())}} </td>
                   <td> <a href="{{route('student.show',['student'=>$student->id])}}" >{{$student->name}} </a></td>
-				  <td> Computer Hardware</td>
-				  <td> </td>
-				  <td> 01933912179</td>
-                  
-                  
-               <td nowrap> 
-					<a href="{{route('student.edit',2)}}"  class="btn btn-success btn-sm" ><i class="fas fa-check-circle"></i></a>
-					<a data-appd="153" class="delete btn btn-danger btn-sm" href="#"><i class="fa fa-trash"> </i>  </a>
-					</td>
+				  <td>{{$student->courseNames}}</td>
+				  <td>{{$student->reference->ref}}</td>
+				  <td>{{$student->mobile}}</td>
+
+
+               <td nowrap>
+					<a href="{{route('student.edit',['student'=>$student->id])}}"  class="btn btn-success btn-sm" ><i class="fas fa-check-circle"></i></a>
+               <x-remove-btn :action="route('student.destroy',['student'=>$student->id])" title="Are You Sure? Delete Student {{$student->name}}"></x-remove-btn>
+				
+            </td>
                </tr>
                @endforeach
-                             
+
                </tbody>
             <tfoot>
          </table>
+       <x-page-info :items="$students"></x-page-info>
       </div>
    </div>
 </div>
-<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-<script>
-   $(document).on('click','.delete',function(){
-   var element = $(this);
-   var del_id = element.attr("data-appd");
-   var info = 'deladmission=' + del_id;
-   if(confirm("Are you sure you want to delete this?"))
-   {
-    $.ajax({
-      type: "POST",
-      url: "ajaxdelete.php",
-      data: info,
-      success: function(){
-    }
-   });
-     $(this).parents("tr").animate({ backgroundColor: "#003" }, "slow")
-     .animate({ opacity: "hide" }, "slow");
-    }
-   return false;
-   });
-</script>
- </main>>
+
+ </main>
+ @slot('script')
+ <x-table-script></x-table-script> 
+ @endslot
 </x-admin-layout>

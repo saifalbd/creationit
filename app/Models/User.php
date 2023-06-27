@@ -12,6 +12,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+
+    protected $appends = ['isSuper','isAdmin','isHr'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,7 +25,8 @@ class User extends Authenticatable
         'email',
         'password',
         'mobile',
-        'avatar_id'
+        'avatar_id',
+        'role'
     ];
 
     /**
@@ -46,5 +50,18 @@ class User extends Authenticatable
 
     public  function  avatar(){
         return $this->belongsTo(Attachment::class,'avatar_id');
+    }
+
+    public function getIsSuperAttribute()
+    {
+        return $this->role =='super';
+    }
+    public function getIsAdminAttribute()
+    {
+        return $this->role =='admin';
+    }
+    public function getIsHrAttribute()
+    {
+        return $this->role =='hr';
     }
 }

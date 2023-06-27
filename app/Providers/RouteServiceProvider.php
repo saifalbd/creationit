@@ -3,11 +3,16 @@
 namespace App\Providers;
 
 use App\Models\Attendance;
+use App\Models\AttendanceStudent;
 use App\Models\Batch;
 use App\Models\Course;
 use App\Models\FeeReceipt;
+use App\Models\FeeReceiptVoucher;
 use App\Models\Instructor;
+use App\Models\SaleInvoice;
 use App\Models\Student;
+use App\Models\Voucher;
+use App\Models\VoucherLedger;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -46,6 +51,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(function () {
             Route::prefix('api')
                 ->middleware('api')
+                ->name('api.')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
@@ -55,11 +61,15 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         Route::model('student',Student::class);
-        Route::model('fee',FeeReceipt::class);
+        Route::model('fee',FeeReceiptVoucher::class);
         Route::model('course',Course::class);
         Route::model('batch',Batch::class);
         Route::model('instructor',Instructor::class);
         Route::model('attendance',Attendance::class);
+        Route::model('invoice',SaleInvoice::class);
+        Route::model('voucher',Voucher::class);
+        Route::model('ledger',VoucherLedger::class);
+        Route::model('attendance_student',AttendanceStudent::class);
 
 
     }

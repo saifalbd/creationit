@@ -7,6 +7,8 @@ use App\Models\AttendanceStudent;
 use App\Models\Batch;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
 class AttendanceController extends Controller
 {
@@ -18,7 +20,12 @@ class AttendanceController extends Controller
     public function index()
     {
         $attendances = Attendance::query()
-            ->with('batch:id,title')->withCount('list')->get();
+            ->with('batch:id,title')->withCount('students')->paginate();
+
+         
+
+         
+       
 
         return view('Admin.pages.attendance.index',compact('attendances'));
 
@@ -32,7 +39,15 @@ class AttendanceController extends Controller
     public function create()
     {
         $batches = Batch::query()->select(['title','id'])->get();
-        return view('Admin.pages.attendance.create',compact('batches'));
+        $currentMonthNumber = now()->format('m');
+        $currentYearNumber = now()->format('Y');
+        $months = Collection::times(12)->map(function($n){
+            $d = now()->startOfYear()->addMonths($n-1);
+            $value = $d->clone()->format('m');
+            $text = $d->clone()->format('F');
+            return compact('value','text');
+        });
+        return view('Admin.pages.attendance.create',compact('batches','currentMonthNumber','currentYearNumber','months'));
     }
 
     /**
@@ -43,16 +58,41 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'batch_id'=>['required','numeric'],
-            'date'=>['required','date']
+            'month'=>['required','numeric'],
+            'year'=>['required','numeric']
         ]);
 
 
-        $batch_id = $request->batch_id;
-        $date = $request->date;
 
-       $attendance = Attendance::firstOrCreate(compact('batch_id','date'));
+        $batch_id = $request->batch_id;
+        $month = $request->month;
+        $year = $request->year;
+
+       $attendance = Attendance::firstOrCreate(compact('batch_id','month','year'));
+
+       $att = $this->attendanceList($attendance);
+        $att['students']->map(function($item)use($attendance){
+
+        $student_id = $item['student_id'];
+        $attendance_id = $attendance->id;
+        $item['attends']->map(function ($item)use($student_id,$attendance_id){
+            $day_number = $item['dayNumber'];
+            $date = $item['date'];
+            $remark = $item['remark'];
+            $entry = $item['entry'];
+            $leave = $item['leave'];
+            $attend = $item['attend'];
+
+            AttendanceStudent::firstOrCreate(
+                compact('student_id','attendance_id','day_number'),
+                compact('remark','entry','leave','attend','date')
+            );
+        });
+
+       });
 
        return  redirect()->route('attendance.show',['attendance'=>$attendance->id]);
 
@@ -61,35 +101,103 @@ class AttendanceController extends Controller
     }
 
 
+    public function attendanceList(Attendance $attendance){
+        $list = $attendance->list;
+        $students = Student::query()->select(['id','name'])
+        ->whereHas('courses',fn($q)=>$q->where('batch_id',$attendance->batch_id))->get();
+        //dayNumber
+        $monthNumber = $attendance->month;
+        $yearNumber = $attendance->year;
+        $date = Carbon::parse("$yearNumber-$monthNumber")->startOf('month');
+        $daysInMonth = $date->daysInMonth;
+        $days = Collection::times($daysInMonth)->map(function($n)use($date){
+            $d = $n==1? $date:$date->addDay();
+            $text = $d->format('D');
+            $value = $d->format('d');
+            $date = $d->format('Y-m-d');
+            $isAfter = $d->greaterThan(now()->startOfDay());
+            return compact('text','value','date','isAfter');
+        });
 
-    public  function  attendenceListStore(Request $request,Attendance $attendance){
+        $students = $students->map(function ($student)use($list,$days){
+
+            $student_id = $student->id;
+            $name = $student->name;
+
+            $attends = $days->map(function($d)use($list,$student_id){
+                $dayNumber = $d['value'];
+                $attend = null;
+                $remark  = null;
+                $entry = null;
+                $leave = null;
+                $date = $d['date'];
+                $id = null;
+                $isAfter = null;
+                $has = $list->where('student_id',$student_id)->where('day_number',$d['value'])->first();
+                if($has){
+                    $remark = $has->remark;
+                    $entry = $has->entry;
+                    $leave = $has->leave;
+                    $attend = $has->attend;
+                    $date = $has->date;
+                    $id = $has->id;
+                    $isAfter = $has->isAfter;
+                    
+
+                }
+
+                return compact('student_id','id','remark','entry','leave','attend','dayNumber','date','isAfter');
+
+
+
+            });
+
+
+           
+       
+
+            return compact('student_id','name','attends');
+
+        });
+
+        return compact('students','days');
+
+
+    }
+
+
+
+    public  function  attendenceUpdate(Request $request,AttendanceStudent $attendanceStudent){
 
 
         $request->validate([
-            'items'=>['required','array'],
-            'items.*'=>['required','array'],
-            'items.*.id'=>['required','numeric'],
-            'items.*.remark'=>['nullable','string'],
-            'items.*.entry'=>['nullable','string'],
-            'items.*.leave'=>['nullable','string'],
-            'item.*.attend'=>['required','in:0,1']
+          
+            'remark'=>['nullable','string'],
+            'entry'=>['nullable','string'],
+            'leave'=>['nullable','string'],
+            'attend'=>['required','in:0,1']
+           
         ]);
 
-        $attendance_id  = $attendance->id;
-        foreach ($request->items as $item){
-            $student_id = $item['id'];
-            $attend = $item['attend'];
-            $remark = $item['remark'];
-            $entry = $item['entry'];
-            $leave = $item['leave'];
-
-            $model = AttendanceStudent::updateOrCreate(compact('attendance_id','student_id'),
-                compact('attend','remark','entry','leave'));
+       
 
 
-        }
+        $attend = $request->attend;
+        $entry = $request->entry;
+        $leave = $request->leave;
+        $remark= $request->remark;
+     
 
-        return redirect()->route('attendance.create');
+        $attendanceStudent->update(compact('attend','remark','entry','leave'));
+        
+       
+
+
+
+
+
+
+        return response()->json($attendanceStudent);
 
 
 
@@ -103,36 +211,16 @@ class AttendanceController extends Controller
      */
     public function show(Attendance $attendance)
     {
-        $list = $attendance->list;
-        $students = Student::query()->select(['id','name'])->whereHas('courses',fn($q)=>$q->where('batch_id',$attendance->batch_id))->get();
-        $students = $students->map(function ($student)use($list){
-            $id = $student->id;
-            $name = $student->name;
-            $attend = null;
-            $remark  = null;
-            $entry = null;
-            $leave = null;
-            $has = $list->where('student_id',$id)->first();
-            if($has){
-                $remark = $has->remark;
-                $entry = $has->entry;
-                $leave = $has->leave;
-                $attend = $has->attend;
 
-            }
 
-            $student->remark = $remark;
-            $student->entry = $entry;
-            $student->leave = $leave;
-            $student->attend = $attend;
 
-            return $student;
+       
+        $att = $this->attendanceList($attendance);
 
-        });
+ 
 
-//        return  $students;
 
-        return view('Admin.pages.attendance.attendance_form',compact('attendance','students'));
+        return view('Admin.pages.attendance.attendance_form',array_merge($att,compact('attendance')));
     }
 
     /**
@@ -143,12 +231,25 @@ class AttendanceController extends Controller
      */
     public function edit(Attendance $attendance)
     {
-        $list = $attendance->list()->with('student')->get();
+        $list = $attendance->list()->get()->groupBy('student_id')->map(function($items,$student_id){
+            $list = $items->where('isAfter',false);
+            return compact('student_id','list');
+        })->values();
+
+        $students = Student::query()->select(['id','name','mobile'])->whereIn('id',$list->pluck('student_id')->unique()->toArray())->get()
+        ->map(function($student)use($list){
+            $student->list = $list->where('student_id',$student->id)->first()['list'];
+            return $student;
+        });
+
+
+      
+
+        
+
+
         $attendance->load('batch:id,title');
-
-
-
-        return view('Admin.pages.attendance.edit',compact('list','attendance'));
+        return view('Admin.pages.attendance.edit',compact('students','attendance'));
     }
 
     /**

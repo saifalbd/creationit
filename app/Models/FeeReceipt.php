@@ -16,9 +16,7 @@ class FeeReceipt extends Model
         return $this->belongsTo(FeeReceiptVoucher::class,'voucher_id');
     }
 
-    public function student(){
-        return $this->belongsTo(Student::class,'student_id');
-    }
+  
 
     public function course(){
         return $this->belongsTo(Course::class,'course_id');

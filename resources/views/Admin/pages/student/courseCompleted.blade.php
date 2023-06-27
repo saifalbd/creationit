@@ -18,29 +18,32 @@
                             <thead>
                             <tr>
                                 <th width="0%"> Admission#</th>
-                                <th  > Date</th>
+                               
                                 <th> Student Name </th>
                                 <th> Course</th>
-                                <th> Refarance </th>
+                                <th>  Session  </th>
                                 <th> Mobile</th>
                                 <th width="10%"> </th>
                             </tr>
                             </thead>
                             <tbody>
+                                @foreach($students as $student)
                             <tr>
-                                <td width="0%" ><samp >153</samp></td>
-                                <td width="0%" > 01.05.2023 </td>
-                                <td> <a href="preview_student.php?id=153" >Sumi Rani Deb </a></td>
-                                <td> Computer Hardware</td>
-                                <td> </td>
-                                <td> 01933912179</td>
+                                <td width="0%" ><samp >{{$student->id}}</samp></td>
+                            
+                                <td> <a href="{{route('student.show',['student'=>$student->id])}}" >{{$student->name}} </a></td>
+                                <td>{{$student->courseNames}}</td>
+                                <td>{{$student->courses->pluck('sesstion')->join(',')}}</td>
+                                <td>{{$student->mobile}}</td>
 
 
                                 <td nowrap>
-                                    <a href="{{route('student.edit',2)}}"  class="btn btn-success btn-sm" ><i class="fas fa-check-circle"></i></a>
-                                    <a data-appd="153" class="delete btn btn-danger btn-sm" href="#"><i class="fa fa-trash"> </i>  </a>
+                                    <a href="{{route('student.certification',['student'=>$student->id])}}"  class="btn btn-primary btn-sm" ><i class="fas fa-certificate"></i>  </a>
+                                    <a class="btn btn-info btn-sm" href="{{route('student.show',['student'=>$student->id])}}"><i class="far fa-address-card"></i>  </a>
+                                    <a class="btn btn-success btn-sm" href="{{route('student.edit',['student'=>$student->id])}}"  ><i class="fa fa-edit">  </i>  </a>
                                 </td>
                             </tr>
+                            @endforeach
 
                             </tbody>
                             <tfoot>

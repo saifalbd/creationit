@@ -6,6 +6,7 @@ use App\Models\Attachment;
 use App\Models\CompanyInfo;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class UtilityController extends Controller
 {
@@ -108,6 +109,30 @@ class UtilityController extends Controller
 
     }
 
+
+    public function clearCaches()
+    {
+        /**
+         * remove chche
+         */
+        Artisan::call('cache:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+        Artisan::call('view:clear');
+
+
+        return response('succesfully clear all older cache');
+    }
+    public function addCaches()
+    {
+        /**
+         * add cache
+         */
+        Artisan::call('config:cache');
+        Artisan::call('route:cache');
+        Artisan::call('view:cache');
+        return response('succesfully add new cache from now');
+    }
 }
 
 

@@ -8,6 +8,7 @@ use App\Models\Course;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
@@ -18,7 +19,13 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::query()->paginate();
+        $students = Student::query()
+            ->with([
+                'courses' => fn ($q) => $q->select(['id', 'course_id', 'student_id'])->with('course:id,name'),
+                'reference'
+            ])->pending()->latest()->paginate();
+
+        //  return $students;
 
         return view('Admin.pages.student.index', compact('students'));
     }
@@ -27,14 +34,20 @@ class StudentController extends Controller
     {
         $students = Student::query()->with('courses', function ($q) {
             return $q->with(['batch:id,title', 'course']);
-        })->get();
-        // return $students;
+        })->runing()->latest()->paginate();
+       
         return view('Admin.pages.student.currentStudents', compact('students'));
     }
 
     public  function  courseCompleted()
     {
-        return view('Admin.pages.student.courseCompleted');
+        $students = Student::query()->with('courses', function ($q) {
+            return $q->with(['batch:id,title', 'course']);
+        })->completed()->latest()->paginate();
+       
+        return view('Admin.pages.student.courseCompleted',compact('students'));
+
+        
     }
 
     /**
@@ -66,8 +79,8 @@ class StudentController extends Controller
             "date_of_birth" => ['required', 'date'],
             "education" => ['required', 'string'],
             "occupation" => ['required', 'string'],
-            "mobile" => ['required', 'numeric'],
-            "guardian_mobile" => ['required', 'string'],
+            "mobile" => ['required', 'numeric',Rule::unique('students')],
+            "guardian_mobile" => ['required', 'string',Rule::unique('students')],
             "email" => ['required', 'email'],
             "present_address" => ['required', 'string'],
             "permanent_address" => ['required', 'string'],
@@ -107,7 +120,7 @@ class StudentController extends Controller
             'mother_name',
             'gender',
             'date_of_birth',
-            'qualification',
+            'education',
             'occupation',
             'mobile',
             'guardian_mobile',
@@ -119,33 +132,33 @@ class StudentController extends Controller
 
         $studentData = array_merge($data, compact('avatar_id'));
 
-      
+
 
         $studentCourseData = $request->only(['type', 'course_id', 'batch_id', 'roll', 'registration_no', 'academic_year', 'session']);
 
         $feeInfo = [
-            'fee'=>$request->fee,
-            'discount'=>$request->discount,
-            'first_ins'=>$request->first,
-            'first_ins_date'=>$request->first_date,
-            'second_ins'=>$request->second,
-            'second_ins_date'=>$request->second_date,
-            'third_ins'=>$request->third,
-            'third_ins_date'=>$request->third_date
+            'fee' => $request->fee,
+            'discount' => $request->discount,
+            'first_ins' => $request->first,
+            'first_ins_date' => $request->first_date,
+            'second_ins' => $request->second,
+            'second_ins_date' => $request->second_date,
+            'third_ins' => $request->third,
+            'third_ins_date' => $request->third_date
         ];
 
-        $courseInfo = array_merge($studentCourseData,$feeInfo);
+        $courseInfo = array_merge($studentCourseData, $feeInfo);
         $referenceData = $request->only(['ref', 'ref_address', 'ref_mobile']);
-     
 
-       
 
-     return  DB::transaction(function()use($studentData,$courseInfo,$referenceData){
-        $student = Student::create($studentData);
-        $student->courses()->create($courseInfo);
-        $student->reference()->create($referenceData);
-        return  redirect()->route('student.index');
-       });
+
+
+        return  DB::transaction(function () use ($studentData, $courseInfo, $referenceData) {
+            $student = Student::create($studentData);
+            $student->courses()->create($courseInfo);
+            $student->reference()->create($referenceData);
+            return  redirect()->route('student.index');
+        });
     }
 
     /**
@@ -156,9 +169,58 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $student->load(['courses.course','reference']);
+        $student->load(['courses.course', 'reference']);
         // return $student;
         return view('Admin.pages.student.show', compact('student'));
+    }
+
+    public function showStudentByForm(Request $request){
+        $request->validate([
+            'id'=>['required','numeric',Rule::exists('students')]
+        ]);
+
+        $student = Student::find($request->id);
+        $student->load(['courses.course', 'reference']);
+
+        return view('Admin.pages.student.show', compact('student'));
+
+    }
+
+  
+    public function idCard(Student $student){
+
+        return view('Admin.pages.student.id_card',compact('student'));
+
+    }
+
+    public function attendance(Student $student){
+
+        return view('Admin.pages.student.attendance',compact('student'));
+    }
+
+    public function addPayment(Student $student){
+        return view('Admin.pages.student.addPayment',compact('student'));
+    }
+    public function certification(Student $student){
+
+        $student->load(['courses'=>fn($q)=>$q->with('course')]);
+
+        if($student->courses->count()<2){
+            $stCourseId = $student->courses->first()->course_id;
+            $studentCourse = $student->courses()->where('course_id',$stCourseId)->with(['course','batch'])->first();
+            return redirect()->route('student.certification.view',['student'=>$student,'course'=>$stCourseId]);
+        }
+      
+        return view('Admin.pages.student.certificationInput',compact('student'));
+    }
+
+
+    public function certificationView(Request $request,Student $student){
+
+        $request->validate(['course'=>['required','numeric',Rule::exists('student_courses','course_id')->where('student_id',$student->id)]]);
+        $studentCourse = $student->courses()->where('course_id',$request->course)->with(['course','batch'])->first();
+      
+        return view('Admin.pages.student.certification',compact('student','studentCourse'));  
     }
 
     /**
@@ -167,9 +229,16 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Student $student)
     {
-        return view('Admin.pages.student.edit');
+
+        $student->load(['courses', 'reference']);
+
+
+        $batches = Batch::query()->select(['id', 'title'])->get();
+
+        $courses = Course::query()->select('name', 'id')->get();
+        return view('Admin.pages.student.edit', compact('batches', 'courses', 'student'));
     }
 
     /**
@@ -179,9 +248,99 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Student $student)
     {
-        //
+        $request->validate([
+            "name" => ['required', 'string'],
+            "father_name" => ['required', 'string'],
+            "mother_name" => ['required', 'string'],
+            "gender" => ['required', 'string'],
+            "date_of_birth" => ['required', 'date'],
+            "education" => ['required', 'string'],
+            "occupation" => ['required', 'string'],
+            "mobile" => ['required', 'numeric',Rule::unique('students')->whereNot('id',$student->id)],
+            "guardian_mobile" => ['required', 'string'],
+            "email" => ['required', 'email',Rule::unique('students')->whereNot('id',$student->id)],
+            "present_address" => ['required', 'string'],
+            "permanent_address" => ['required', 'string'],
+            "type" => ['required', 'string'],
+            "course_id" => ['required', 'numeric'],
+            "batch_id" => ['required', 'numeric'],
+            "roll" => ['required', 'numeric'],
+            "registration_no" => ['required', 'string'],
+            "academic_year" => ['required', 'string'],
+            "session" => ['required', 'string'],
+            "fee" => ['required', 'numeric'],
+            "discount" => ['nullable', 'numeric'],
+            "payable" => ['required', 'numeric'],
+            "first" => ['required', 'numeric'],
+            "first_date" => ['required', 'date'],
+            "second" => ['required', 'numeric'],
+            "second_date" => ['required', 'date'],
+            "third" => ['required', 'numeric'],
+            "third_date" => ['required', 'date'],
+            "ref" => ['nullable', 'string'],
+            "ref_address" => ['nullable', 'string'],
+            "ref_mobile" => ['required', 'numeric'],
+            'photo' => ['nullable', 'image'],
+            'status'=>['required','in:0,1,2']
+
+        ]);
+
+
+        $avatar_id = $student->avatar_id;
+        if ($request->hasFile('photo')) {
+            $avatar = Attachment::add($request->file('photo'), Student::class);
+            $avatar_id = $avatar->id;
+            Attachment::remove($student->avatar);
+        }
+
+        $data = $request->only(
+            'name',
+            'father_name',
+            'mother_name',
+            'gender',
+            'date_of_birth',
+            'education',
+            'occupation',
+            'mobile',
+            'guardian_mobile',
+            'email',
+            'avatar_id',
+            'present_address',
+            'permanent_address',
+            'status'
+        );
+
+        $studentData = array_merge($data, compact('avatar_id'));
+
+
+
+        $studentCourseData = $request->only(['type', 'course_id', 'batch_id', 'roll', 'registration_no', 'academic_year', 'session']);
+
+        $feeInfo = [
+            'fee' => $request->fee,
+            'discount' => $request->discount,
+            'first_ins' => $request->first,
+            'first_ins_date' => $request->first_date,
+            'second_ins' => $request->second,
+            'second_ins_date' => $request->second_date,
+            'third_ins' => $request->third,
+            'third_ins_date' => $request->third_date
+        ];
+
+        $courseInfo = array_merge($studentCourseData, $feeInfo);
+        $referenceData = $request->only(['ref', 'ref_address', 'ref_mobile']);
+
+
+
+
+        return  DB::transaction(function () use ($student, $studentData, $courseInfo, $referenceData) {
+            $student->update($studentData);
+            $student->courses()->first()->update($courseInfo);
+            $student->reference()->update($referenceData);
+            return  redirect()->route('student.index');
+        });
     }
 
     /**
@@ -190,8 +349,10 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Student $student)
     {
-        //
+        $this->authorize('delete',$student);
+        $student->delete();
+        return redirect()->back();
     }
 }

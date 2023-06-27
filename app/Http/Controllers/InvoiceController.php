@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompanyInfo;
+use App\Models\SaleInvoice;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
@@ -13,7 +15,8 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        return view('Admin.pages.invoice.index');
+        $items = SaleInvoice::query()->with('details')->latest()->paginate();
+        return view('Admin.pages.invoice.index',compact('items'));
     }
 
     /**
@@ -34,7 +37,45 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            "date"=>['required','date'],
+            "customer"=>['required','string'],
+            "address"=>['nullable','string'],
+            "mobile"=>['required','numeric'],
+            'total'=>['required','numeric'],
+            'due'=>['required','numeric'],
+            'paid'=>['required','numeric'],
+            'items'=>['required','array'],
+            'items.*.description'=>['required','string'],
+            'items.*.rate'=>['required','numeric'],
+            'items.*.qty'=>['required','numeric'],
+        ]);
+
+        $date = $request->date;
+        $customer_name = $request->customer;
+        $address = $request->address;
+        $mobile = $request->mobile;
+        $total = $request->total;
+        $paid = $request->paid;
+        $due = $request->due;
+        $remark = $request->remark;
+
+        $sale = SaleInvoice::create(compact('date','customer_name','address','mobile','total','paid','due','remark'));
+
+        collect($request->items)->each(function ($item)use ($sale){
+            $qty = $item['qty'];
+            $rate = $item['rate'];
+            $description = $item['description'];
+            $amount = $qty*$rate;
+            $sale->details()->create(compact('rate','qty','amount','description'));
+
+        });
+
+
+        return  redirect()->route('invoice.index');
+
+
     }
 
     /**
@@ -43,9 +84,11 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(SaleInvoice $inv)
     {
-        //
+
+
+        return view('Admin.pages.invoice.show',compact('inv'));
     }
 
     /**
@@ -54,9 +97,9 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(SaleInvoice $saleInvoice)
     {
-        return view('Admin.pages.invoice.edit');
+        return view('Admin.pages.invoice.edit',compact('saleInvoice'));
     }
 
     /**

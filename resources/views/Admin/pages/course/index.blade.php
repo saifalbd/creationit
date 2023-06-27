@@ -25,7 +25,7 @@
                             <th> Fee</th>
                             <th> Instructor </th>
                             
-                            <th width="10%"> </th>
+                            <th width="15%"> </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,14 +39,11 @@
                             <td  >{{$item->fee}}</td>
                             <td >{{$item->instructor->name}}</td>
                             
-                            <td width="10%">
-                                <div class="d-flex">
-                                    <a href="{{route('course.edit',2)}}" class="btn btn-success btn-sm" > <i class="fa fa-edit ">  </i></a>  
-                                    <form action="{{route('course.destroy',$item->id)}}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                        <a data-id="{{$item->id}}" class="delete btn btn-danger btn-sm" href="#"><i class="fa fa-trash "> </i></a>
-                                    </form>
+                            <td width="15%">
+                                <div class="d-flex" style="justify-content: center;
+                                align-items: center;">
+                                    <a href="{{route('course.edit',['course'=>$item->id])}}" class="btn btn-success btn-sm" > <i class="fa fa-edit ">  </i></a>  
+                                    <x-remove-btn :action="route('course.destroy',['course'=>$item->id])" title="Are You Sure Delete Course {{$item->name}}"></x-remove-btn>
                                 </div>
                                
                             
@@ -58,41 +55,18 @@
                             </tbody>
              <tfoot>
           </table>
+          <x-page-info :items="$items"></x-page-info>
        </div>
     </div>
  </div>
- <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 
 
- <script>
-$('.delete').click(function(e){
-    e.preventDefault();
-    var form = $(this).closest('form');
-    var dataId = $(this).data('id');
 
-    swal({
-      title: "Are you sure?",
-      text: "Delete the category",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    })
-    .then((willDelete) => {
-        
-      if (willDelete) {
-        form.submit();
-        swal("succeess! category deleted success!", {
-          icon: "success",
-        });
-      } else {
-        swal("something is wrong!");
-      }
-    });
+ @slot('script')
 
-});
-
-
- </script>
+ <x-table-script></x-table-script>
+     
+ @endslot
 
 
 

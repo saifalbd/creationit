@@ -20,79 +20,57 @@
                         <tr>
                            <th width="0%"> #</th>
                            <th>Batch Title</th>
+                           <th>Student Count</th>
+                           @can('view', auth()->user())
                            <th>Status </th>
-                           <th width="10%"> </th>
+                           @endcan
+                           <th width="15%"> </th>
                         </tr>
                      </thead>
                      <tbody>
                         @foreach($batches as $batch)
                         <tr>
                            <td width="0%">{{$batch->id}}</td>
-                           <td> <a href="view_batch.php?id=5">{{$batch->title}}</a></td>
+                           <td> <a href="{{route('batch.show',['batch'=>$batch->id])}}">{{$batch->title}}</a></td>
+                           <td>{{$batch->students_count}}</td>
+                           @can('view', auth()->user())
                            <td> <samp data="5" class="status_checks btn  btn-success btn-sm">Active </samp> </td>
-                           <td width="10%">
+                           @endcan
+                           <td  width="15%">
+                           <div class="d-flex" style="justify-content: center;
+                           align-items: center;" >
+
+                         
                               <a href="{{route('batch.show',['batch'=>$batch->id])}}" class="btn btn-info btn-sm"> <i class="fa fa-eye"></i></a>
+                              @can('view', auth()->user())
                               <a href="{{route('batch.edit',['batch'=>$batch->id])}}" class="btn btn-success btn-sm"> <i class="fa fa-edit"></i> </a>
-                              <a data-appd="5" class="delete btn-danger btn-sm" href="#"><i class="fa fa-trash"></i></a>
+                              <x-remove-btn :action="route('batch.destroy',['batch'=>$batch->id])" title="Are You Sure? Delete Batch {{$batch->title}}"></x-remove-btn>
+                           </div>
                            </td>
+                           @endcan
                         </tr>
                         @endforeach
 
                      </tbody>
                      <tfoot>
                   </table>
+                  <x-page-info :items="$batches"></x-page-info>
                </div>
             </div>
          </div>
 
 
-         <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+        
 
-         <script type="text/javascript">
-            $(document).on('click', '.status_checks', function() {
-               var status = ($(this).hasClass("btn-success")) ? '0' : '1';
-               var msg = (status == '0') ? 'Pending' : 'Deliverd';
-               if (confirm("Are you sure to " + msg)) {
-                  var current_element = $(this);
-                  url = "ajaxData.php";
-                  $.ajax({
-                     type: "POST",
-                     url: url,
-                     data: {
-                        id: $(current_element).attr('data'),
-                        status: status
-                     },
-                     success: function(data) {
-                        location.reload();
-                     }
-                  });
-               }
-            });
-         </script>
-
-         <script>
-            $(document).on('click', '.delete', function() {
-               var element = $(this);
-               var del_id = element.attr("data-appd");
-               var info = 'delbatch=' + del_id;
-               if (confirm("Are you sure you want to delete this?")) {
-                  $.ajax({
-                     type: "POST",
-                     url: "ajaxdelete.php",
-                     data: info,
-                     success: function() {}
-                  });
-                  $(this).parents("tr").animate({
-                        backgroundColor: "#003"
-                     }, "slow")
-                     .animate({
-                        opacity: "hide"
-                     }, "slow");
-               }
-               return false;
-            });
-         </script>
+         
+       
 
 
    </main>
+
+   @slot('script')
+
+   <x-table-script></x-table-script>
+       
+   @endslot
 </x-admin-layout>

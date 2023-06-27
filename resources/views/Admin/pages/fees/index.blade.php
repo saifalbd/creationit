@@ -33,19 +33,20 @@
                      <tbody>
                         @foreach($items as $item)
                         <tr>
-                           <td>{{$item->id}}</td>
+                           <td>{{$item->student->id}}</td>
                            <td> <a href="{{route('student.show',['student'=>$item->student->id])}}"> {{$item->student->name}} </a></td>
-                           <td>{{$item->batches->pluck('title')->join(',')}}</td>
-                           <td>{{$item->course->name}}</td>
+                           <td>{{$item->details->pluck('batches')->collapse()->pluck('title')->join(',')}}</td>
+                           <td>{{$item->details->pluck('course')->pluck('name')->join(',')}}</td>
                            <td>{{$item->amount}}</td>
-                           <td>{{$item->trx_mode}}</td>
-                           <td>{{$item->trx_no}}</td>
+                           <td>{{$item->details->pluck('trx_mode')->join(',')}}</td>
+                           <td>{{$item->details->pluck('trx_no')->join(',')}}</td>
+                         
                            <td>{{$item->remark}}</td>
-                           <td>{{$item->date}}</td>
+                           <td>{{format($item->date)}}</td>
                            <td nowrap>
-                              <a href="" class="btn btn-info btn-sm"> <i class="fa fa-print"> </i></a>
+                              <a href="{{route('fee.show',['fee'=>$item->id])}}" class="btn btn-info btn-sm"> <i class="fa fa-print"> </i></a>
                               <a href="{{route('fee.edit',['fee'=>$item->id])}}" class="btn btn-success btn-sm"> <i class="fa fa-edit"> </i></a>
-                              <a data-appd="5" class="delete btn-danger btn-sm" href="#"><i class="fa fa-trash"> </i> </a>
+                              <x-remove-btn :action="route('fee.destroy',['fee'=>$item->id])" title="Are You Sure? Delete Batch {{$item->student->name}}"></x-remove-btn>
                            </td>
                         </tr>
                         @endforeach
@@ -53,31 +54,13 @@
                      </tbody>
                      <tfoot>
                   </table>
+                  <x-page-info :items="$items"></x-page-info>
                </div>
             </div>
          </div>
-         <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-         <script>
-            $(document).on('click', '.delete', function() {
-               var element = $(this);
-               var del_id = element.attr("data-appd");
-               var info = 'delfee=' + del_id;
-               if (confirm("Are you sure you want to delete this?")) {
-                  $.ajax({
-                     type: "POST",
-                     url: "ajaxdelete.php",
-                     data: info,
-                     success: function() {}
-                  });
-                  $(this).parents("tr").animate({
-                        backgroundColor: "#003"
-                     }, "slow")
-                     .animate({
-                        opacity: "hide"
-                     }, "slow");
-               }
-               return false;
-            });
-         </script>
+      
    </main>
+   @slot('script')
+   <x-table-script></x-table-script> 
+   @endslot
 </x-admin-layout>
