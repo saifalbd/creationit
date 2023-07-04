@@ -57,6 +57,7 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
+    'app_online'=>env('APP_ONLINE',true),
 
     /*
     |--------------------------------------------------------------------------
@@ -70,7 +71,7 @@ return [
     */
 
     'timezone' => 'UTC',
-    'dateFormat' => 'jS F Y',
+    'dateFormat' => env('DATE_FORMAT','jS F Y'),
 
     /*
     |--------------------------------------------------------------------------

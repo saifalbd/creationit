@@ -13,9 +13,12 @@ class AttendanceStudent extends Model
     protected  $fillable = ['attendance_id',
     'day_number',
     'attend',
-    'student_id','entry','leave','date'];
+    'remark',
+    'student_id','entry','leave','date','off_day'];
 
     protected $appends = ['isAfter'];
+
+    protected $casts = ['off_day'=>'bool'];
 
     public function  student(){
         return $this->belongsTo(Student::class,'student_id');

@@ -29,6 +29,8 @@ return new class extends Migration
             $table->time('entry')->nullable();
             $table->time('leave')->nullable();
             $table->boolean('attend')->nullable();
+            $table->date('date');
+            $table->boolean('off_day')->default(false);
             $table->timestamps();
         });
     }

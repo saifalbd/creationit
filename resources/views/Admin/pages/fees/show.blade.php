@@ -68,7 +68,10 @@
                 <td nowrap="nowrap">Date</td>
                 <td align="center">: </td>
                 <td><strong>
+
                         {{format($v->date)}} </strong></td>
+                      
+
             </tr>
             <tr>
                 <td nowrap="nowrap">Address</td>
@@ -99,7 +102,6 @@
             <tbody>
 
                 @foreach($v->details as $detail)
-
 
                 <tr>
 

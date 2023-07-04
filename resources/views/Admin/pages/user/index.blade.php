@@ -4,7 +4,7 @@
             <div class="mt-4 mb-3 page-title">
                 <div class="row">
                     <div class="col-md-9 my-auto">
-                        <i class="far fa-list-alt"></i> Course Information <i class="fas fa-angle-right"></i> User List
+                        <i class="far fa-list-alt"></i> User Information <i class="fas fa-angle-right"></i> User List
                     </div>
                     <div class="col-md-3 my-auto">
                         <a href="{{ route('user.create') }}" class="btn btn-outline-primary  float-right"> <i

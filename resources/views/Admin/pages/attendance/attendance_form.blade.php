@@ -1,5 +1,81 @@
 <x-admin-layout>
   @slot('style')
+
+  <style>
+    .text-red{
+      color: red;
+    }
+    .td-child{
+      position: relative;
+    }
+    .td-child .re-btn{
+     
+      background-color:black;
+      color: gold;
+      font-size: 10px;
+      position: absolute;
+      right: 0;
+      bottom: -5px;
+      margin: 0;
+      height: 15px;
+      width: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    .td-child .re-btn.active {
+      background-color:red;
+      color: black;
+    }
+    .remark-modal{
+      position: fixed;
+      background: rgba(0, 0, 0, 0.322);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      width: 100%;
+      height: 100%;
+
+    }
+    .remark-modal .content{
+      min-width: 400px;
+      background-color: white;
+      padding: 20px;
+      position: relative;
+      border-radius: 20px;
+    }
+
+    .remark-close-btn{
+      position: absolute;
+      right: 0;
+      top: 0;
+      border: 1px solid red;
+      border-radius: 100%;
+      width: 30px;
+      height: 30px;
+
+    }
+
+    .remark-header{
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .remark-body{
+      text-align: right;
+    }
+
+    .remark-add-btn{
+      margin-top: 20px;
+      padding: 5px 10px;
+      border-color: #138496;
+      background-color: #138496;
+      color: antiquewhite;
+    }
+    
+  </style>
   <script>
     window.attendance_id  = {!!$attendance->id!!}
     window.students = {!!$students->toJson()!!};
@@ -12,6 +88,19 @@
  </script>
   @endslot
     <main>
+      {{-- <div class="remark-modal">
+        <div class="content">
+          <button class="remark-close-btn">X</button>
+          <div class="remark-header">
+            <div>Saiful islam Remark</div>
+            <small>Date: 22-06-2023</small>
+          </div>
+          <div class="remark-body">
+            <input type="text" class="form-control">
+            <button class="remark-add-btn">Save</button>
+          </div>
+        </div>
+      </div> --}}
         <div class="container-fluid">
 
             <div class="card mt-4">
@@ -49,9 +138,9 @@
                             <th  scope="col">#</th>
                             <th  scope="col">Name</th>
                             @foreach ($days->where('isAfter',false) as $d)
-                            <th class="table-col" scope="col">
-                             <div> {{$d['value']}}</div>
-                             <small>{{$d['text']}}</small>
+                            <th class="table-col" scope="col" >
+                             <div @class(['text-red' => $d['off_day']])> {{$d['value']}}</div>
+                             <small @class(['text-red' => $d['off_day']])>{{$d['text']}}</small>
                             </th>
                             @endforeach
                           </tr>
@@ -67,68 +156,7 @@
     </main>
     @slot('script')
     
-    <script>
-      
-const tb = $('#tableBody');
-
-         
-const attendPost = async (attendance_student,obj)=>{
-
-    
-    const rawResponse = await fetch(`/api/attendance-update/${attendance_student}`, {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(obj)
-  });
-  const content = await rawResponse.json();
-  console.log(content)
-}
-
-students.forEach((student,i) => {
-    console.log(student)
-let row =  document.createElement('tr');
-let id = document.createElement('td');
-let name = document.createElement('td');
-name.style.whiteSpace = 'nowrap';
-id.textContent  = student.id;
-name.textContent = student.name;
-row.appendChild(id);
-row.appendChild(name);
-
-student.attends.filter(item=>!item.isAfter).forEach(d=>{
-    let dom = document.createElement('td'); 
-    dom.style.padding ='10px 20px';
-    dom.classList.add('table-col')
-    row.appendChild(dom);
-    let cBox  = document.createElement('input');
-    cBox.setAttribute('type','checkbox');
-    cBox.style.transform = 'scale(1.7)'
-    if(d.attend){
-        cBox.setAttribute('checked',true)
-    }
-   
-    dom.appendChild(cBox);
-    cBox.addEventListener('change',function(){
-        let attend = this.checked?1:0;
-      
-        const remark = d.remark;
-        const entry = d.entry;
-        const leave = d.leave;
-
-        attendPost(d.id,{attend,remark,entry,leave});
-
-
-    })
-})
-
-
-tb.append(row)
-});
-
-    </script>
+    <script src="/assets/js/attend-form.js"></script>
     
        
     @endslot

@@ -5,37 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Attachment;
 use App\Models\Batch;
 use App\Models\Course;
+use App\Models\PendingStudent;
 use App\Models\Student;
+use App\Rules\BdPhone;
+use App\Services\MessageSender;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $students = Student::query()
-            ->with([
-                'courses' => fn ($q) => $q->select(['id', 'course_id', 'student_id'])->with('course:id,name'),
-                'reference'
-            ])->pending()->latest()->paginate();
+   
 
-        //  return $students;
-
-        return view('Admin.pages.student.index', compact('students'));
-    }
-
-    public  function  currentStudents()
+    public  function  index()
     {
         $students = Student::query()->with('courses', function ($q) {
             return $q->with(['batch:id,title', 'course']);
         })->runing()->latest()->paginate();
        
+
         return view('Admin.pages.student.currentStudents', compact('students'));
     }
 
@@ -57,8 +46,8 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $batches = Batch::query()->select(['id', 'title'])->get();
-
+        $batches = Batch::query()
+        ->select(['id', 'title'])->whereActive(1)->get();
         $courses = Course::query()->select('name', 'id')->get();
         return view('Admin.pages.student.create', compact('batches', 'courses'));
     }
@@ -79,7 +68,7 @@ class StudentController extends Controller
             "date_of_birth" => ['required', 'date'],
             "education" => ['required', 'string'],
             "occupation" => ['required', 'string'],
-            "mobile" => ['required', 'numeric',Rule::unique('students')],
+            "mobile" => ['required', 'numeric',new BdPhone,Rule::unique('students')],
             "guardian_mobile" => ['required', 'string',Rule::unique('students')],
             "email" => ['required', 'email'],
             "present_address" => ['required', 'string'],
@@ -103,17 +92,20 @@ class StudentController extends Controller
             "ref" => ['nullable', 'string'],
             "ref_address" => ['nullable', 'string'],
             "ref_mobile" => ['required', 'numeric'],
-            'photo' => ['nullable', 'image']
-
+            'photo' => ['nullable', 'image','mimes:jpg,bmp,png'],
+           'avatar_id'=>['nullable','numeric'], // for pending aproved
+           'remove_pending'=>['nullable','numeric'],// for pending aproved
         ]);
 
 
-        $avatar_id = 1;
+        $avatar_id = $request->get('avatar_id',1);
         if ($request->hasFile('photo')) {
             $avatar = Attachment::add($request->file('photo'), Student::class);
             $avatar_id = $avatar->id;
         }
 
+        $pass = rand(100011,999999);
+        $password = Hash::make($pass);
         $data = $request->only(
             'name',
             'father_name',
@@ -130,7 +122,8 @@ class StudentController extends Controller
             'permanent_address'
         );
 
-        $studentData = array_merge($data, compact('avatar_id'));
+        $status  = 1;
+        $studentData = array_merge($data, compact('avatar_id','status','password'));
 
 
 
@@ -151,15 +144,28 @@ class StudentController extends Controller
         $referenceData = $request->only(['ref', 'ref_address', 'ref_mobile']);
 
 
+        $remove_pending = $request->remove_pending;
 
 
-        return  DB::transaction(function () use ($studentData, $courseInfo, $referenceData) {
+
+        return  DB::transaction(function () use ($studentData, $courseInfo, $referenceData,$pass,$remove_pending) {
             $student = Student::create($studentData);
             $student->courses()->create($courseInfo);
             $student->reference()->create($referenceData);
+
+            if($remove_pending){
+                PendingStudent::query()->where('id',$remove_pending)->delete();
+            }
+
+            
+            $mobile = $student->mobile;
+            $comName = comInfo('institute');
+            (new MessageSender)->sendSingle($mobile,"$comName n/ Sussfully Registard Your Student Account You Login Password is $pass");
             return  redirect()->route('student.index');
         });
     }
+
+   
 
     /**
      * Display the specified resource.
@@ -232,10 +238,13 @@ class StudentController extends Controller
     public function edit(Student $student)
     {
 
-        $student->load(['courses', 'reference']);
+        $student->load(['courses', 'reference','avatar']);
 
 
-        $batches = Batch::query()->select(['id', 'title'])->get();
+        $batches = Batch::query()
+        ->select(['id', 'title'])->whereActive(1)->get();
+
+      //  return $student;
 
         $courses = Course::query()->select('name', 'id')->get();
         return view('Admin.pages.student.edit', compact('batches', 'courses', 'student'));
@@ -258,7 +267,7 @@ class StudentController extends Controller
             "date_of_birth" => ['required', 'date'],
             "education" => ['required', 'string'],
             "occupation" => ['required', 'string'],
-            "mobile" => ['required', 'numeric',Rule::unique('students')->whereNot('id',$student->id)],
+            "mobile" => ['required', 'numeric',new BdPhone,Rule::unique('students')->whereNot('id',$student->id)],
             "guardian_mobile" => ['required', 'string'],
             "email" => ['required', 'email',Rule::unique('students')->whereNot('id',$student->id)],
             "present_address" => ['required', 'string'],
@@ -282,9 +291,9 @@ class StudentController extends Controller
             "ref" => ['nullable', 'string'],
             "ref_address" => ['nullable', 'string'],
             "ref_mobile" => ['required', 'numeric'],
-            'photo' => ['nullable', 'image'],
-            'status'=>['required','in:0,1,2']
-
+            'photo' => ['nullable', 'image','mimes:jpg,bmp,png'],
+            'status'=>['required','in:0,1,2'],
+           
         ]);
 
 
@@ -352,7 +361,11 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         $this->authorize('delete',$student);
+        $student->courses()->delete();
+        $student->reference()->delete();
+        $avatar = $student->avatar;
         $student->delete();
+        Attachment::remove($avatar);
         return redirect()->back();
     }
 }

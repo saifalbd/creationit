@@ -111,6 +111,14 @@ class BatchController extends Controller
         
     }
 
+
+    public function toggleActive(Batch $batch){
+         $batch->active = !$batch->active;
+         $batch->save();
+
+         return redirect()->back();
+    }
+
     /**
      * Remove the specified resource from storage.
      *

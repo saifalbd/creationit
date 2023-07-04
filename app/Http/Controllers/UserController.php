@@ -52,7 +52,7 @@ class UserController extends Controller
             'email'=>['required','email',Rule::unique('users')],
             'password'=>['required','string'],
             'role'=>['required','in:admin,hr'],
-            'photo'=>['nullable','image']
+            'photo'=>['nullable','image','mimes:jpg,bmp,png']
         ]);
 
         $avatar_id = 1;
@@ -110,7 +110,7 @@ class UserController extends Controller
             'email'=>['required','email',Rule::unique('users')->whereNot('id',$user->id)],
             'password'=>['nullable','string'],
             'role'=>['required','in:admin,hr'],
-            'photo'=>['nullable','image']
+            'photo'=>['nullable','image','mimes:jpg,bmp,png']
         ]);
 
         $avatar_id = $user->avatar_id;

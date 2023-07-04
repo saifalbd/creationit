@@ -46,7 +46,7 @@ class CourseController extends Controller
             'fee'=>['required','numeric'],
             'instructor_id'=>['required','numeric'],
             'details'=>['nullable','string'],
-            'photo'=>['nullable','image']
+            'photo'=>['nullable','image','mimes:jpg,bmp,png']
         ]);
 
         $name = $request->name;
@@ -108,7 +108,7 @@ class CourseController extends Controller
             'fee'=>['required','numeric'],
             'instructor_id'=>['required','numeric'],
             'details'=>['nullable','string'],
-            'photo'=>['nullable','image']
+            'photo'=>['nullable','image','mimes:jpg,bmp,png']
         ]);
 
         $name = $request->name;

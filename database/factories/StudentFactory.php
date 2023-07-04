@@ -58,6 +58,7 @@ class StudentFactory extends Factory
             'guardian_mobile'=>Arr::random(static::NUMBER),
             'email'=>fake()->email,
             'avatar_id'=>1,
+            'status'=>1,
             'present_address'=>fake()->address,
             'permanent_address'=>fake()->address,
             'created_at'=> \Illuminate\Support\Collection::times(30)->map(fn($n)=>now()->startOfMonth()

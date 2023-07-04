@@ -7,6 +7,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
+use phpDocumentor\Reflection\PseudoTypes\LowercaseString;
 
 class Attachment extends Model
 {
@@ -25,16 +26,15 @@ class Attachment extends Model
 
 
     public static function add(UploadedFile $file,string $model):Attachment{
-        $model = class_basename($model);
+        $model = Str::lower(class_basename($model));
        $type = $file->getClientMimeType();
        $ex = $file->getClientOriginalExtension();
        $disk = 'public';
        $slug = $model;
-       $uid = uniqid();
+       $uid = now()->timestamp;
        $name = $uid.'.'.$ex;
        $path  =$slug;
-
-        $path = Storage::disk($disk)->putFileAs($path,$file,$name);
+    $path = Storage::disk($disk)->putFileAs($path,$file,$name);
 
 
 

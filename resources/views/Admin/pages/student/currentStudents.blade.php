@@ -7,8 +7,8 @@
                         Admission <i class="fas fa-angle-right"></i> Admission List
                     </div>
                     <div class="col-sm-4 text-right">
-                        <a href="list_new_applicaion.php" class="btn btn-outline-primary"> <i
-                                class="fas fa-plus-square"></i> New Application </a>
+                        <a href="{{route('student.create')}}" class="btn btn-outline-primary"> <i
+                                class="fas fa-plus-square"></i> New Admission </a>
                     </div>
                 </div>
             </div>

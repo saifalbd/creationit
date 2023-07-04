@@ -1,8 +1,12 @@
 /node_modules
 /public/hot
 /public/storage
+/public/frontend/*
 /storage/*.key
 /vendor
+/resources/js/*
+webpack.mix.js
+tailwind.config.js
 .env
 note.txt
 .env.backup
@@ -14,3 +18,5 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+/composer.json
+package.json

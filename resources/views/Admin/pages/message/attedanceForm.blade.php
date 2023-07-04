@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-12 py-4">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
+                <input type="text" class="form-control" placeholder="Global Message Here" aria-label="Recipient's username"
                  aria-describedby="button-addon2" style="border-top-right-radius:0;border-bottom-right-radius:0;" id="forAll">
                 <div class="input-group-append">
                   <button class="btn btn-info" type="button" id="apply">Apply</button>
@@ -52,7 +52,7 @@
 
 </main>
 @slot('script')
-<script src="/assets/js/table-script.js"></script>
+
 <script type="application/javascript">
 const apply = document.getElementById('apply');
 const forAll = document.getElementById('forAll');

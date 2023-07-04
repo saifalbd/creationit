@@ -9,7 +9,10 @@ class Instructor extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','specialty','nid','designation','father_name','mother_name','mobile','email','address','join_date','salary','avatar_id'];
+
+    protected $fillable = ['name','specialty','nid','designation',
+    'father_name','mother_name','mobile','email','address','join_date',
+    'salary','avatar_id','facebook','twitter','linkedin','password'];
 
 
     public  function  avatar(){
@@ -19,5 +22,7 @@ class Instructor extends Model
     public function courses(){
         return $this->hasMany(Course::class,'instructor_id');
     }
+
+
 
 }

@@ -34,7 +34,17 @@
                            <td> <a href="{{route('batch.show',['batch'=>$batch->id])}}">{{$batch->title}}</a></td>
                            <td>{{$batch->students_count}}</td>
                            @can('view', auth()->user())
-                           <td> <samp data="5" class="status_checks btn  btn-success btn-sm">Active </samp> </td>
+                           <td>
+                            
+                               <a href="{{route('batch.toggleActive',['batch'=>$batch->id])}}"
+                                   @class(['status_checks btn','btn-sm','btn-danger'=>!$batch->active, 'btn-success' =>$batch->active])>
+                                   @if ($batch->active)
+                                   Active
+                                   @else 
+                                   InActive
+                                   @endif
+                                 </a> 
+                              </td>
                            @endcan
                            <td  width="15%">
                            <div class="d-flex" style="justify-content: center;

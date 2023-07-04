@@ -6,8 +6,12 @@ use App\Models\Batch;
 use App\Models\Student;
 use App\Services\MessageSender;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use PDO;
 
 class MessageController extends Controller
 {
@@ -23,6 +27,60 @@ class MessageController extends Controller
 
     public function due(){
 
+      $batches = Batch::query()->select(['id','title','active'])->whereActive(true)->get();
+   
+        return view('Admin.pages.message.due',compact('batches'));
+    }
+
+    public function dueForm(Request $request){
+        $request->validate(['batch'=>['required','numeric']]);
+        $batch_id = $request->batch;
+
+        $batch = Batch::find($batch_id);
+
+        $students = Student::query()->select(['id','name','mobile'])
+        ->with(['courses'=>fn($q)=>$q->where('batch_id',$batch_id),'vouchers.details'])->get();
+
+        
+        $students =  $students->map(function($student){
+            $student->courseIdist = $student->courses->pluck('course_id')->unique();
+            return $student;
+
+        })->filter(fn($student)=>$student->courseIdist->count())->map(function($student){
+            $courseIdist =  $student->courseIdist->toArray();
+            $fee = $student->courses->sum('fee');
+            $paid = $student->vouchers->pluck('details')->collapse()->whereIn('course_id',$courseIdist)->sum('amount');
+            $due = $fee - $paid;
+            $id = $student->id;
+            $name = $student->name;
+            $mobile = $student->mobile;
+            return compact('fee','paid','due','id','name','mobile');
+        })->filter(fn($q)=>$q['due']>0)->values();
+        
+        
+        return view('Admin.pages.message.dueForm',compact('students','batch'));
+    }
+
+    public function dueFormSend(Request $request){
+
+        $request->validate([
+            'items'=>['required','array'],
+            'items.*'=>['required','array'],
+            'items.*.to'=>['required','numeric'],
+            'items.*.due'=>['required','numeric'],
+            'items.*.messageBefore'=>['required','string','max:160'],
+            'items.*.messageAfter'=>['required','string','max:160'],
+
+        ]);
+        
+        $items = collect($request->items)->filter(fn($item)=>is_bd_phone($item['to']))->values()->map(function($item){
+            $to = $item['to'];
+            $message = $item['messageBefore'].' '.$item['due'].' '.$item['messageAfter'];
+            return compact('to','message');
+        })->toArray();
+       (new MessageSender)->sendBulk($items);
+
+        return redirect()->route('message.due',['success'=>'SuccessFully Send Messages']);
     }
 
 
@@ -84,5 +142,29 @@ class MessageController extends Controller
         return redirect()->route('batch.index',['success'=>'SuccessFully Send Messages']);
         
 
+    }
+
+
+    public function smsInfo(){
+
+        $token = config('sms.token');
+        $url = config('sms.info_url');
+
+        $slug = "token=$token&rate&totalsms&balance&expiry&json";
+        $res = Http::get($url,$slug);
+
+    
+
+        $arr = collect(json_decode($res->body()));
+
+        $balance = $arr->where('action','balance')->first()->response;
+        $totalsms = $arr->where('action','totalsms')->first()->response;
+        $rate = $arr->where('action','rate')->first()->response;
+        $expiry = $arr->where('action','expiry')->first()->response;
+        
+
+       $data = compact('balance','rate','totalsms','expiry');
+
+        return view('Admin.pages.message.smsInfo',$data);
     }
 }

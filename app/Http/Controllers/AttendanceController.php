@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\AttendanceStudent;
 use App\Models\Batch;
+use App\Models\Holiday;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -38,7 +39,7 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        $batches = Batch::query()->select(['title','id'])->get();
+        $batches = Batch::query()->select(['title','id'])->whereActive(1)->get();
         $currentMonthNumber = now()->format('m');
         $currentYearNumber = now()->format('Y');
         $months = Collection::times(12)->map(function($n){
@@ -62,7 +63,9 @@ class AttendanceController extends Controller
         $request->validate([
             'batch_id'=>['required','numeric'],
             'month'=>['required','numeric'],
-            'year'=>['required','numeric']
+            'year'=>['required','numeric'],
+         
+       
         ]);
 
 
@@ -74,6 +77,10 @@ class AttendanceController extends Controller
        $attendance = Attendance::firstOrCreate(compact('batch_id','month','year'));
 
        $att = $this->attendanceList($attendance);
+
+      // return $att;
+
+       
         $att['students']->map(function($item)use($attendance){
 
         $student_id = $item['student_id'];
@@ -85,10 +92,11 @@ class AttendanceController extends Controller
             $entry = $item['entry'];
             $leave = $item['leave'];
             $attend = $item['attend'];
+            $off_day = $item['off_day'];
 
             AttendanceStudent::firstOrCreate(
                 compact('student_id','attendance_id','day_number'),
-                compact('remark','entry','leave','attend','date')
+                compact('remark','entry','leave','attend','date','off_day')
             );
         });
 
@@ -106,17 +114,37 @@ class AttendanceController extends Controller
         $students = Student::query()->select(['id','name'])
         ->whereHas('courses',fn($q)=>$q->where('batch_id',$attendance->batch_id))->get();
         //dayNumber
+        $holidays = Holiday::query()->select(['title','from','to'])->get()->map(function($item){
+           $from =  Carbon::parse($item->from)->timestamp;
+           $to = Carbon::parse($item->to)->timestamp;
+           return compact('from','to');
+        });
+       // return $holidays;
         $monthNumber = $attendance->month;
         $yearNumber = $attendance->year;
-        $date = Carbon::parse("$yearNumber-$monthNumber")->startOf('month');
+        $date = Carbon::parse("$yearNumber-$monthNumber")->startOf('month')->startOfDay();
         $daysInMonth = $date->daysInMonth;
-        $days = Collection::times($daysInMonth)->map(function($n)use($date){
-            $d = $n==1? $date:$date->addDay();
+        $days = Collection::times($daysInMonth)->map(function($n)use($date,$holidays){
+            $d = $n==1? $date:$date->addDay()->startOfDay();
             $text = $d->format('D');
             $value = $d->format('d');
             $date = $d->format('Y-m-d');
+            $datestamp = $d->timestamp;
+             $isOff = $holidays->filter(function($item)use($datestamp){
+                $from = $item['from'];
+                $to = $item['to'];
+                if($datestamp>=$from && $datestamp<=$to){
+                    return true;
+                }else{
+                    return false;
+                }
+
+             })->count();
+
+             $off_day = !!$isOff;
+
             $isAfter = $d->greaterThan(now()->startOfDay());
-            return compact('text','value','date','isAfter');
+            return compact('text','value','date','isAfter','off_day');
         });
 
         $students = $students->map(function ($student)use($list,$days){
@@ -133,6 +161,8 @@ class AttendanceController extends Controller
                 $date = $d['date'];
                 $id = null;
                 $isAfter = null;
+                $off_day = $d['off_day'];
+                
                 $has = $list->where('student_id',$student_id)->where('day_number',$d['value'])->first();
                 if($has){
                     $remark = $has->remark;
@@ -142,11 +172,12 @@ class AttendanceController extends Controller
                     $date = $has->date;
                     $id = $has->id;
                     $isAfter = $has->isAfter;
+                    $off_day = $has->off_day;
                     
 
                 }
 
-                return compact('student_id','id','remark','entry','leave','attend','dayNumber','date','isAfter');
+                return compact('student_id','id','remark','entry','leave','attend','dayNumber','date','isAfter','off_day');
 
 
 
@@ -216,6 +247,8 @@ class AttendanceController extends Controller
 
        
         $att = $this->attendanceList($attendance);
+
+        // return $att;
 
  
 

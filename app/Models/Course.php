@@ -20,4 +20,8 @@ class Course extends Model
         return $this->hasMany(StudentCourse::class,'course_id');
     }
 
+    public function avatar(){
+        return $this->belongsTo(Attachment::class,'avatar_id');
+    }
+
 }

@@ -9,7 +9,10 @@ class Batch extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title','saturday','sunday','monday','tuesday','wednesday','thursday','friday'];
+    protected $fillable = ['title',
+    'active',
+    'saturday','sunday',
+    'monday','tuesday','wednesday','thursday','friday'];
 
 
 
@@ -22,6 +25,7 @@ class Batch extends Model
         'student_id',
      );
     }
+
 
 
     public function attendances(){

@@ -7,9 +7,11 @@ use App\Models\CompanyInfo;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 
 class UtilityController extends Controller
 {
+
 
     public function viewSetting(){
         $info = CompanyInfo::query()->first();
@@ -35,14 +37,14 @@ class UtilityController extends Controller
 'address'=>['required','string'],
 'mobile'=>['required','string'],
 'email'=>['required','email'],
-'logo'=>['nullable','image'],
+'logo'=>['nullable','image','mimes:jpg,bmp,png'],
         ]);
 
 
         $info = CompanyInfo::query()->first();
         if(!$info){
             if(!$request->hasFile('logo')){
-                $request->validate(['logo'=>['required','image']]);
+                $request->validate(['logo'=>['required','image','mimes:jpg,bmp,png']]);
             }
         }else{
             $avatar_id = $info->avatar_id;
@@ -68,6 +70,8 @@ class UtilityController extends Controller
             CompanyInfo::create($data);
         }
 
+        Cache::delete('comInfo');
+
         return redirect()->back();
 
     }
@@ -84,7 +88,7 @@ class UtilityController extends Controller
             'fullName'=>['required','string'],
             'email'=>['required','email'],
             'mobile'=>['required','numeric'],
-            'photo'=>['nullable','image'],
+            'photo'=>['nullable','image','mimes:jpg,bmp,png','max:500'],
         ]);
 
         $name = $request->fullName;
@@ -120,8 +124,19 @@ class UtilityController extends Controller
         Artisan::call('config:clear');
         Artisan::call('view:clear');
 
+        
 
-        return response('succesfully clear all older cache');
+        /*add Cache*/
+
+        if(config('app.app_online')){
+            Artisan::call('config:cache');
+            Artisan::call('route:cache');
+            Artisan::call('view:cache');
+        }
+       
+
+
+        return redirect()->back();
     }
     public function addCaches()
     {

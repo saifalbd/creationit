@@ -55,10 +55,17 @@
                 </div>
                 
                
-                <div class="form-group col-md-4">
-                   <label for="inputEmail4">Photo (Maximum 50 KB) </label>
-                   <input type="file" class="form-control" name="photo"  >
-                </div>
+                <div class="form-group with-avatar col-md-6" id="avatarFgroup">
+                  <div class="avarar-box">
+                      <img src="{{$course->avatar->url}}" alt="" srcset="">
+                  </div>
+                 <div>
+                  <label for="inputEmail4">Photo (Maximum 250 KB) </label>
+                  <input type="file" class="form-control @error('photo') is_invalid @enderror" name="photo"
+                         value="{{ old('photo') }}" onchange="imageChange(event,'avatarFgroup')">
+                         @error('photo') <div class="invalid-feedback">{{$message}}}</div> @enderror
+                 </div>
+              </div>
                
              </div>
              <hr>

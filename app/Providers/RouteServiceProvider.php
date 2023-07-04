@@ -8,7 +8,9 @@ use App\Models\Batch;
 use App\Models\Course;
 use App\Models\FeeReceipt;
 use App\Models\FeeReceiptVoucher;
+use App\Models\Holiday;
 use App\Models\Instructor;
+use App\Models\PendingStudent;
 use App\Models\SaleInvoice;
 use App\Models\Student;
 use App\Models\Voucher;
@@ -58,9 +60,13 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+                Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/jkweb.php'));
         });
 
         Route::model('student',Student::class);
+        Route::model('pending_student',PendingStudent::class);
         Route::model('fee',FeeReceiptVoucher::class);
         Route::model('course',Course::class);
         Route::model('batch',Batch::class);
@@ -70,6 +76,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('voucher',Voucher::class);
         Route::model('ledger',VoucherLedger::class);
         Route::model('attendance_student',AttendanceStudent::class);
+        Route::model('holiday',Holiday::class);
 
 
     }

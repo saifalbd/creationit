@@ -435,7 +435,11 @@ table.dataTable {
 	padding-bottom: 0.4rem;
 	position: relative;
 	font-weight: 500;
+<<<<<<< HEAD
+	font-size: .95em;
+=======
 	font-size: 1em;
+>>>>>>> b02d54c9a53941db174e636deb846c6b948dc14a
 }
 
 

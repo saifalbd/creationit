@@ -6,7 +6,7 @@
                         Admission <i class="fas fa-angle-right"></i> New Application
                     </div>
                     <div class="col-sm-4">
-                        <a href="{{url('student/create')}}" class="btn btn-outline-primary float-right"> <i class="fas fa-plus-square"></i> Add Admission </a>
+                        <a href="{{route('student.create')}}" class="btn btn-outline-primary float-right"> <i class="fas fa-plus-square"></i> Add Admission </a>
                     </div>
                 </div>
             </div>

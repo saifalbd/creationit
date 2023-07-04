@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('batches', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->boolean('active')->default(false);
             $table->string('saturday')->nullable();
             $table->string('sunday')->nullable();
             $table->string('monday')->nullable();

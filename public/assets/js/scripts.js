@@ -50,3 +50,29 @@ function showList(start,end){
 
     })
 }
+
+
+function imageChange(event,parentID){
+    console.log(event,parentID)
+    let p = document.getElementById(parentID);
+    let img = p.getElementsByTagName('img')[0];
+
+    const files = event.target.files;
+
+    if(files.length){
+
+        const fileRead = new FileReader;
+
+        fileRead.onload = ()=>{
+            img.src = fileRead.result;
+            p.classList.add('with-avatar');
+        }
+
+        fileRead.readAsDataURL(files[0])
+
+    }else{
+       p.classList.remove('with-avatar');
+    }
+    
+
+}

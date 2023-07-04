@@ -33,10 +33,14 @@ return new class extends Migration
             $table->string('mother_name');
             $table->string('mobile');
             $table->string('email');
+            $table->string('password')->nullable();
             $table->text('address');
             $table->date('join_date');
             $table->integer('salary');
             $table->foreignId('avatar_id');
+            $table->text('facebook')->nullable();
+            $table->text('twitter')->nullable();
+            $table->text('linkedin')->nullable();
             $table->timestamps();
         });
     }

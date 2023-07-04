@@ -1,4 +1,25 @@
 <x-admin-layout>
+    @slot('style')
+    <style>
+        .form-group .avarar-box{
+            display: none;
+        }
+        .form-group.with-avatar{
+            display: grid;
+            grid-template-columns: 100px auto;
+        }
+
+        .form-group.with-avatar .avarar-box{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-group.with-avatar .avarar-box img{
+            max-width: 90px;
+            max-height: 90px;
+        }
+    </style>
+    @endslot
 
     <main>
         <div class="container-fluid">
@@ -48,14 +69,14 @@
                                     <div class="invalid-feedback">{{ $message }}}</div>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
                                 <label for="inputpresent_address2">Gender</label>
                                 <select class="form-control" name="gender">
                                     <option value="Male" @selected($student->gender == 'Male')> Male </option>
                                     <option value="Female" @selected($student->gender == 'Female')> Female </option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
                                 <label for="inputpresent_address2">Date of Birth</label>
                                 <input type="date" class="form-control @error('date_of_birth') is_invalid @enderror"
                                     name="date_of_birth" value="{{ $student->date_of_birth }}">
@@ -64,7 +85,7 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="inputCity">Highest Educational Qualification</label>
                                 <input type="text" class="form-control @error('education') is_invalid @enderror"
                                     name="education" value="{{ $student->education }}"
@@ -74,7 +95,7 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-4">
                                 <label for="inputCity">Occupation </label>
                                 <select class="form-control @error('occupation') is_invalid @enderror"
                                     name="occupation">
@@ -87,7 +108,7 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-4">
                                 <label for="inputCity">Mobile</label>
                                 <input type="number" class="form-control @error('mobile') is_invalid @enderror"
                                     name="mobile" value="{{ $student->mobile }}">
@@ -104,7 +125,7 @@
                                     <div class="invalid-feedback">{{ $message }}}</div>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="inputCity">E-mail</label>
                                 <input type="email" class="form-control @error('email') is_invalid @enderror"
                                     id="email" name="email" value="{{ $student->email }}">
@@ -113,9 +134,16 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group with-avatar col-md-6" id="avatarFgroup">
+                                <div class="avarar-box">
+                                    <img src="{{$student->avatar->url}}" alt="" srcset="">
+                                </div>
+                               <div>
                                 <label for="inputEmail4">Photo (Maximum 50 KB) </label>
-                                <input type="file" class="form-control" name="photo" value="{{ old('photo') }}">
+                                <input type="file" class="form-control @error('photo') is_invalid @enderror" name="photo"
+                                       value="{{ old('photo') }}" onchange="imageChange(event,'avatarFgroup')">
+                                       @error('photo') <div class="invalid-feedback">{{$message}}}</div> @enderror
+                               </div>
                             </div>
 
                             <div class="form-group col-md-6">
@@ -370,8 +398,8 @@
                             <div class="col-md-2">
                        
                              <select name="status"  class="form-control" required>
-                               <option value="">Select Status</option>
-                                    <option value="0" @selected($student->status==0)> Pending Application </option>
+                               {{-- <option value="">Select Status</option> --}}
+                                    {{-- <option value="0" @selected($student->status==0)> Pending Application </option> --}}
                                     <option value="1"  @selected($student->status==1)> Running Application </option>
                                     <option value="2"  @selected($student->status==2)> Course Compleated </option>
                            
@@ -384,4 +412,16 @@
         
         </div>
     </main>
+    @slot('script')
+<script>
+    const discount = document.getElementById('discount');
+    const fee = document.getElementById('fee');
+    const payable = document.getElementById('payable');
+    discount.addEventListener('change',function(){
+        const val = parseFloat(this.value);
+        let feeVal = parseFloat(fee.value);
+        if(feeVal){ payable.value = feeVal - val;}
+    });
+    </script>
+@endslot
 </x-admin-layout>

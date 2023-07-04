@@ -3,7 +3,7 @@
        <div class="sb-sidenav-menu">
           <div class="nav">
              <div class="sb-sidenav-menu-heading"> </div>
-             <a class="nav-link dahboard-btn" style="padding: 9px;color: #fff!important;" href="{{url('home')}}">
+             <a class="nav-link dahboard-btn" style="padding: 9px;color: #fff!important;" href="{{route('home')}}">
                 <div class="sb-nav-link-icon "><i class="fas fa-tachometer-alt"  ></i></div>
                 Dashboard
              </a>
@@ -46,8 +46,8 @@
              <div class="collapse" id="admission" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
                    <a class="nav-link text-white" href="{{route('student.create')}}"> Admission  </a>
-                   <a class="nav-link text-white" href="{{route('student.index')}}"> Pending Admission   </a>
-                   <a class="nav-link text-white" href="{{route('student.current')}}"> Current Student</a>
+                   <a class="nav-link text-white" href="{{route('pendingStudent.index')}}"> Pending Admission   </a>
+                   <a class="nav-link text-white" href="{{route('student.index')}}"> Current Student</a>
                    <a class="nav-link text-white" href="{{route('student.courseCompleted')}}"> Course Completed</a>
 
                 </nav>
@@ -175,16 +175,30 @@
             Reports
              </a>
 
+             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#holiday" aria-expanded="false" aria-controls="collapsePages">
+               <div class="sb-nav-link-icon"><i class="fas fa-file-invoice"></i></div>
+           Holidays
+               <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+            </a>
+            <div class="collapse" id="holiday" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+               <nav class="sb-sidenav-menu-nested nav">
+                  <a class="nav-link" href="{{route('holiday.create')}}"> New Holiday </a>
+                  <a class="nav-link" href="{{route('holiday.index')}}"> List Holiday</a>
+               </nav>
+            </div>
+
                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon"><i class="fas fa-globe"></i></div> Front End
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
              </a>
              <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
-                   <a class="nav-link" href="page_create.php">Add Page</a>
-                   <a class="nav-link" href="page_archive.php">Page Archive</a>
-                   <a class="nav-link" href="slider.php">Slider</a>
-                   <a class="nav-link" target="_blank" href="../web"> Preview</a>
+                  <a class="nav-link" href="{{route('page.create')}}">Add Page</a>
+                  <a class="nav-link" href="{{route('page.index')}}">Page Archive</a>
+                  <a class="nav-link" href="{{route('slider.create')}}">Slider</a>
+                  <a class="nav-link" href="{{route('successfull.index')}}">Successfull Student</a>
+                  <a class="nav-link" href="">Contact</a>
+                  <a class="nav-link" target="_blank" href="{{route('frontend')}}">Visit Website</a>
                 </nav>
              </div>
 

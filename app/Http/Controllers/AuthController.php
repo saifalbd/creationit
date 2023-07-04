@@ -16,7 +16,7 @@ class AuthController extends Controller
     public function loginPage(){
 
         // return Attachment::query()->first();
-        return view('Admin.pages.login');
+        return view('Admin.pages.loginOld');
     }
 
     public  function  logout(){

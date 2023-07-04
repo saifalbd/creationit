@@ -1,5 +1,26 @@
 <x-admin-layout>
 
+    @slot('style')
+    <style>
+        .form-group .avarar-box{
+            display: none;
+        }
+        .form-group.with-avatar{
+            display: grid;
+            grid-template-columns: 100px auto;
+        }
+
+        .form-group.with-avatar .avarar-box{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-group.with-avatar .avarar-box img{
+            max-width: 90px;
+            max-height: 90px;
+        }
+    </style>
+    @endslot
     <main>
         <div class="container-fluid"><div class="mt-4 mb-3 page-title">
                 <div class="row">
@@ -37,28 +58,28 @@
                                        value="{{ old('mother_name') }}">
                                 @error('mother_name') <div class="invalid-feedback">{{$message}}}</div> @enderror
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
                                 <label for="inputpresent_address2">Gender</label>
                                 <select class="form-control" name="gender" value="{{ old('gender') }}">
                                     <option value="Male"> Male </option>
                                     <option value="Female"> Female </option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
                                 <label for="inputpresent_address2">Date of Birth</label>
                                 <input type="date" class="form-control @error('date_of_birth') is_invalid @enderror" name="date_of_birth"
                                        value="{{ old('date_of_birth') }}">
                                 @error('date_of_birth') <div class="invalid-feedback">{{$message}}}</div> @enderror
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="inputCity">Highest Educational Qualification</label>
                                 <input type="text" class="form-control @error('education') is_invalid @enderror" name="education"
                                        value="{{ old('education') }}" placeholder="Ex: HSC with GPA 4.50">
                                 @error('education') <div class="invalid-feedback">{{$message}}}</div> @enderror
                             </div>
 
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-4">
                                 <label for="inputCity">Occupation </label>
                                 <select class="form-control @error('occupation') is_invalid @enderror" name="occupation"
                                         value="{{ old('occupation') }}">
@@ -69,7 +90,7 @@
                                 @error('occupation') <div class="invalid-feedback">{{$message}}}</div> @enderror
                             </div>
 
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-4">
                                 <label for="inputCity">Mobile</label>
                                 <input type="number" class="form-control @error('mobile') is_invalid @enderror"  name="mobile"  value="{{ old('mobile') }}">
                                 @error('mobile') <div class="invalid-feedback">{{$message}}}</div> @enderror
@@ -80,17 +101,23 @@
                                        name="guardian_mobile" value="{{ old('guardian_mobile') }}">
                                 @error('guardian_mobile') <div class="invalid-feedback">{{$message}}}</div> @enderror
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="inputCity">E-mail</label>
                                 <input type="email" class="form-control @error('email') is_invalid @enderror" id="email" name="email"
                                        value="{{ old('email') }}">
                                 @error('email') <div class="invalid-feedback">{{$message}}}</div> @enderror
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group with-avatar col-md-6" id="avatarFgroup">
+                                <div class="avarar-box">
+                                    <img src="{{asset('assets/img/avatar.png')}}" alt="" srcset="">
+                                </div>
+                               <div>
                                 <label for="inputEmail4">Photo (Maximum 50 KB) </label>
-                                <input type="file" class="form-control" name="photo"
-                                       value="{{ old('photo') }}">
+                                <input type="file" class="form-control @error('photo') is_invalid @enderror" name="photo"
+                                       value="{{ old('photo') }}" onchange="imageChange(event,'avatarFgroup')">
+                                       @error('photo') <div class="invalid-feedback">{{$message}}}</div> @enderror
+                               </div>
                             </div>
 
                             <div class="form-group col-md-6">
@@ -190,21 +217,21 @@
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label for="inputthird2">Fee</label>
-                                <input type="number" class="form-control @error('fee') is_invalid @enderror" name="fee"
+                                <input type="number" class="form-control @error('fee') is_invalid @enderror" id="fee" name="fee"
                                        value="{{ old('fee') }}">
                                 @error('fee') <div class="invalid-feedback">{{$message}}}</div> @enderror
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label for="inputCity">Discount</label>
-                                <input type="number" class="form-control @error('discount') is_invalid @enderror" name="discount"
+                                <input type="number" class="form-control @error('discount') is_invalid @enderror" id="discount" name="discount"
                                        value="{{ old('discount') }}">
                                 @error('discount') <div class="invalid-feedback">{{$message}}}</div> @enderror
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label for="inputCity">Payable</label>
-                                <input type="number" class="form-control @error('payable') is_invalid @enderror" name="payable"
+                                <input type="number" class="form-control @error('payable') is_invalid @enderror" id="payable" name="payable"
                                        value="{{ old('payable') }}">
                                 @error('payable') <div class="invalid-feedback">{{$message}}}</div> @enderror
                             </div>
@@ -281,7 +308,6 @@
                 </div>
                 <div class="card mb-4">
                     <div class="card-body">
-
                         <input type="submit" name="submit" value="Save" class="btn btn-primary ">
                         <button type="reset" class="btn btn-secondary">Reset</button>
                     </div>
@@ -290,6 +316,19 @@
         
         </div>
     </main>
+
+@slot('script')
+<script>
+    const discount = document.getElementById('discount');
+    const fee = document.getElementById('fee');
+    const payable = document.getElementById('payable');
+    discount.addEventListener('change',function(){
+        const val = parseFloat(this.value);
+        let feeVal = parseFloat(fee.value);
+        if(feeVal){ payable.value = feeVal - val;}
+    });
+    </script>
+@endslot
 </x-admin-layout>
 
 

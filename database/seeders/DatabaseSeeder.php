@@ -22,16 +22,16 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-//        Instructor::factory(50)->create();
-//        Batch::factory(30)->create();
-//        Course::factory(50)->create();
-//        Student::factory(50)->create();
+       Instructor::factory(50)->create();
+       Batch::factory(30)->create();
+       Course::factory(50)->create();
+       Student::factory(50)->create();
 
-        // FeeReceiptVoucher::factory(100)->create();
+        FeeReceiptVoucher::factory(100)->create();
 
        $this->call([
-        //    UserSeeder::class,
-        //    AttachmentSeeder::class,
+           UserSeeder::class,
+           AttachmentSeeder::class,
            LedgerSeeder::class
        ]);
 

@@ -32,6 +32,25 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('pending_students', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('father_name');
+            $table->string('mother_name');
+            $table->string('gender');
+            $table->date('date_of_birth');
+            $table->string('education')->nullable();
+            $table->string('occupation');
+            $table->string('mobile',15);
+            $table->string('guardian_mobile',15);
+            $table->string('email');
+            $table->foreignId('avatar_id');
+            $table->text('present_address');
+            $table->text('permanent_address');
+            $table->foreignId('course_id');
+            $table->timestamps();
+        });
+
         Schema::create('student_courses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id');
@@ -76,6 +95,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('student_courses');
         Schema::dropIfExists('student_references');
+        Schema::dropIfExists('pending_students');
         Schema::dropIfExists('students');
     }
 };

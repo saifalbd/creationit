@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Attachment;
 use App\Models\Instructor;
+use App\Rules\BdPhone;
+use App\Services\MessageSender;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class InstructorController extends Controller
@@ -45,12 +48,17 @@ class InstructorController extends Controller
             'designation'=>['required','string'],
             'father_name'=>['required','string'],
             'mother_name'=>['required','string'],
-            'mobile'=>['required','numeric',Rule::unique('instructors')],
+            'mobile'=>['required','numeric',new BdPhone,Rule::unique('instructors')],
             'email'=>['required','email',Rule::unique('instructors')],
             'join_date'=>['required','date'],
             'salary'=>['required','numeric'],
-            'photo'=>['nullable','image'],
-            'address'=>['required','string']
+            'photo'=>['nullable','image','mimes:jpg,bmp,png'],
+            'address'=>['required','string'],
+            'facebook'=>['nullable','string'],
+            'twitter'=>['nullable','string'],
+            'linkedin'=>['nullable','string'],
+           
+
         ]);
 
         $name = $request->name;
@@ -65,16 +73,25 @@ class InstructorController extends Controller
         $salary = $request->salary;
         $address = $request->address;
         $avatar_id = 1;
-
+        $facebook = $request->facebook;
+        $twitter = $request->twitter;
+        $linkedin = $request->linkedin;
+        $pass = rand(100011,999999);
+        $password = Hash::make($pass);
         if($request->hasFile('photo')){
             $avatar = Attachment::add($request->photo,Instructor::class);
             $avatar_id = $avatar->id;
         }
 
 
-        $data = compact('name','specialty','nid','designation','father_name','mother_name','mobile','email','join_date','salary','avatar_id','address');
+        $data = compact('name','specialty','nid','designation',
+        'father_name','mother_name','mobile','email','password','join_date','salary',
+        'avatar_id','address','facebook','twitter','linkedin');
 
+        
         Instructor::create($data);
+        $comName = comInfo('institute');
+        (new MessageSender)->sendSingle($mobile,"$comName n/ Sussfully Registard Your Instructor Account You Login Password is $pass");
         return redirect()->route('instructor.index');
 
 
@@ -119,12 +136,16 @@ class InstructorController extends Controller
             'designation'=>['required','string'],
             'father_name'=>['required','string'],
             'mother_name'=>['required','string'],
-            'mobile'=>['required','numeric',Rule::unique('instructors')->whereNot('id',$instructor->id)],
+            'mobile'=>['required','numeric',new BdPhone,Rule::unique('instructors')->whereNot('id',$instructor->id)],
             'email'=>['required','email',Rule::unique('instructors')->whereNot('id',$instructor->id)],
             'join_date'=>['required','date'],
             'salary'=>['required','numeric'],
-            'photo'=>['nullable','image'],
-            'address'=>['required','string']
+            'photo'=>['nullable','image','mimes:jpg,bmp,png'],
+            'address'=>['required','string'],
+            'facebook'=>['nullable','string'],
+            'twitter'=>['nullable','string'],
+            'linkedin'=>['nullable','string'],
+         
         ]);
 
         $name = $request->name;
@@ -139,6 +160,10 @@ class InstructorController extends Controller
         $salary = $request->salary;
         $address = $request->address;
         $avatar_id = $instructor->avatar_id;
+        $facebook = $request->facebook;
+        $twitter = $request->twitter;
+        $linkedin = $request->linkedin;
+        
 
         if($request->hasFile('photo')){
             $avatar = Attachment::add($request->photo,Instructor::class);
@@ -147,7 +172,7 @@ class InstructorController extends Controller
         }
 
 
-        $data = compact('name','specialty','nid','designation','father_name','mother_name','mobile','email','join_date','salary','avatar_id','address');
+        $data = compact('name','specialty','nid','designation','father_name','mother_name','mobile','email','join_date','salary','avatar_id','address','facebook','twitter','linkedin');
 
         $instructor->update($data);
         return redirect()->route('instructor.index');

@@ -21,7 +21,8 @@ class ReportController extends Controller
     public function index()
     {
         $courses = Course::query()->select(['name','id'])->get();
-        $batches = Batch::query()->select(['id','title'])->get();
+        $batches = Batch::query()
+        ->select(['id','title'])->whereActive(1)->get();
         $ledgers = VoucherLedger::select(['id','name'])->get();
 
         return view('Admin.pages.report.index',compact('courses','batches','ledgers'));

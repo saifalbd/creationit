@@ -18,7 +18,8 @@ class AttachmentSeeder extends Seeder
         $disk  = 'public';
         $path = 'avatar.png';
         $is_default = true;
-
+        Attachment::create(compact('disk','path','is_default'));
+        $path = 'logo.jpeg';
         Attachment::create(compact('disk','path','is_default'));
     }
 }

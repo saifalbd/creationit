@@ -1,4 +1,25 @@
 <x-admin-layout>
+   @slot('style')
+   <style>
+       .form-group .avarar-box{
+           display: none;
+       }
+       .form-group.with-avatar{
+           display: grid;
+           grid-template-columns: 100px auto;
+       }
+
+       .form-group.with-avatar .avarar-box{
+           display: flex;
+           justify-content: center;
+           align-items: center;
+       }
+       .form-group.with-avatar .avarar-box img{
+           max-width: 90px;
+           max-height: 90px;
+       }
+   </style>
+   @endslot
 <main>
                <div class="container-fluid">
 
@@ -102,12 +123,39 @@
 
    </div>
 
-   <div class="form-group col-md-4">
-      <label for="inputEmail4">Photo (Maximum 50 KB) </label>
-      <input type="file" class="form-control" name="photo"   value="{{old('photo')}}">
-      @error('photo')<div class="invalid-feedback">{{ $message }}</div>@enderror
+   <div class="form-row">
+      <div class="form-group col-md-4">
+         <label for="inputCity">Facebook</label>
+         <input type="text" class="form-control  @error('facebook') is-invalid @enderror" name="facebook"  value="{{$instructor->facebook}}">
+         @error('facebook')<div class="invalid-feedback">{{ $message }}</div>@enderror
+      </div>
+      <div class="form-group col-md-4">
+         <label for="inputCity">Twitter</label>
+         <input type="text" class="form-control  @error('twitter') is-invalid @enderror" name="twitter"  value="{{$instructor->twitter}}">
+         @error('twitter')<div class="invalid-feedback">{{ $message }}</div>@enderror
+      </div>
+      <div class="form-group col-md-4">
+         <label for="inputCity">Linkedin</label>
+         <input type="text" class="form-control  @error('linkedin') is-invalid @enderror" name="linkedin"  value="{{$instructor->linkedin}}">
+         @error('linkedin')<div class="invalid-feedback">{{ $message }}</div>@enderror
+      </div>
    </div>
 
+   <div class="form-row">
+      <div class="form-group with-avatar col-md-6" id="avatarFgroup">
+         <div class="avarar-box">
+             <img src="{{$instructor->avatar->url}}" alt="" srcset="">
+         </div>
+        <div>
+         <label for="inputEmail4">Photo (Maximum 50 KB) </label>
+         <input type="file" class="form-control @error('photo') is_invalid @enderror" name="photo"
+                value="{{ old('photo') }}" onchange="imageChange(event,'avatarFgroup')">
+                @error('photo') <div class="invalid-feedback">{{$message}}}</div> @enderror
+        </div>
+     </div>
+
+  
+   </div>
 
    <hr>
    <input type="submit" name="submit" value="Submit" id="register" class="btn btn-primary ">
