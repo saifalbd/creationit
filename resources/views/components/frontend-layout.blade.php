@@ -101,16 +101,16 @@
 															<!-- Naviagiton -->
 															<ul id="nav" class="nav main-menu menu navbar-nav">
 																<li><a href="{{route('frontend')}}"><i style="font-size: 1rem;"class="fa fa-home"></i> </a></li>
-															<li class="icon-active"><a href="#">আমাদের সম্পর্কে <i class="fas fa-angle-down"></i> </a>
+															<li class="icon-active"><a href="{{route('about.us',1)}}">আমাদের সম্পর্কে <i class="fas fa-angle-down"></i> </a>
 																	<ul class="sub-menu">
 																		<li><a href="{{route('about.us',1)}}">আমাদের সম্পর্কে</a></li>
+																		<li><a href="{{route('success.student')}}">সফল স্টুডেন্টস</a></li>
 																		<li><a href="{{route('founder')}}">আমাদের ফাউন্ডার</a></li>
 																	</ul>
 																</li>
-																<li class="icon-active"><a href="#">কোর্স <i class="fas fa-angle-down"></i> </a>
+																<li class="icon-active"><a href="{{route('frontend.course')}}">কোর্স <i class="fas fa-angle-down"></i> </a>
 																	<ul class="sub-menu">
-																		<li><a href="{{route('success.student')}}">Successfull Students</a></li>
-																		<li><a href="{{route('course.freelancing')}}">Freelancing</a></li>
+																		<li><a href="{{route('course.freelancing')}}">ফ্রিল্যান্সিং </a></li>
 																	</ul>
 																</li>
 														 
@@ -163,7 +163,7 @@
 								<ul>
 						<li><a href="{{route('frontend.verification.create')}}"> Student Verfication</a></li>
 						<li><a href="{{route('frontend.admission')}}"> Admission</a></li>
-						<li><a href="payment.php">Payment</a></li>
+						<li><a href="{{route('frontend.course')}}">Couses</a></li>
 								</ul>
 							</div>			
 							<!--/ End Footer Links -->			
@@ -171,15 +171,15 @@
 						<div class="col-lg-5 col-md-6 col-12">
 							<!-- Footer News -->
 							<div class="single-widget footer-news widget">	
-								<h3 class="widget-title">Blog Page</h3>
+								<h3 class="widget-title">Important Govt Website</h3>
 									<ul>
-								<li><a href="http://www.educationboardresults.gov.bd/"> Education Board Result </a></li>
-								<li><a href="https://services.nidw.gov.bd/nid-pub/"> NID Application System  </a></li>
-								<li><a href="https://pcc.police.gov.bd/"> Bangladesh police </a></li>
-								<li><a href="https://www.epassport.gov.bd">  Bangladesh e-Passport Portal </a></li>
-								<li><a href="https://eboardresults.com/v2/home"> RESULT PUBLICATION SYSTEM FOR EDUCATION BOARDS </a></li>
-								<li><a href="http://www.bteb.gov.bd/"> বাংলাদেশ কারিগরি শিক্ষা বোর্ড </a></li>
-								<li><a href="http://180.211.137.51/"> Directorate of Primary Education </a></li>
+								<li><a target="_blank" href="http://www.educationboardresults.gov.bd/"> Education Board Result </a></li>
+								<li><a target="_blank" href="https://services.nidw.gov.bd/nid-pub/"> NID Application System  </a></li>
+								<li><a target="_blank" href="https://pcc.police.gov.bd/"> Bangladesh police </a></li>
+								<li><a target="_blank" href="https://www.epassport.gov.bd">  Bangladesh e-Passport Portal </a></li>
+								<li><a target="_blank" href="https://eboardresults.com/v2/home"> RESULT PUBLICATION SYSTEM FOR EDUCATION BOARDS </a></li>
+								<li><a target="_blank" href="http://www.bteb.gov.bd/"> বাংলাদেশ কারিগরি শিক্ষা বোর্ড </a></li>
+								<li><a target="_blank" href="http://180.211.137.51/"> Directorate of Primary Education </a></li>
 		 </ul>
 							</div>			
 							<!--/ End Footer News -->			

@@ -1,5 +1,5 @@
 <x-frontend-layout>
-<section class="about-us section-space">
+<section class="about-us section-space" style="position: relative">
     <div class="container my-5 bg">
         <div class="row">
             <div class="col-sm-12 col-md-6">
@@ -9,8 +9,10 @@
                     ক্রিয়েশন আইটি ইনস্টিটিউট ১০টিরও বেশি সেক্টরে মানুষকে দক্ষ করে তুলছে।
                 </p>
                 <div class="video-thumnail">
-                    <img src="/frontend/img/freelancing.jpeg" alt="">
-                    <span class="video-icon"><i class="fas fa-play"></i></span>
+                    <img src="/{{$data[0]->photo}}" alt="">
+                    <span class="video-icon" id="video_icon">
+                        <i class="fas fa-play"></i>
+                    </span>
                 </div>
             </div>
         </div>
@@ -107,10 +109,121 @@
 
         </div>
     </div>
+
+
+    {{-- video modal --}}
+
+<div class="video-modal" id="video_content">
+    <div class="video-content">
+        <iframe class="modal-view" width="560" height="315" src="{{$data[0]->link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <span class="video-close" id="video_close"><i class="fas fa-times-circle"></i> </span>
+    </div>
+</div>
+
 </section>
 
 
+
+
+
+<script>
+let videIcon = document.getElementById('video_icon');
+let videoContent = document.getElementById('video_content');
+let videoClose = document.getElementById('video_close');
+
+videIcon.addEventListener('click', function(){
+    videoContent.classList.add('active');
+})
+
+
+videoClose.addEventListener('click', function(){
+    videoContent.classList.remove('active');
+})
+
+</script>
+  
 <style>
+
+
+.video-modal {
+	width: 100%;
+	color: white;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	z-index: 99999 !important;
+    visibility: hidden;
+    transform: scale(.6);
+}
+
+.video-modal::after {
+	background: black;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	content: "";
+	opacity: .8;
+	z-index: -1;
+}
+
+.video-modal.active{
+    visibility: visible;
+    transform: scale(1);
+    transition: .5s linear;
+}
+
+.video-content {
+	width: 80%;
+	margin: auto;
+	position: relative;
+}
+
+.modal-view {
+	width: 100%;
+	height: 450px;
+	box-shadow: 0px 0px 8px 8px rgba(230, 224, 224, 0.1);
+	border: 1px solid #939393;
+	border-radius: .5rem;
+    margin-top: 100px;
+}
+
+.video-content span.video-close {
+	position: absolute;
+	top: 14%;
+	color: red;
+	font-size: 30px;
+	cursor: pointer;
+	z-index: 9999;
+	overflow: ;
+	left: ;
+	right: -3%;
+}
+
+@media(max-width:768px){
+.modal-view {
+    margin-top: 20px !important;
+}
+
+.video-content span.video-close {
+	top: 0%;
+	right: 0%;
+}
+
+.freelance-content h1 {
+	font-size: 35px;
+	margin-top: 20px;
+}
+
+
+
+}
+
+
+
+
 .bg {
 	background: #fff7f6;
 	padding: 50px 40px;
@@ -163,6 +276,9 @@
 	font-size: 25px;
 	color: #939393;
 }
+
+
+
 
 </style>
 

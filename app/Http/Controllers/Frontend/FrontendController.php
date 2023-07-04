@@ -11,6 +11,8 @@ use App\Models\Page;
 use App\Models\SuccessStudent;
 use App\Models\Instructor;
 use App\Models\contact;
+use App\Models\Video;
+
 class FrontendController extends Controller
 {
 
@@ -56,7 +58,8 @@ public function instructor(){
 
 // course
 public function course(){
-    return view('frontend.course.course');
+    $courses = Instructor::query()->latest('id')->with('avatar')->get();
+    return view('frontend.course.course', compact('courses'));
 }
 // syllabus
 public function syllabus(){
@@ -125,7 +128,15 @@ public function founder(){
 public function otherInstitute(){
     $institutes = Achivement::where('condition','institute')->get();
     // dd($institutes);
-    return view("frontend.other_institute",compact(['institutes']));
+   
 }
+
+
+public function freelancing(){
+    $data = Video::latest()->get();
+    return view('frontend.course.freelancing', compact('data'));
+}
+
+
 
 }

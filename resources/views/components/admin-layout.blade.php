@@ -28,7 +28,7 @@
 
       <nav class="sb-topnav navbar navbar-expand navbar-light bg-light">
 
-         <a class="navbar-brand" href="index.php"> <img src="/assets/img/logo.jpeg" alt="" class="thumb-sm"> </a>
+         <a class="navbar-brand" href="{{route('home')}}"> <img src="/assets/img/logo.jpeg" alt="" class="thumb-sm"> </a>
          <button class="btn btn-link btn-md order-1 order-lg-0 sidebar-btn" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
 
          <div class="form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0 d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -250,6 +250,7 @@
                            <a class="nav-link" href="{{route('successfull.index')}}">Successfull Student</a>
                            <a class="nav-link" href="{{route('achivement.index')}}">Achivement</a>
                            <a class="nav-link" href="{{route('contact.show')}}">Contact</a>
+                           <a class="nav-link" href="{{route('video.create')}}">Video</a>
                            <a class="nav-link" target="_blank" href="{{route('frontend')}}">Visit Website</a>
                         </nav>
                      </div>

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Slider;
 use App\Models\contact;
+use App\Models\Video;
+
 class SliderController extends Controller
 {
     // create 
@@ -66,4 +68,52 @@ class SliderController extends Controller
         $data->delete();
         return redirect()->route('contact.show')->with('danger','Contact Message Successfully Deleted !');
     }
+
+
+//video create
+    public function Videocreate(){
+        $data = Video::all();
+        return view('Admin.frontend.video', compact('data'));
+    }
+
+    public function videoUpdate(Request $request){
+        $request->validate([
+            'link' => "required",
+            'photo' => "nullable",
+        ]);
+
+        $data = Video::find(1);
+
+        if($request->hasFile('photo')){
+            $image = $request->file('photo');
+            $imgExt = $image->getClientOriginalExtension();
+            $imgName = Str::random().time().'.'.$imgExt;
+            $image->move('upload/video/',$imgName);
+            $storeImg = 'upload/video/'.$imgName;
+            $data->photo = $storeImg;
+        }
+        
+        $data->update(['link'=>$request->link,'photo'=>$storeImg]);
+        return redirect()->route('video.create');
+
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

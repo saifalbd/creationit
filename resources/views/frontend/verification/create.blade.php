@@ -13,9 +13,11 @@
                     </div>
                 </div>
             </div>
-            
-            
+            @if($message = Session::get('danger'))
+                    <div class="alert alert-danger mt-2">{{$message}}</div>
+                @endif
             <div class="row mt-5 mb-5">
+                
                 <div class="col-4">
                  
                 </div><div class="col-4">

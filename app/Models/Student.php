@@ -25,9 +25,12 @@ class Student extends Model
         return $this->hasMany(StudentCourse::class,'student_id');
     }
 
+
+
     public  function  reference(){
         return $this->hasOne(StudentReference::class,'student_id');
     }
+
 
 
 }
