@@ -23,10 +23,9 @@
  <thead>
    <tr>
      <th width="20%" align="left" valign="top">PAGE TITLE</th>
+     <th width="10%" align="left" valign="top" nowrap>Page Name</th>
      <th width="50%" align="left" valign="top" nowrap>Description</th>
-
-     <th width="10%" align="left" valign="top" nowrap>Meta Tag</th>
-     <th width="20%" align="left" valign="top" nowrap>Keyword</th>
+     <th width="10%" align="left" valign="top" nowrap>File</th>
      <th width="10%" align="left" valign="top" nowrap>Photo</th>
      <th width="6%" align="right" valign="top" nowrap="nowrap">Action</th>
    </tr>
@@ -35,15 +34,34 @@
 
   @foreach($data as $item)
     <tr>
-      <td align="left"> {{$item->page_title}}</td>
-      <td align="left">{{$item->description}}</td>
-      <td align="left" nowrap>{{$item->meta_desc}}</td>
-      <td align="left" nowrap>{{$item->keywords}}</td>
+      <td align="left"> {{ $item->page_title}}</td>
+      @if($item->menu == 1)
+      <td align="left" nowrap>About Page</td>
+      @elseif ($item->menu == 4)
+      <td align="left" nowrap>Founder Page</td>
+      @elseif ($item->menu == 2)
+      <td align="left" nowrap>News Post</td>
+      @elseif ($item->menu == 3)
+      <td align="left" nowrap>Testimonial Post</td>
+      @endif
+      @if(empty($item->description))
+      <td align="left">Don`t Have description</td>
+      @else
+      <td align="left">{!! $item->description !!}</td>
+      @endif
+      
+      @if (!empty($item->file))
+        <td><a href=""><i class="fas fa-file file-design"></i></a></td>
+      @else
+      <td align="left">Don`t Have File</td>
+      @endif
+
       @if($item->photo)
       <td >
         <img src="/{{$item->photo}}" alt="" style="width:100px;height:70px">
       </td>
-     
+      @else
+      <td align="left">Don`t Have Photo</td>
       @endif
 
       <td align="right" nowrap="nowrap" width="6%">
@@ -64,6 +82,14 @@
 </div>
 </main>
 
+
+<style>
+.file-design {
+	color: gray;
+	font-size: 100px;
+	padding: 10px;
+}
+</style>
 
 <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 

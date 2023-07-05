@@ -11,7 +11,9 @@ use App\Models\Page;
 use App\Models\SuccessStudent;
 use App\Models\Instructor;
 use App\Models\contact;
+use App\Models\Student;
 use App\Models\Video;
+use App\Models\HeroSection;
 
 class FrontendController extends Controller
 {
@@ -19,10 +21,16 @@ class FrontendController extends Controller
 
     public function index(){
         $data = Slider::orderBy('serial','asc')->get();
-        $courses = Course::orderBy('id','desc')->paginate(9);
+        $courses = Course::query()->latest('id')->with('avatar')->get();
+        $instructor = Instructor::latest()->get();
+        $students = Student::latest()->get();
+        $completeStudents = Student::where('status',2)->get();
         $testimonials = Page::where('menu',3)->get();
+        $hero = HeroSection::where('id',1)->first();
         // dd($testimonials);
-        return view('frontend.index', compact(['data','courses','testimonials']));
+        return view('frontend.index', compact(
+            ['data','courses','testimonials','instructor','students','completeStudents','hero']
+        ));
 
     }
 
@@ -58,9 +66,20 @@ public function instructor(){
 
 // course
 public function course(){
-    $courses = Instructor::query()->latest('id')->with('avatar')->get();
+    $courses = Course::query()->latest('id')->with('avatar')->get();
     return view('frontend.course.course', compact('courses'));
 }
+
+// single course
+public function courseDetail($id){
+    $data = Course::where('id',$id)->with('avatar')->first();
+    // dd($data);
+    return view("frontend.course.single-course",compact('data'));
+
+} 
+
+
+
 // syllabus
 public function syllabus(){
     return view('frontend.course.syllabus');
@@ -99,12 +118,20 @@ public function StudentSuccess(){
     return view('frontend.success-student',compact(['data','sliders']));
 }
 
-public function aboutUs($id){
+public function searchStudent(Request $request){
+    $data = SuccessStudent::when($request->search, function ($query, $search) {
+        $query->where('name' , 'LIKE' , "%{$search}%");
+    })->latest()->get();
+    return view("frontend.student-search", compact('data'));
+
+}
+
+public function aboutUs(){
     
-    $data = Page::where(['menu'=>$id])->get();
+    $data = Page::where(['menu'=> 1])->get();
     
     if( count($data) > 0){
-        return view('frontend.about.about', compact('data'));
+        return view('frontend.about.about-us', compact('data'));
     }{
         return redirect()->route('frontend');
     }
@@ -118,15 +145,24 @@ public function founder(){
     $courses = Course::orderBy('id','desc')->paginate(9);
     $achives = Achivement::where('condition','achive')->get();
     $data = Page::where('menu', 4)->get();
+
+    $courses = Course::query()->latest('id')->with('avatar')->get();
+    $instructor = Instructor::latest()->get();
+    $students = Student::latest()->get();
+    $completeStudents = Student::where('status',2)->get();
+
     // dd($achives);
     if(count($data) > 0){
 
-        return view("frontend.about.founder",compact(['data','courses','achives']));
+        return view("frontend.about.founder",compact(
+            ['data','courses','achives','instructor','students','completeStudents']
+        ));
     }
 }
 
 public function otherInstitute(){
     $institutes = Achivement::where('condition','institute')->get();
+    return view('frontend.other_institute', compact('institutes'));
     // dd($institutes);
    
 }
@@ -136,7 +172,6 @@ public function freelancing(){
     $data = Video::latest()->get();
     return view('frontend.course.freelancing', compact('data'));
 }
-
 
 
 }

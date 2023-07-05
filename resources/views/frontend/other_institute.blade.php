@@ -44,25 +44,42 @@ h2{
 
 
 
-@media(max-height:768px){
+@media(max-width:768px){
 
 .custom-item {
     width: 100%;
 }
 .ahive-img img {
-	height: auto;
-	width: 100% ;
+    height: auto;
+    width: 100% ;
 }
 
 .achive-content {
-	margin-top: 20px;
+    margin-top: 20px;
 }
+
+.custom-item {
+    width: 100%;
+    display: block;
+}
+
+.achive-content h2 {
+font-size: 20px;
+}
+
+
+.achive-content h4 {
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+
+
 
 }
 
 </style>
 <!-- slider achivement -->
-<section class="testimonials section-space">
+<section class="testimonials">
     <div class="testimonial-inner">
         <div class="">
             <!-- Single Testimonial -->
@@ -100,7 +117,7 @@ h2{
                 <div class="right-bar mt-5">
                     <!-- Search Bar -->
                     <ul class="right-nav">
-                        <li class=""> <a href="" class="course-btn"> Visit Web Site</a></li>
+                        <li class=""> <a href="https://www.nishansmedia.com/" target="_blank" class="course-btn"> Visit Web Site</a></li>
                     </ul>
                     <!--/ End Search Bar -->
                 </div>

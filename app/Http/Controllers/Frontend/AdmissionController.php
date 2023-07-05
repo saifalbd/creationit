@@ -22,17 +22,20 @@ class AdmissionController extends Controller
 
 
 public function checkVerification(Request $request){
-    $data = Student::with(['courses'])
+    $data = Student::with(['courses','avatar'])
     ->where('mobile',$request->mobile)
     ->where('status',1)
     ->orWhere('status',2)
-    ->get();
+    ->first();
 
-    if(count($data) > 0){
-        $courseInfo = StudentCourse::with('course')->get();
-        $avatarInfo = Student::with('avatar')->get();
-        // dd($courseInfo[0]->course->name);
-        return view("frontend.verification.verify_show",compact(['data','courseInfo','avatarInfo']));
+    
+    
+
+// dd($course);
+    if(!empty($data)){
+        $courseId = $data->courses[0]->course_id;
+        $course = Course::where('id',$courseId)->first();
+        return view("frontend.verification.verify_show",compact(['data','course']));
     }else{
         return redirect()->route("frontend.verification.create")->with('danger'," Your Admission is not verify ! ");
     }

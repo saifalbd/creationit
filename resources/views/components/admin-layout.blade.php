@@ -251,6 +251,7 @@
                            <a class="nav-link" href="{{route('achivement.index')}}">Achivement</a>
                            <a class="nav-link" href="{{route('contact.show')}}">Contact</a>
                            <a class="nav-link" href="{{route('video.create')}}">Video</a>
+                           <a class="nav-link" href="{{route('hero.create')}}">Hero Section</a>
                            <a class="nav-link" target="_blank" href="{{route('frontend')}}">Visit Website</a>
                         </nav>
                      </div>

@@ -1,25 +1,4 @@
 <x-frontend-layout>
-<!-- Breadcrumb -->
-<div class="breadcrumbs" >
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="bread-inner">
-                    <!-- Bread Menu -->
-                    <div class="bread-menu">
-                        <ul>
-                            <li><a href="{{route('frontend')}}">Home <i class="fas fa-angle-right"></i></a> </li>
-                            <li><a href="{{route('frontend.admission')}}"> Student Admission</a></li>
-                        </ul>
-                    </div>
-                     
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- / End Breadcrumb -->
-
 
 <section class="call-action"  >
     <div class="container">

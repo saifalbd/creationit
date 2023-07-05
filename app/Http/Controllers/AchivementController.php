@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Achivement;
+use App\Models\HeroSection;
 use Illuminate\Support\Facades\File;
 class AchivementController extends Controller
 {
@@ -157,4 +158,50 @@ class AchivementController extends Controller
     
         }
     }
+
+
+// hero create
+public function heroCreate(){
+    $data = HeroSection::where('id',1)->first();
+    return view('Admin.frontend.hero-create', compact('data'));
+}
+
+
+// hero store
+public function heroStore(Request $request){
+     // dd($request->title);
+     $request->validate([
+        'title' => "required|string|max:200",
+        'photo' => "required|mimes:png,jpg,jpeg",
+        'description' => "nullable|string|max:500",
+    ]);
+
+    $data = HeroSection::find(1);
+    
+
+    if($request->hasFile('photo')){
+        $storePath = $data->photo;
+        // delete existing file;
+        if (File::exists($storePath)) {
+            File::delete($storePath);
+        }
+
+        $image = $request->file('photo');
+        $imgExt = $image->getClientOriginalExtension();
+        $imgName = Str::random().time().'.'.$imgExt;
+        $image->move('upload/achivement/',$imgName);
+        $storeImg = 'upload/achivement/'.$imgName;
+        $data->photo = $storeImg;
+    }
+   
+
+    $store = $data->update([
+        'title' => $request->title,
+        'description' => $request->description,
+    ]);
+
+    return redirect()->route("hero.create")->with("success", $request->title.'is added successfully');
+
+}
+
 }

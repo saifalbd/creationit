@@ -24,6 +24,9 @@ Route::view('/contact', 'frontend/contact')->name('frontend.contact');
 Route::post('/store', [FrontendController::class, 'store'])->name('contact.store');
 Route::get('/freelancing', [FrontendController::class, 'freelancing'])->name('course.freelancing');
 Route::get('/course', [FrontendController::class, "course"])->name('frontend.course');
+Route::get('/course-detail/{id}', [FrontendController::class, "courseDetail"])->name('single.course');
+
+
 Route::get('/syllabus', [FrontendController::class, "syllabus"])->name('frontend.syllabus');
 // Route::get('/verification-result', [FrontendController::class, "verificationResult"])->name('frontend.verification.result');
 Route::get('/news', [FrontendController::class, "news"])->name('frontend.news');
@@ -33,17 +36,22 @@ Route::get('/verification', [AdmissionController::class, "verificationCreate"])-
 Route::post('/check/verification',[AdmissionController::class,'checkVerification'])->name('check.verification');
 
 Route::get('/success-student',[FrontendController::class, "StudentSuccess"])->name('success.student');
-Route::get('about-us/{id}', [FrontendController::class, "aboutUs"])->name('about.us');
+Route::post('/student-search',[FrontendController::class, "searchStudent"])->name('student.search');
+Route::get('about-us', [FrontendController::class, "aboutUs"])->name('about.us');
 Route::get('founder', [FrontendController::class, "founder"])->name('founder');
 Route::get('other-institute', [FrontendController::class, "otherInstitute"])->name('other.institute');
 
 
 
+
 Route::middleware(['auth'])->group(function () {
     Route::resource('/page', PageController::class);
+    Route::get('download/file/{id}', [PageController::class, 'Download'])->name('download.file');
     Route::resource('successfull', SuccessStudentController::class);
     Route::resource('achivement', AchivementController::class);
-
+    Route::get('hero/create',[AchivementController::class, 'heroCreate'])->name('hero.create');
+    Route::post('hero/store',[AchivementController::class, 'heroStore'])->name('hero.store');
+    
     Route::get('video/create',[SliderController::class, 'Videocreate'])->name('video.create');
     Route::post('video/update',[SliderController::class, 'videoUpdate'])->name('video.update');
     Route::get('slider/create', [SliderController::class, 'create'])->name('slider.create');

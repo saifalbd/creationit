@@ -16,4 +16,8 @@ class Course extends Model
         return $this->belongsTo(Instructor::class,'instructor_id');
     }
 
+    public function avatar(){
+        return $this->belongsTo(Attachment::class,'avatar_id');
+    }
+
 }
