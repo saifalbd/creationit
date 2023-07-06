@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group ">
                         <label>PASSWORD</label>
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" value="1234" name="password" required>
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" value="123456" name="password" required>
                         <span class="help-block"></span>
                         @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
        

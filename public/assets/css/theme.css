@@ -276,9 +276,7 @@ table.dataTable {
 }
 
 
-.bg-primary {
-#6610f226!important;
-}
+
 
 .input-group>.form-control:not(:last-child),
 .input-group>.custom-select:not(:last-child) {
@@ -434,12 +432,8 @@ table.dataTable {
 	padding-top: 0.4rem;
 	padding-bottom: 0.4rem;
 	position: relative;
-	font-weight: 500;
-<<<<<<< HEAD
-	font-size: .95em;
-=======
-	font-size: 1em;
->>>>>>> b02d54c9a53941db174e636deb846c6b948dc14a
+	font-weight: 500;	
+    font-size: 1em;
 }
 
 

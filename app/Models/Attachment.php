@@ -36,6 +36,8 @@ class Attachment extends Model
        $path  =$slug;
     $path = Storage::disk($disk)->putFileAs($path,$file,$name);
 
+  
+
 
 
 

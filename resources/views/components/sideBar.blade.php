@@ -192,14 +192,16 @@
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
              </a>
              <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                <nav class="sb-sidenav-menu-nested nav">
+               <nav class="sb-sidenav-menu-nested nav">
                   <a class="nav-link" href="{{route('page.create')}}">Add Page</a>
                   <a class="nav-link" href="{{route('page.index')}}">Page Archive</a>
                   <a class="nav-link" href="{{route('slider.create')}}">Slider</a>
                   <a class="nav-link" href="{{route('successfull.index')}}">Successfull Student</a>
-                  <a class="nav-link" href="">Contact</a>
+                  <a class="nav-link" href="{{route('achivement.index')}}">Achivement</a>
+                  <a class="nav-link" href="{{route('contact.show')}}">Contact</a>
+                  <a class="nav-link" href="{{route('video.create')}}">Video</a>
                   <a class="nav-link" target="_blank" href="{{route('frontend')}}">Visit Website</a>
-                </nav>
+               </nav>
              </div>
 
 

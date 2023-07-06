@@ -13,16 +13,19 @@
                     </div>
                 </div>
             </div>
-            
-            
+            @if($message = Session::get('danger'))
+                    <div class="alert alert-danger mt-2">{{$message}}</div>
+                @endif
             <div class="row mt-5 mb-5">
+                
                 <div class="col-4">
                  
                 </div><div class="col-4">
                       
-                    <form   action="verification_result.php" method="get">
-                        <input type="text" name="id" value="" class="form-control" placeholder="Enter Admission ID Here"/> <br> 
-                        <button type="submit" class="btn btn-info" id="searchsubmit"><i class="fa fa-search"></i> Search </button>
+                    <form  action="{{route('check.verification')}}" method="post">
+                        @csrf
+                        <input type="number" required name="mobile" value="" class="form-control" placeholder="Check By Mobile Number"/> <br> 
+                        <button type="submit" class="btn btn-info" ><i class="fa fa-search"></i> Search </button>
                     </form>
                                          
                 </div>

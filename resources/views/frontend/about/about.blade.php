@@ -19,7 +19,7 @@
 								<div class="text">
 									 
 									<p>
-                                        {{$data[0]->description}} 
+                                        {!! $data[0]->description !!} 
                                     <p>
                                     </div>
 							 

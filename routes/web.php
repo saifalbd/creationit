@@ -133,9 +133,4 @@ Route::middleware('auth')->prefix('/admin')->group(function () {
     });
 
 
-    Route::resource('/page', PageController::class);
-    Route::resource('/successfull', SuccessStudentController::class);
-    Route::get('/slider/create', [SliderController::class, 'create'])->name('slider.create');
-    Route::post('/slider/store', [SliderController::class, 'store'])->name('slider.store');
-    Route::get('/slider/destroy/{id}', [SliderController::class, 'destroy'])->name('slider.destroy');
 });

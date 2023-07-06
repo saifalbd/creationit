@@ -50,7 +50,7 @@
                     <div class="right-bar">
                         <!-- Search Bar -->
                         <ul class="right-nav">
-                            <li class=""> <a href="" class="course-btn"> <img src="/frontend/img/book.png" alt="">  ব্রাউজ কোর্স </a></li>
+                            <li class=""> <a href="{{route('frontend.course')}}" class="course-btn"> <img src="/frontend/img/book.png" alt="">  ব্রাউজ কোর্স </a></li>
                         </ul>
                         <!--/ End Search Bar -->
                     </div>	

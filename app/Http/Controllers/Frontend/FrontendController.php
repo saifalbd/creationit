@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Achivement;
 use Illuminate\Http\Request;
 use App\Models\Slider;
 use App\Models\Course;
@@ -10,6 +11,8 @@ use App\Models\Page;
 use App\Models\SuccessStudent;
 use App\Models\Instructor;
 use App\Models\contact;
+use App\Models\Video;
+
 class FrontendController extends Controller
 {
 
@@ -17,6 +20,8 @@ class FrontendController extends Controller
     public function index(){
         $data = Slider::orderBy('serial','asc')->get();
         $courses = Course::orderBy('id','desc')->with('avatar')->limit(8)->get();
+
+       // return $courses ;
       
         $testimonials = Page::where('menu',3)->get();
         // dd($testimonials);
@@ -56,7 +61,8 @@ public function instructor(){
 
 // course
 public function course(){
-    return view('frontend.course.course');
+    $courses = Instructor::query()->latest('id')->with('avatar')->get();
+    return view('frontend.course.course', compact('courses'));
 }
 // syllabus
 public function syllabus(){
@@ -81,9 +87,6 @@ public function contact(){
 }
 
 // verification form create
-public function verificationCreate(){
-    return view('frontend.verification.create');
-}
 
 
 // verificatioon result show
@@ -102,8 +105,13 @@ public function StudentSuccess(){
 public function aboutUs($id){
     
     $data = Page::where(['menu'=>$id])->get();
-
-    return view('frontend.about.about', compact('data'));
+    
+    if( count($data) > 0){
+        return view('frontend.about.about', compact('data'));
+    }{
+        return redirect()->route('frontend');
+    }
+    
     // dd($data);
 }
 
@@ -111,13 +119,27 @@ public function aboutUs($id){
 public function founder(){
     // dd($id);
     $courses = Course::orderBy('id','desc')->paginate(9);
+    $achives = Achivement::where('condition','achive')->get();
     $data = Page::where('menu', 4)->get();
-    return view("frontend.about.founder",compact(['data','courses']));
+    // dd($achives);
+    if(count($data) > 0){
+
+        return view("frontend.about.founder",compact(['data','courses','achives']));
+    }
 }
 
 public function otherInstitute(){
-    $sliders = Slider::orderBy('serial','asc')->get();
-    return view("frontend.other_institute",compact(['sliders']));
+    $institutes = Achivement::where('condition','institute')->get();
+    // dd($institutes);
+   
 }
+
+
+public function freelancing(){
+    $data = Video::latest()->get();
+    return view('frontend.course.freelancing', compact('data'));
+}
+
+
 
 }

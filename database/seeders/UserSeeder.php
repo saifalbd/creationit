@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
     {
         $name = 'creation It';
         $email = 'creation@gmail.com';
-        $password = Hash::make(1234);
+        $password = Hash::make(123456);
         $mobile = "0160118097";
         $avatar_id = 1;
         $role = 'super';

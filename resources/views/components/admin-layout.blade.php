@@ -9,12 +9,17 @@
     <meta name="author" content="" />
     <link rel="shortcut icon" href="{{ comInfo('avatar')->url }}" type="image/x-icon">
     <title>Creation IT</title>
+    <link href="{{ asset('assets/css/bootstrap4.min.css') }}" rel="stylesheet" crossorigin="anonymous" />
     <link href="/assets/css/style.css" rel="stylesheet" />
     <link href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" crossorigin="anonymous" />
 
     <link href="/assets/css/theme.css" rel="stylesheet" />
     <link href="/assets/css/typography.css" rel="stylesheet" />
     <script src="{{ asset('assets/js/font-awesome/5.13.0/js/all.min.js') }}" crossorigin="anonymous"></script>
+
+    <style>
+  
+    </style>
     @isset($style)
         {{ $style }}
     @endisset

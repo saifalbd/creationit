@@ -25,7 +25,7 @@
                                     <div class="text">
                                          
                                         <p>
-                                            {{$data->description}} 
+                                            {!! $data->description !!} 
                                         <p>
                                         </div>
                                  

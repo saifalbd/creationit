@@ -120,34 +120,23 @@
                      <!-- Single Testimonial -->
                      <div class="container">
                          <div class="row testimonial-slider">
+                            @foreach ($achives as $item)
+                                
+                            
                              <div class="col-sm-12 d-md-flex single-slider align-items-center justify-content-center">
                                  <div class="custom-item">
-                                     <div class="ahive-img"><img src="frontend/img/slider-3.jpg" alt="#"></div>
+                                     <div class="ahive-img"><img src="{{$item->photo}}" alt="#"></div>
                                  </div>
                                  <div class="custom-item">
                                      <div class="achive-content">
-                                         <h2>Best design Award 2022</h2>
+                                         <h2>{{$item->title}}</h2>
                                          <h5>From </h5>
-                                         <h4>Mr.Abdul manan MP</h4>
-                                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores, laboriosam odio!
-                                         
+                                         <h4>{{$item->sub_title}}</h4>
+                                        <P>{{$item->description}}</P>
                                      </div>
                                  </div>
                              </div>
-                             <div class="col-sm-12 d-md-flex single-slider align-items-center justify-content-center">
-                                 <div class="custom-item">
-                                     <div class="ahive-img"><img src="frontend/img/slider-3.jpg" alt="#"></div>
-                                 </div>
-                                 <div class="custom-item">
-                                     <div class="achive-content">
-                                         <h2>Best design Award 2022</h2>
-                                         <h5>From </h5>
-                                         <h4>Mr.Abdul manan MP</h4>
-                                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores, laboriosam odio!
-                                         
-                                     </div>
-                                 </div>
-                             </div>
+                             @endforeach
                          </div>                                                                     
                      </div>
                  </div>
