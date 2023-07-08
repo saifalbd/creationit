@@ -12,7 +12,7 @@
 		<title>Creation Institute of Technology</title>
 		
 		<!-- Favicon -->
-		<link rel="icon" type="/frontend/img/logo.png" href="/frontend/img/logo.png">
+		<link rel="icon" type="/frontend/img/logo.png" href="/frontend/img/tab_icon.png">
 		
 		<!-- Web Font -->
 		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -79,12 +79,15 @@
 						<div class="col-lg-12 col-12">
 							<!-- Top Contact -->
 							<div class="top-contact"> 
-								<div class="single-contact sm-none"><i class="fas fa-phone"></i>01777560463</div> 
-								<div class="single-contact sm-none"><i class="fas fa-envelope-open"></i>creationit2020@gmail.com</div>	
-								<div class="single-contact sm-none"><i class="fas fa-clock-o"></i>Opening Time: 9:30AM - 8:30PM</div> 
-								<div class="single-contact"><a target="_blank" href=""><i class="fab fa-facebook"></i>Creationtechnology</a></div> 
-								<div class="single-contact sm-none"><a href="{{route('frontend.verification.create')}}" class="header-link"><i class="fas fa-search"></i>  Verification</a></div> 
-								<div class="single-contact sm-none"><a href="{{route('frontend.admission')}}" class="header-link"> <i class="far fa-file"> </i> Admission</a></div> 
+								<div class="single-contact">
+									<li><i class="fas fa-phone"></i>01777560463 </li>
+									<li><i class="fas fa-clock"></i>Opening Time: 9:30AM - 8:30PM</li>
+								</div> 
+
+								<div class="single-contact sm-none">
+									<a href="{{route('frontend.verification.create')}}" class="header-link"><i class="fas fa-search"></i>  Verification</a>
+									<a href="{{route('frontend.admission')}}" class="header-link"> <i class="far fa-file"> </i> Admission</a>
+								</div> 
 							</div>
 							<!-- End Top Contact -->
 						</div>	
@@ -100,20 +103,20 @@
 						<div class="col-12">
 							<div class="middle-inner">
 								<div class="row">
-									<div class="col-lg-3 col-md-3 col-12">
+									<div class="col-lg-2 col-md-2 col-12">
 										<!-- Logo -->
 										<div class="logo">
 											<!-- Image Logo -->
 											<div class="img-logo">
 												<a href="{{route('frontend')}}">
-													<img src="/frontend/img/logo.png" style="height: 50px;float: left;margin-right: 8px;"  alt="#">
+													<img src="/frontend/img/logo_.png" style="height: 50px;float: left;margin-right: 8px;"  alt="#">
 													 
 												</a>
 											</div>
 										</div>								
 										<div class="mobile-nav"></div>
 									</div>
-									<div class="col-lg-9 col-md-9 col-12">
+									<div class="col-lg-8 col-md-8 col-12">
 										<div class="menu-area">
 											<!-- Main Menu -->
 											<nav class="navbar navbar-expand-lg">
@@ -125,16 +128,16 @@
 																<li><a href="{{route('frontend')}}"><i style="font-size: 1rem;"class="fa fa-home"></i> </a></li>
 															<li class="icon-active"><a href="{{route('about.us',1)}}">আমাদের সম্পর্কে <i class="fas fa-angle-down"></i> </a>
 																	<ul class="sub-menu">
-																		<li><a href="{{route('founder')}}">আমাদের ফাউন্ডার</a></li>
 																		<li><a href="{{route('about.us')}}">আমাদের সম্পর্কে</a></li>
-																		<li><a href="{{route('success.student')}}">সাকসেসফুল শিক্ষার্থী </a></li>
+																		<li><a href="{{route('founder')}}">আমাদের ফাউন্ডার</a></li>
+																		<li><a href="{{route('success.student')}}">সফল শিক্ষার্থী </a></li>
 																		
 																	</ul>
 																</li>
 																<li class="icon-active"><a href="{{route('frontend.course')}}">কোর্স <i class="fas fa-angle-down"></i> </a>
 																	<ul class="sub-menu">
-																		<li><a href="{{route('course.freelancing')}}">ফ্রিল্যান্সিং </a></li>
 																		<li class="mobile-menu"><a href="{{route('frontend.course')}}">কোর্স </a></li>
+																		<li><a href="{{route('course.freelancing')}}">ফ্রিল্যান্সিং </a></li>
 																	</ul>
 																</li>
 														 
@@ -160,6 +163,16 @@
 											<!--/ End Main Menu -->	
 											<!-- Right Bar -->
 											
+											
+										</div>
+									</div>
+									{{-- social link --}}
+									<div class="col-md-2">
+										<div class="socil-link">
+											<ul>
+												<li><a target="_blank" href="https://web.facebook.com/CreationITechnology"><i class="fab fa-facebook-f"></i></a></li>
+												<li><a target="_blank" href="https://www.instagram.com/creation_institute/?fbclid=IwAR15MZNbZHK9Bwj7hLxNC7390FjcukMYEt5DgGQRXVuLIMs8sT3cGxHqMWs"><i class="fab fa-instagram"></i></a></li>
+											</ul>
 										</div>
 									</div>
 								</div>

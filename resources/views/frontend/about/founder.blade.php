@@ -3,15 +3,21 @@
 <style>
     .custom-row {
         display: flex;
+        margin-bottom: 30px;
     }
+
+.testimonial-inner {
+
+	padding-bottom: 100px;
+}
+
     .custom-item {
-        width: 40%;
-    }
-    
-    .row.testimonial-slider {
-        background: #fff7f6 !important;
-        padding: 20px;
-    }
+	width: 43%;
+}
+.row.testimonial-slider {
+	padding: 20px;
+	background: #f2f2f2;
+}
     
     .testimonial-inner .single-slider {
         box-shadow: 0 0 0px #10101036;
@@ -29,19 +35,27 @@
     .achive-content h2,h4,h5,p{
         color: #666;
     }
-    h2{
-        text-transform: uppercase;
-        font-weight: bold;
-        font-size: 30px;
-        color: #666;
-    }
-    .achive-content h4{
-        font-weight: 600;
-    }
-        
-    .achive-content h4 {
-        margin: 0;
-    }
+    .achive-content h2 {
+	font-size: 24px;
+	color: #606060;
+}
+
+h2{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 30px;
+    color: #666;
+    font-family: "Poppins", serif;
+}
+.achive-content h4{
+    font-weight: 600;
+}
+	
+.achive-content h4 {
+    font-size: 20px;
+}
+
+
 
 .founer {
 	margin-right: 20px;
@@ -52,9 +66,8 @@
 }
 
 .founer img {
-	height: 450px;
+	height: 500px;
 }
-    
     
 /* responsive */
 @media(max-width:768px){
@@ -95,14 +108,14 @@ font-size: 20px;
     
     </style>
         <!-- About Us -->
-        <section class="about-us section-space mt-3">
+        <section class="about-us" style="background: #F4F9FC">
             <div class="container">
                 @if($data == null)
                 <h2>data not found</h2>
                 @else
 
                 <div class="row">
-                    <div class="col-lg-4 offset-lg-1 col-md-5 col-12">
+                    <div class="col-lg-5 col-md-5 col-12">
                         <!-- About Video -->
                         <div class="founer">
                             <img src="/{{$data[0]->photo}}" alt="#">
@@ -118,15 +131,18 @@ font-size: 20px;
                                 <div class="text">
                                         
                                     <p>
-                                        {{$data[0]->description}}
+                                        {!! $data[0]->description !!}
                                     <p>
                                     </div>
                                 
                             </div>
                             <div class="founder-info">
-                                <img src="/frontend/img/signaur.png" alt="">
-                                <h4>ওয়াসিম আহমেদ নিশান</h4>
-                                <h5>ফাউন্ডার ও সিইও</h5>
+                                <img src="/{{$data[0]->file}}" alt="">
+                                {{-- <h4>ওয়াসিম আহমেদ নিশান</h4>
+                                <h5>ফাউন্ডার ও সিইও</h5> --}}
+                                <h4>{{$data[0]->meta_desc}}</h4>
+                                <h5>{{$data[0]->keywords}}</h5>
+
                             </div>
                         </div>
                         
@@ -139,8 +155,8 @@ font-size: 20px;
 
 
          <!-- slider achivement -->
-         <section class="testimonials section-space">
-             <div class="testimonial-inner">
+         <section class="testimonials mt-3">
+             <div class="testimonial-inner bg" style="background: #F4F9FC">
                  <div class="">
                      <!-- Single Testimonial -->
                      <div class="container">
@@ -148,7 +164,7 @@ font-size: 20px;
                             @foreach ($achives as $item)
                                 
                             
-                             <div class="col-sm-12 d-md-flex single-slider align-items-center justify-content-center">
+                             <div class="col-sm-12 mx-0 px-0 d-md-flex single-slider align-items-center justify-content-center">
                                  <div class="custom-item">
                                      <div class="ahive-img"><img src="{{$item->photo}}" alt="#"></div>
                                  </div>

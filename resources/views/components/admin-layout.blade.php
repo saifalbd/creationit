@@ -7,7 +7,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       <meta name="description" content="" />
       <meta name="author" content="" />
-      <link rel="shortcut icon" href="/assets/img/logo.jpeg" type="image/x-icon">
+      <link rel="icon" type="/frontend/img/logo.png" href="/frontend/img/tab_icon.png">
       <title>Creation IT</title>
       <link href="/assets/css/style.css" rel="stylesheet" />
  
@@ -252,6 +252,7 @@
                            <a class="nav-link" href="{{route('contact.show')}}">Contact</a>
                            <a class="nav-link" href="{{route('video.create')}}">Video</a>
                            <a class="nav-link" href="{{route('hero.create')}}">Hero Section</a>
+                           <a class="nav-link" href="{{route('seminar.index')}}">Seminar</a>
                            <a class="nav-link" target="_blank" href="{{route('frontend')}}">Visit Website</a>
                         </nav>
                      </div>

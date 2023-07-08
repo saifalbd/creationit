@@ -170,7 +170,14 @@ public function otherInstitute(){
 
 public function freelancing(){
     $data = Video::latest()->get();
-    return view('frontend.course.freelancing', compact('data'));
+    $freelanings = Page::where('menu',5)->get();
+    return view('frontend.course.freelancing', compact(['data','freelanings']));
+}
+
+public function singleFreelancing($id){
+    $data = Page::where('id',$id)->first();
+
+    return view("frontend.course.single-freelaning-post",compact('data'));
 }
 
 

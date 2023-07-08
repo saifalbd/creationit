@@ -62,8 +62,8 @@
 			<div class="row">
 				<div class="col-lg-4 offset-lg-1 col-md-5 col-12">
 					<!-- About Video -->
-					<div class="founer">
-						<img src="/{{$data[0]->photo}}" alt="#">
+					<div class="modern-img-feature">
+						<img src="{{$data[0]->photo}}" alt="#">
 					</div>
 					<!--/End About Video  -->
 				</div>

@@ -72,11 +72,16 @@
               @endif
               
               @if($data->menu == 4)
-              <option value="2" selected>Founder</option>
+              <option value="4" selected>Founder</option>
               @else
-              <option value="2">Founder</option>
+              <option value="4">Founder</option>
               @endif
-    
+              
+              @if($data->menu == 5)
+              <option value="5" selected>Freelancing</option>
+              @else
+              <option value="5">Freelancing</option>
+              @endif
             </option>
           </select>
           @error('menu')

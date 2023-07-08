@@ -56,6 +56,7 @@
           <option value="2">News</option>
           <option value="3">Testimonial</option>
           <option value="4">Founder</option>
+          <option value="5">Freelancing</option>
 
         </option>
       </select>

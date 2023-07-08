@@ -1,0 +1,42 @@
+/* Theme Color */
+.header .nav li a::before, .header .nav li .sub-menu li:hover a, .header .nav li .sub-menu li .sub-menu li a:hover, .cart-items span, .sidebar-popup .social li a:hover, .sidebar-popup .social li.active a, .header.style2 .bizwheel-btn, .single-news .more, .comment-reply-link, .pagination-main .pagination-list li.active a, .pagination-main .pagination-list li:hover a, .blog-sidebar .subscribe form button, .widget_tag_cloud .tagcloud a:hover, .widget_tag_cloud .tagcloud a:hover, .search-form input[type="submit"], .search-form input[type="submit"]:hover, #calendar_wrap #wp-calendar caption, #calendar_wrap #wp-calendar tbody tr a, .footer-about .button .bizwheel-btn, .hero-agency .video-head .video, .blog-single .blog-detail blockquote cite, .blog-comments-form .form .bizwheel-btn.single-feature.active .icon-head i, .blog-sidebar .tagcloud a:hover, .single-feature:hover .icon-head i, .single-feature.active .bizwheel-btn i, .single-feature:hover .bizwheel-btn i, blog-single .blog-detail blockquote cite, .single-service:hover .icon-bg, .call-action.overlay::before, .comment-form button.btn, .pf-details .single-content h1::before, .blog-latest .single-news .bizwheel-btn:hover, .single-skill .progress .progress-bar, .single-pricing.active .icon-head, .single-pricing:hover .icon-head, .single-pricing .p-best, .posts_nav a:hover, .single-contact-box:hover i, .img-feature .video-play:hover a, .img-feature .experience, .modern-img-feature::before, .slicknav_menu .slicknav_icon-bar, .side.overlay::before, .pagination-plugin span.current, .pagination-plugin a:hover, #scrollUp i:hover, .overlay.primary::before, .bizwheel-btn {
+	background: linear-gradient(51.38deg,#1e8dcc -2.24%,#1e8dcc 59.38%);
+}
+
+.header .nav li a::before, .header .nav li .sub-menu li:hover a, .header .nav li .sub-menu li .sub-menu li a:hover, .cart-items span, .sidebar-popup .social li a:hover, .sidebar-popup .social li.active a, .header.style2 .bizwheel-btn, .single-news .more, .comment-reply-link, .pagination-main .pagination-list li.active a, .pagination-main .pagination-list li:hover a, .blog-sidebar .subscribe form button, .widget_tag_cloud .tagcloud a:hover, .widget_tag_cloud .tagcloud a:hover, .search-form input[type="submit"], .search-form input[type="submit"]:hover, #calendar_wrap #wp-calendar caption, #calendar_wrap #wp-calendar tbody tr a, .footer-about .button .bizwheel-btn, .hero-agency .video-head .video, .blog-single .blog-detail blockquote cite, .blog-comments-form .form .bizwheel-btn.single-feature.active .icon-head i, .blog-sidebar .tagcloud a:hover, .single-feature:hover .icon-head i, .single-feature.active .bizwheel-btn i, .single-feature:hover .bizwheel-btn i, blog-single .blog-detail blockquote cite, .single-service:hover .icon-bg, .call-action.overlay::before, .comment-form button.btn, .pf-details .single-content h1::before, .blog-latest .single-news .bizwheel-btn:hover, .single-skill .progress .progress-bar, .single-pricing.active .icon-head, .single-pricing:hover .icon-head, .single-pricing .p-best, .posts_nav a:hover, .single-contact-box:hover i, .img-feature .video-play:hover a, .img-feature .experience, .modern-img-feature::before, .slicknav_menu .slicknav_icon-bar, .side.overlay::before, .pagination-plugin span.current, .pagination-plugin a:hover, #scrollUp i:hover, .overlay.primary::before, .bizwheel-btn {
+	background-color: #1e8dcc;
+}
+
+
+.comment-list .bottom-title h2.comments-heading a,.bizwheel_widget_search button:hover,.single-f-news .title:hover a,.single-f-news .post-meta i{
+	color:  #1ABC9C !important;
+}
+.comment-form .form-group input:hover,.comment-form .comment-message textarea:hover,.preloader-spinner,.testimonial-inner .single-slider:hover .t-info img,.single-client:hover img{
+	border-color:  #1ABC9C;
+}
+
+blockquote,.single-portfolio .portfolio-content{
+	border-left-color:  #1ABC9C;
+}
+.hero-agency .a-feature, .single-feature:hover, .single-feature.active, .pf-details .portfolio-meta, .contact-form-area {
+	border-top-color: #ea4f38;
+}
+			
+/* Theme Secondary Color */
+
+
+.partner-slider.owl-carousel .owl-nav div{
+	color: #FC6761; !important;
+}
+.hero-agency .a-feature:hover,.single-skill .progress .progress-bar span::before,.section-title h1 span:before{
+	border-top-color: #ff9800;
+}
+.sidebar-popup,.sidebar-popup{
+	border-left-color: #FC6761;
+}
+.hero-slider.style4 .button .techopz-btn:hover,.comment-list .bottom-title h2.comments-heading a,.single-f-news .title:hover a,.single-f-news .post-meta i,.widget ul li a:hover,.hero-agency .hero-text h1 span{
+	color: #FC6761; !important;
+}	
+.preloader-spinner,.testimonial-slider .owl-controls .owl-dot span,.team-slider .owl-controls .owl-dot span{
+	border-color: #FC6761;
+}

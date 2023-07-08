@@ -4,7 +4,7 @@
 	height: 250px;
 }
 </style>
-    <section class="team team-archive section-bg section-space">
+    <section class="team team-archive section-bg py-2 pb-5">
         <div class="container">
             <div class="row">
             @foreach($data as $item)
