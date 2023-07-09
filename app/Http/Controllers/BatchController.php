@@ -127,9 +127,9 @@ class BatchController extends Controller
      */
     public function destroy(Batch $batch)
     {
-        // $this->authorize('delete',$batch);
-        // $batch->delete();
-        // return $this->removeAlert('Batch '.$batch->title);
+        $this->authorize('delete',$batch);
+        $batch->delete();
+
         return redirect()->route('batch.index',$this->removeAlert('Batch '.$batch->title));
     }
 }

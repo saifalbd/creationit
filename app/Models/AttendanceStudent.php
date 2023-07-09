@@ -24,6 +24,9 @@ class AttendanceStudent extends Model
         return $this->belongsTo(Student::class,'student_id');
     }
 
+    public function attendLedger(){
+        return $this->belongsTo(Attendance::class,'attendance_id');
+    }
 
     public function getIsAfterAttribute()
     {

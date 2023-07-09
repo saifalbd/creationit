@@ -7,7 +7,10 @@ use App\Models\FeeReceipt;
 use App\Models\FeeReceiptVoucher;
 use App\Models\Student;
 use App\Models\StudentCourse;
+use App\Services\MessageSender;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use stdClass;
 
 class FeesController extends Controller
@@ -25,6 +28,8 @@ class FeesController extends Controller
         ->with(['student','details'=>fn($q)=>$q->with(['course','batches'])])->latest()->paginate();
 
     
+   
+      
 
         return view('Admin.pages.fees.index',compact('items'));
     }
@@ -40,7 +45,7 @@ class FeesController extends Controller
         $students = Student::query()->select(['mobile','name','id'])->get();
         $courses = Course::query()->select(['id','name'])->get();
 
-        $byStudent_id = $request->get('student',false);
+        $byStudent_id = $request->get('student',null);
         if($byStudent_id){
         $courses = StudentCourse::query()->where('student_id',$byStudent_id)->with('course')->get()->map(function($item){
             $ob = new stdClass;
@@ -68,7 +73,7 @@ class FeesController extends Controller
         */
 
         $request->validate([
-            'student_id'=>['required','numeric'],
+            'student_id'=>['required','numeric',Rule::exists('students','id')],
             'course_id'=>['required','numeric'],
             'date'=>['required','date'],
             'amount'=>['required','numeric'],
@@ -77,13 +82,18 @@ class FeesController extends Controller
             'remark'=>['nullable','string'],
         ]);
 
-        $student_id = $request->student_id;
+        return DB::transaction(function()use($request){
+            $student_id = $request->student_id;
         $course_id = $request->course_id;
         $date = $request->date;
         $amount = $request->amount;
         $trx_mode = $request->trx_mode;
         $trx_no  = $request->trx_no;
         $remark = $request->remark;
+
+
+   
+
 
 
         $voucher = FeeReceiptVoucher::create(compact('student_id','amount','date','remark'));
@@ -94,7 +104,21 @@ class FeesController extends Controller
       
         $fee->batches()->sync($batches);
 
+
+        $student->courseIdist = $student->courses->pluck('course_id')->unique();
+        $courseIdist =  $student->courseIdist->toArray();
+        $fee = $student->courses->sum('fee');
+        $paid = $student->vouchers->pluck('details')->collapse()->whereIn('course_id',$courseIdist)->sum('amount');
+        $due = $fee - $paid;
+        $name = $student->name;
+        $mobile = $student->mobile;
+        $comName = comInfo('institute');
+        $date = format($date);
+        $message = "Dear $name,\nYour fee amount $amount has been received on $date. Total fee amount $fee, Total received amount $paid, Total Due amount $due. \n Regards,\n $comName";
+
+  (new MessageSender)->sendSingle($mobile,$message);
         return redirect()->route('fee.index',$this->insertAlert('Fee Voucher'));
+        });
     }
 
     /**

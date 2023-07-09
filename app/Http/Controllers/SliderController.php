@@ -79,7 +79,7 @@ class SliderController extends Controller
     public function videoUpdate(Request $request){
         $request->validate([
             'link' => "required",
-            'photo' => "nullable",
+            'photo' => "required",
         ]);
 
         $data = Video::find(1);

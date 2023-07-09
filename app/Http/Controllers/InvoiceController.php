@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CompanyInfo;
 use App\Models\SaleInvoice;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
@@ -26,7 +27,8 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        return view('Admin.pages.invoice.create');
+        $students = Student::query()->select(['id','name'])->get();
+        return view('Admin.pages.invoice.create',compact('students'));
     }
 
     /**
@@ -41,9 +43,11 @@ class InvoiceController extends Controller
         $request->validate([
             "date"=>['required','date'],
             "customer"=>['required','string'],
+            'student_id'=>['nullable','numeric'],
             "address"=>['nullable','string'],
             "mobile"=>['required','numeric'],
             'total'=>['required','numeric'],
+            
             'due'=>['required','numeric'],
             'paid'=>['required','numeric'],
             'items'=>['required','array'],
@@ -60,8 +64,9 @@ class InvoiceController extends Controller
         $paid = $request->paid;
         $due = $request->due;
         $remark = $request->remark;
+        $student_id = $request->get('student_id',null);
 
-        $sale = SaleInvoice::create(compact('date','customer_name','address','mobile','total','paid','due','remark'));
+        $sale = SaleInvoice::create(compact('date','customer_name','student_id','address','mobile','total','paid','due','remark'));
 
         collect($request->items)->each(function ($item)use ($sale){
             $qty = $item['qty'];

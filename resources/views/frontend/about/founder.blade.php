@@ -44,28 +44,53 @@
     }
 
 .founer {
-	margin-top: 100px;
 	margin-right: 20px;
+	box-shadow: 1px 1px 2px 3px rgba(0,0,0,.1);
+	border-radius: 2px;
+	margin-top: 20px;
+	padding: 5px;
+}
+
+.founer img {
+	height: 450px;
 }
     
     
-    
-    /* responsive */
-    @media(max-height:768px){
-    
-    .custom-item {
-        width: 100%;
-    }
-    .ahive-img img {
-        height: auto;
-        width: 100% ;
-    }
-    
-    .achive-content {
-        margin-top: 20px;
-    }
-    
-    }
+/* responsive */
+@media(max-width:768px){
+
+.custom-item {
+    width: 100%;
+}
+.ahive-img img {
+    height: auto;
+    width: 100% ;
+}
+
+.achive-content {
+    margin-top: 20px;
+}
+
+.custom-item {
+    width: 100%;
+    display: block;
+}
+
+.achive-content h2 {
+font-size: 20px;
+}
+
+
+.achive-content h4 {
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+
+
+
+
+
+}
 
     
     </style>
@@ -145,7 +170,7 @@
          <!--/ End achivement Slider -->
 
 
-<section class="counterup">
+<section class="counterup section-space">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-6 col-12">
@@ -154,7 +179,7 @@
                     <div class="icon"><i class="fa fa-book"></i></div>
                     <div class="conter-content">
                         <div class="counter-head">
-                            <h3><b class="number">7</b><span></span></h3>
+                            <h3><b class="number">{{$courses->count()}}</b><span></span></h3>
                         </div>
                         <p> Current Course</p>
                     </div>
@@ -167,7 +192,7 @@
                     <div class="icon"><i class="fa fa-user"></i></div>
                     <div class="conter-content">
                         <div class="counter-head">
-                            <h3><b class="number">7</b><span> </span></h3>
+                            <h3><b class="number">{{$instructor->count()}}</b><span> </span></h3>
                         </div>
                         <p>Instructor</p>
                     </div>
@@ -180,7 +205,7 @@
                     <div class="icon"><i class="fa fa-users"></i></div>
                     <div class="conter-content">
                         <div class="counter-head">
-                            <h3><b class="number">122</b><span>+</span></h3>
+                            <h3><b class="number">{{$students->count()}}</b><span>+</span></h3>
                         </div>
                         <p>Current Student</p>
                     </div>
@@ -193,7 +218,7 @@
                     <div class="icon"><i class="fa fa-check-circle"></i></div>
                     <div class="conter-content">
                         <div class="counter-head">
-                            <h3><b class="number">81</b><span>+</span></h3>
+                            <h3><b class="number">{{$completeStudents->count()}}</b><span>+</span></h3>
                         </div>
                         <p>Course Completed</p>
                     </div>
@@ -204,45 +229,6 @@
     </div>
 </section>
 
-<!-- Services -->
-<section class="services section-bg section-space">
-    <div class="container">
-        <div class="row mt-5 mb-3">
-            <div class="col-sm-12 col-md-3 courser-heading-line">
-                <div class="course-heading-left">
-                    <h4>আমাদের রানিং কোর্স সমূহ  </h4>
-                </div>
-              </div>
-              <div class="col-sm-12 col-md-8">
-                <div class="courser-heading-right">
-                    <p>
-                        দেশ ও দেশের বাহিরে বর্তমানে যে ‍স্কিলগুলোর চাহিদা, সেসব দিয়ে সাজানো হয়েছে আমাদের কোর্স লিস্ট । 
-                        এখন থেকে আপনাদের সুবিধামত অনলাইন বা অফলাইন কোর্সে এনরোল করতে পারেন ‍যে কোন সময় ।
-                    </p>
-                </div>
-              </div> 
-        </div>
-        <div class="row">
-            @foreach($courses as $item)
-            <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                <div class="course-item">
-                    <div class="course-content">
-                        <img src="/frontend/img/web.png" alt="">
-                    </div>
-                    <div class="course-title">
-                        <h4>{{$item->name}}</h4>
-                    </div>
-                    <div class="course-fee">
-                        <strong>কোর্স ফি ‍<span> {{$item->fee}} </span></strong>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-            
-        </div>
-    </div>
-</section>
-<!--/ End Services -->
 
 
 </x-frontend-layout>

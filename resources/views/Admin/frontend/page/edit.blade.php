@@ -21,7 +21,7 @@
               @enderror
             </div>
             <div class="form-group col-md-12">
-              <textarea class="form-control" name="description" cols="40" rows="12">{{$data->description}}</textarea>
+              <textarea class="form-control" id="text_editor" name="description" cols="40" rows="12">{!! $data->description !!}</textarea>
             @error('description')
               <div class="alert alert-danget mt-2"><span>{{$message}}</span></div>
             @enderror
@@ -102,10 +102,39 @@
         @enderror
         </div>
         <div class="card-footer">
-           <button type="submit" class="btn btn-success" ><i class="fa fa-upload" ></i> Save</button>
+           <button type="submit" class="btn btn-success" ><i class="fa fa-upload" ></i> Update</button>
           <button class="btn btn-secondary" type="reset"> Reset </button>
         </div>
        </div>
     </form>
     </main>  
+
+
+    
+<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
+
+<!-- partial -->
+<script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
+
+
+<style>
+  .ck-rounded-corners .ck.ck-editor__main > .ck-editor__editable, .ck.ck-editor__main > .ck-editor__editable.ck-rounded-corners {
+	border-radius: var(--ck-border-radius);
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	height: 200px;
+}
+</style>
+
+<script>
+  ClassicEditor
+      .create( document.querySelector( '#text_editor' ) )
+      .catch( error => {
+          console.error( error );
+      } );
+</script>
+
+
+
     </x-admin-layout>

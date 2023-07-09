@@ -1,4 +1,5 @@
 <x-frontend-layout>
+ 
 <section class="about-us section-space" style="position: relative">
     <div class="container my-5 bg">
         <div class="row">
@@ -50,11 +51,6 @@
                         <img src="/frontend/img/market-8.png" alt="">
                     </div>
                     <div class="market-item">
-                        <img src="/frontend/img/market-8.png" alt="">
-                    </div>
-                </div>
-                <div class="freelance-market d-flex">
-                    <div class="market-item">
                         <img src="/frontend/img/market-9.png" alt="">
                     </div>
                 </div>
@@ -67,39 +63,39 @@
         <div class="row">
             <div class="col-sm-12"><h2>ফ্রিল্যান্সিং যাদের জন্য</h2></div>
         </div>
-        <div class="row">
-            <div class="col-sm-12 col-md-4">
+        <div class="row custom_item">
+            <div class="col-sm-6 col-md-4">
                 <div class="profession-item">
                     <img src="/frontend/img/profession.png" alt="">
                     <h2>গৃহিণী</h2>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-6 col-md-4">
                 <div class="profession-item">
                     <img src="/frontend/img/profession-2.png" alt="">
                     <h2>চাকুরী প্রত্যাশী</h2>
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-6 col-md-4">
                 <div class="profession-item">
                     <img src="/frontend/img/profession-3.png" alt="">
                     <h2>উদ্যোক্তা</h2>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-6 col-md-4">
                 <div class="profession-item">
                     <img src="/frontend/img/profession-4.png" alt="">
                     <h2>ছাত্র-ছাত্রী</h2>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-6 col-md-4">
                 <div class="profession-item">
                     <img src="/frontend/img/profession-5.png" alt="">
                     <h2>প্রবাসী</h2>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-6 col-md-4">
                 <div class="profession-item">
                     <img src="/frontend/img/profession-7.png" alt="">
                     <h2>ফ্রিল্যান্সিং এ আগ্রহী</h2>
@@ -202,24 +198,6 @@ videoClose.addEventListener('click', function(){
 	right: -3%;
 }
 
-@media(max-width:768px){
-.modal-view {
-    margin-top: 20px !important;
-}
-
-.video-content span.video-close {
-	top: 0%;
-	right: 0%;
-}
-
-.freelance-content h1 {
-	font-size: 35px;
-	margin-top: 20px;
-}
-
-
-
-}
 
 
 
@@ -276,6 +254,113 @@ videoClose.addEventListener('click', function(){
 	font-size: 25px;
 	color: #939393;
 }
+
+
+/* tab to mobile */
+@media(max-width:768px){
+.modal-view {
+    margin-top: 20px !important;
+}
+
+.video-content span.video-close {
+	top: 0%;
+	right: 0%;
+}
+
+.freelance-content h1 {
+	font-size: 35px;
+	margin-top: 20px;
+}
+
+.video-content {
+	width: 100% !important;
+}
+
+.freelance-content {
+	margin-top: 50px;
+	margin-bottom: 20px;
+}
+
+.freelance-market {
+	display: grid !important;
+	grid-template-columns: repeat(2,50%);
+	gap: 10px;
+	width: 100%;
+	overflow: hidden;
+}
+
+.market-item {
+	width: 100% !important;
+}
+
+.profession-item h2 {
+	margin-top: 15px;
+	font-size: 20px;
+}
+
+.profession-item {
+	background: white;
+	border-radius: 1rem;
+	margin: 10px 0;
+	text-align: center;
+	padding-top: 30px;
+	padding-bottom: 21px;
+}
+
+
+
+
+}
+
+
+@media(max-width:578px){
+.custom_item {
+	display: grid !important;
+	grid-template-columns: repeat(2,50%);
+}
+
+.profession-item {
+	padding-top: 10px;
+	padding-bottom: 9px;
+}
+.profession-item h2 {
+	margin-top: 15px;
+	font-size: 15px;
+}
+
+
+
+}
+
+/* small device */
+
+@media(max-width:400px){
+.custom_item {
+	display: grid !important;
+	grid-template-columns: repeat(1,100%);
+}
+
+.profession-item h2 {
+	margin-top: 15px;
+	font-size: 18px;
+}
+
+}
+
+
+@media(max-width:300px){
+.freelance-market {
+	display: grid !important;
+	grid-template-columns: repeat(1,100%);
+	gap: 10px;
+	width: 100%;
+	overflow: hidden;
+}
+
+
+}
+
+/* end responsive */
 
 
 

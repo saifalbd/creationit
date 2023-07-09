@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Course;
 use App\Models\Instructor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,7 +24,22 @@ class CourseFactory extends Factory
             'fee'=>rand(5000,30000),
             'avatar_id'=>1,
             'details'=>fake()->paragraph(4),
-            'instructor_id'=>Instructor::query()->select('id')->get()->pluck('id')->random()
+          
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Course $course) {
+
+           
+
+            $course->instructors()->sync([Instructor::query()->select('id')->get()->pluck('id')->random()]);
+
+
+
+
+
+        });
     }
 }

@@ -191,3 +191,15 @@
 
 
 
+const byStudent = document.getElementById('byStudent');
+byStudent.addEventListener('change',function(){
+    const val = this.value;
+    if(val){
+        const option = byStudent.querySelector(`option[value="${val}"]`);
+        if(option){
+          
+            document.getElementById('customerName').value = option.textContent;
+        }
+    }
+    
+})

@@ -44,6 +44,7 @@ class MessageController extends Controller
         
         $students =  $students->map(function($student){
             $student->courseIdist = $student->courses->pluck('course_id')->unique();
+         
             return $student;
 
         })->filter(fn($student)=>$student->courseIdist->count())->map(function($student){
@@ -63,21 +64,24 @@ class MessageController extends Controller
 
     public function dueFormSend(Request $request){
 
+    
+
         $request->validate([
             'items'=>['required','array'],
             'items.*'=>['required','array'],
             'items.*.to'=>['required','numeric'],
-            'items.*.due'=>['required','numeric'],
-            'items.*.messageBefore'=>['required','string','max:160'],
-            'items.*.messageAfter'=>['required','string','max:160'],
+          
+            'items.*.message'=>['required','string','max:360'],
+           
 
         ]);
-        
+       
         $items = collect($request->items)->filter(fn($item)=>is_bd_phone($item['to']))->values()->map(function($item){
             $to = $item['to'];
-            $message = $item['messageBefore'].' '.$item['due'].' '.$item['messageAfter'];
+            $message = $item['message'];
             return compact('to','message');
         })->toArray();
+      
        (new MessageSender)->sendBulk($items);
 
         return redirect()->route('message.due',['success'=>'SuccessFully Send Messages']);
@@ -107,20 +111,24 @@ class MessageController extends Controller
         $rep->sendBulk($list);
     }
     public function attendance(){
-        $batches = Batch::query()->select(['id','title'])->get();
+        $batches = Batch::query()->select(['id','title','active'])->whereActive(true)->get();
         return view('Admin.pages.message.attedance',compact('batches'));
     }
 
     public function attendanceForm(Request $request){
         $request->validate([
-            'date'=>['required','date',
-            'batch'=>['required','numeric',Rule::exists('batches','id')]
-            ]]);
+            'date'=>['required','date','before_or_equal:today'],
+            'batch'=>['required','numeric',Rule::exists('attendances','batch_id')]
+            ]);
             $date = $request->date;
             $batch = Batch::find($request->batch);
             $attendance = $batch->attendances()->whereHas('list',fn($q)=>$q->where('date',$date)->where('attend','!=',1))
             ->with('list',fn($q)=>$q->where('date',$date)->where('attend','!=',1)->with('student:id,name,mobile'))
             ->first();
+
+            if(!$attendance){
+                return redirect()->route('attendance.create');
+            }
            
 
         return view('Admin.pages.message.attedanceForm',compact('batch','date','attendance'));

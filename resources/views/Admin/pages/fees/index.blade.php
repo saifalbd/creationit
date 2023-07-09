@@ -15,6 +15,7 @@
             <div class="card-body">
                <div class="table-responsive">
                   <br>
+                
                   <table class="table table-hover " id="dataTable" width="100%" cellspacing="0">
                      <thead>
                         <tr>
@@ -31,6 +32,7 @@
                         </tr>
                      </thead>
                      <tbody>
+
                         @foreach($items as $item)
                         <tr>
                            <td>{{$item->student->id}}</td>

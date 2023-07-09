@@ -53,10 +53,10 @@ class PageController extends Controller
         if(($check->count() > 0)){
             
             if($check[0]->menu == 1){
-                return redirect()->route('page.create')->with('danger', 'can`t create more once About page. Try to Edit');
+                return redirect()->route('page.create')->with('danger', 'You can`t create once more  the About page. Try to Edit');
             }
-            if($check[0]->menu == 4){
-                return redirect()->route('page.create')->with('danger', 'can`t create more once Founder page. Try to Edit !');
+            elseif($check[0]->menu == 4){
+                return redirect()->route('page.create')->with('danger', 'You can`t create once more  the Founder page. Try to Edit !');
             }
         }
         
@@ -155,7 +155,7 @@ class PageController extends Controller
             $storeImg = 'upload/attachment/'.$imgName;
             $check->photo = $storeImg;
         }else{
-            $storeImg = null;
+            $storeImg = $check->photo;
         }
 
         // page attach
@@ -173,7 +173,7 @@ class PageController extends Controller
             $storeFile = 'upload/attachment/'.$imgName;
             $check->file = $storeFile;
         }else{
-            $storeFile = null;
+            $storeFile = $check->file;
         }
 
         $store = $check->update([
@@ -219,4 +219,11 @@ class PageController extends Controller
         }
 
     }
+
+
+
+
+
+
+
 }

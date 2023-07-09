@@ -92,7 +92,7 @@
                     <!--/ End Single Contact -->
                     <!-- Single Contact -->
                     <div class="single-contact-box">
-                        <div class="c-icon"><i class="fa fa-envelope-o"></i></div>
+                        <div class="c-icon"><i class="fas fa-envelope"></i></div>
                         <div class="c-text">
                             <h4>Email Us</h4>
                             <p>creationit2020@gmail.com</p>

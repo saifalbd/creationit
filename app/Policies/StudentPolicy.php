@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class StudentPolicy
 {
@@ -65,7 +66,11 @@ class StudentPolicy
      */
     public function delete(User $user, Student $student)
     {
-        //
+        if(!$student->vouchers->count()){
+            return Response::allow();
+        }else{
+            return Response::deny('Cannot Remove Students Becouse Exists Payment Recoord'); 
+        }
     }
 
     /**

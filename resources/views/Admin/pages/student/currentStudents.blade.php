@@ -66,6 +66,16 @@
                                                         class="fa fa-certificate"> </i> Certification</a>
                                                 <a class="dropdown-item" href="{{route('student.edit',['student'=>$student->id])}}"><i
                                                         class="fa fa-edit"> </i> Update Information</a>
+
+                                                
+
+                                                        <form action="{{route('student.destroy',['student'=>$student->id])}}" method="post" style="padding: 0; margin:0">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" class="dropdown-item"><i class="fa fa-trash "> </i>
+                                                                Remove Student
+                                                            </button>
+                                                        </form>
                                              
                                             </div>
                                         </div>

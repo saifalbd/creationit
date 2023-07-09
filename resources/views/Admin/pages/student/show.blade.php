@@ -3,8 +3,25 @@
 <html>
    <head>
       <meta charset="utf-8">
-      <title>::: explore Report Builder :::</title>
+      <title>::: {{comInfo('institute')}} :::</title>
       <link rel="stylesheet " href="/assets/css/print.css">
+      <style>
+        .btn-primary{
+          color: #fff;
+    background-color: #0062cc;
+    border-color: #005cbf;
+        }
+        .btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.btn-light {
+    color: #212529;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+}
+      </style>
    </head>
    <body>
    
@@ -92,7 +109,7 @@
   <hr>
 </h3>
 
-@foreach($student->courses as $c)
+@foreach($courses as $c)
 <div>
 
     <!-- Basic Plan -->
@@ -107,8 +124,8 @@
     <li> <span > Discount:{{$c->discount}}</span> </li>
     <li> <span > Payable:{{$c->fee-$c->discount}}</span> </li>
     <li> <span > Paid:
-      5000      </span> </li>
-    <li> <span > Dues: <strong> 0 </strong> </span> </li>
+      {{$c->paid}}     </span> </li>
+    <li> <span > Dues: <strong> {{$c->due}} </strong> </span> </li>
     <li> <span > Ref: </span> </li>
   </ul>
   </div>
@@ -117,28 +134,27 @@
 <h3> Fees Information
   <hr>
 </h3>
+@foreach($student->vouchers as $v)
 <div style="float: left;    margin-right: 5px;    border: 1px solid;    padding: 5px;    text-align: center;"> <samp style="font-weight: bold;" > 
-5000/-</samp> 
-<samp>  14.03.2023  </samp> 
+{{$v->amount}}/-</samp> 
+<samp>  {{format($v->date)}}  </samp> 
 </div>
+@endforeach
  
 <br><br><br>
-<h3>Attendance Information
+@foreach ($atns as $at)
+    
+
+<h3>Attendance Information Batch {{$at['batch']->title}}
   <hr>
 </h3>
-<strong>
-15.06.2023</strong> [In: 00:00:00][Out: 00:00:00] [Absent] ***
-<strong>
-04.06.2023</strong> [In: 00:00:00][Out: 00:00:00] [Present] ***
-<strong>
-05.04.2023</strong> [In: 00:00:00][Out: 00:00:00] [Absent] ***
-<strong>
-01.04.2023</strong> [In: 00:00:00][Out: 00:00:00] [Absent] ***
-<strong>
-15.03.2023</strong> [In: 00:00:00][Out: 00:00:00] [Present] ***
-<strong>
-18.03.2023</strong> [In: 00:00:00][Out: 00:00:00] [Present] ***
-<br>
+@foreach ($at['items'] as $item)
+<button @class(['btn','btn-sm',$item->off_day?'btn-light':($item->attend?'btn-primary':'btn-danger')])>{{format($item['date'])}}</button>
+@endforeach
+
+
+@endforeach
+
 <table width="75%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td width="33%" height="120" align="center" valign="bottom"><hr />

@@ -14,24 +14,39 @@
 
       <div class="card-body  pb-0">
          <div class="row">
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
                <label for="inputEmail4">Date </label>
                <input type="date" class="form-control @error('date') is-invalid @enderror" name="date" value="{{old('date')}}" >
             </div>
             <div class="form-group col-md-3">
+               <label for="inputEmail4">ByStudent (optional) </label>
+               <select name="student_id" class="form-control" id="byStudent">
+                  <option value="">----</option>
+                  @foreach ($students as $item)
+                  <option value="{{$item->id}}" @selected($item->id==old('student_id'))>{{$item->name}}</option>
+                  @endforeach
+               
+               </select>
+                @error('student_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            </div>
+
+            <div class="form-group col-md-3">
                <label for="inputEmail4">Name </label>
-               <input type="text" class="form-control  @error('customer') is-invalid @enderror"   name="customer" value="{{old('customer')}}">
+               <input type="text" class="form-control  @error('customer') is-invalid @enderror" 
+               id="customerName"
+                 name="customer" value="{{old('customer')}}">
                 @error('customer')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            </div>
+           
+            <div class="form-group col-md-3">
+               <label for="inputEmail4">Mobile </label>
+               <input type="text" class="form-control @error('mobile') is-invalid @enderror"    name="mobile"  value="{{old('mobile')}}">
+                @error('mobile')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             <div class="form-group col-md-4">
                <label for="inputEmail4">Address</label>
                <input type="text" class="form-control @error('address') is-invalid @enderror"   name="address" value="{{old('address')}}">
                 @error('address')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
-            <div class="form-group col-md-3">
-               <label for="inputEmail4">Mobile </label>
-               <input type="text" class="form-control @error('mobile') is-invalid @enderror"    name="mobile"  value="{{old('mobile')}}">
-                @error('mobile')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
          </div>
       </div>
@@ -134,6 +149,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/redom/3.17.0/redom.min.js" integrity="sha512-6zwXZrFuZCyN61dCaR2f0ahfzce3DPAOgXYGJOdItMq/R5aUFsRP0hHYI9v68dAaZDYxP/Azqw4V2LLWdJnUnw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <script type="text/javascript">
+        
             const formError = @json($errors->all());
         </script>
         <script src="/assets/js/invoice-crude.js"></script>

@@ -53,7 +53,7 @@ function showList(start,end){
 
 
 function imageChange(event,parentID){
-    console.log(event,parentID)
+  
     let p = document.getElementById(parentID);
     let img = p.getElementsByTagName('img')[0];
 

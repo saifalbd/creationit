@@ -22,7 +22,7 @@
             <div class="col-sm-6 col-md-4 col-lg-3 my-3">
                 <div class="course-item">
                     <div class="course-content">
-                        <img src="/frontend/img/web.png" alt="">
+                        <img src="/assets/img/{{$item->avatar->path}}" alt="">
                     </div>
                     <div class="course-title">
                         <h4>{{$item->name}}</h4>

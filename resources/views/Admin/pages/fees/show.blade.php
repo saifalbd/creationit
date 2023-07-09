@@ -32,15 +32,17 @@
         <table width="100%" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td width="10%" height="74" valign="top"><img
-                        src="../uploads/logo2023-04-25-20-05-54_6447de42b19de.png" height="64" alt=""></td>
-                <td width="75%" align="center" valign="top">
-                    <div style="padding-left:15px;">
-                        <h2 style="margin:0;color: #3F51B5">{{comInfo('institute')}}</h2>
+                        src="{{comInfo('avatar')->url}}" height="64" alt=""></td>
+                <td width="75%"  valign="top">
+                    <div style="padding-left:15px; text-align:center;display:flex;">
+                        <div>
+                            <h2 style="margin:0;color: #3F51B5">{{comInfo('institute')}}</h2>
 
-                        <h3 style="margin:0;">
+                        <h3 style="margin:0;text-transform: capitalize;font-size: 12px;">
                             {{comInfo('address')}} </h3>
-                        <h3 style="margin:0;">
+                        <h3 style="margin:0;font-size: 12px;">
                         {{comInfo('mobile')}} </h2>
+                        </div>
                     </div>
                 </td>
                 <td width="10%" align="right" valign="top">
@@ -131,7 +133,7 @@
             <br>
             <hr>
 
-            <samp> SOFTWARE: exploreit.com.bd | </samp> Printing Time: 2023-06-17 10:24:58pm<samp>
+            <samp> SOFTWARE: creationit.info | </samp> Printing Time: {{now()->toDateTimeString()}}<samp>
 
                     <script>
                         function goBack() {

@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Batch;
 use App\Models\User;
+use Faker\Provider\Base;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\DB;
@@ -71,6 +72,9 @@ class BatchPolicy
 
         if($has){
             return Response::deny('Cannot Remove Instructor becouse Exist Students');
+        }elseif($batch->attendances()->count()){
+            return Response::deny('Cannot Remove  Exist attendances Records');
+        
         }else{
             return Response::allow();
         }

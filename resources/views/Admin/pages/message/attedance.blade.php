@@ -8,18 +8,20 @@
 
 <div class="form-group col-md-4">
       <label for="inputthird2">Batch</label>
-     <select name="batch" class="form-control js-select2"  required >
+     <select name="batch" class="form-control @error('batch') is-invalid @enderror"  required >
      
          <option value="">---</option>
          @foreach ($batches as $item)
          <option value="{{$item->id}}">{{$item->title}}</option> 
          @endforeach
               </select>
+              @error('batch')<div class="invalid-feedback">{{ $message }}</div>@enderror
      </div>
      
                  <div class="form-group col-md-2">
         <label for="inputthird2">Date</label>
-        <input type="date" class="form-control" name="date" required>
+        <input type="date" class="form-control @error('date') is-invalid @enderror" name="date" required>
+        @error('date')<div class="invalid-feedback">{{ $message }}</div>@enderror
    
      </div> 
       

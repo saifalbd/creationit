@@ -37,7 +37,7 @@
                             
                             <td> {{$item->duration}} Months</td>
                             <td  >{{$item->fee}}</td>
-                            <td >{{$item->instructor->name}}</td>
+                            <td >{{$item->instructors->pluck('name')->join(',')}}</td>
                             
                             <td width="15%">
                                 <div class="d-flex" style="justify-content: center;

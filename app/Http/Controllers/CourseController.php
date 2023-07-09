@@ -16,7 +16,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $items = Course::query()->with('instructor')->latest()->paginate(20);
+        $items = Course::query()->with('instructors')->latest()->paginate(20);
+        // return $items;
         return view('Admin.pages.course.index',compact('items'));
     }
 
@@ -44,15 +45,17 @@ class CourseController extends Controller
             'name'=>['required','string'],
             'duration'=>['required','numeric'],
             'fee'=>['required','numeric'],
-            'instructor_id'=>['required','numeric'],
+            'instructors'=>['required','array'],
+            'instructors.*'=>['required','numeric'],
             'details'=>['nullable','string'],
             'photo'=>['nullable','image','mimes:jpg,bmp,png']
         ]);
 
+       
         $name = $request->name;
         $duration = $request->duration;
         $fee = $request->fee;
-        $instructor_id = $request->instructor_id;
+        $instructors = $request->instructors;
         $details = $request->details;
         $avatar_id = 1;
 
@@ -63,7 +66,8 @@ class CourseController extends Controller
         
 
 
-        Course::create(compact('name','duration','fee','instructor_id','details','avatar_id'));
+       $course=  Course::create(compact('name','duration','fee','details','avatar_id'));
+       $course->instructors()->sync($instructors);
 
         return redirect()->route('course.index');
 
@@ -89,6 +93,8 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
+        $course->load('instructors');
+        
         $instructors = Instructor::query()->select(['id','name'])->get();
         return view('Admin.pages.course.edit',compact('instructors','course'));
     }
@@ -102,15 +108,20 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
+        
         $request->validate([
             'name'=>['required','string'],
             'duration'=>['required','numeric'],
             'fee'=>['required','numeric'],
-            'instructor_id'=>['required','numeric'],
+            'instructors'=>['required','array'],
+            'instructors.*'=>['required','numeric'],
             'details'=>['nullable','string'],
-            'photo'=>['nullable','image','mimes:jpg,bmp,png']
+            'photo'=>['nullable','image','mimes:jpg,bmp,png'],
+            'instructors'=>['required','array'],
+            'instructors.*'=>['required','numeric'],
         ]);
 
+        $instructors = $request->instructors;
         $name = $request->name;
         $duration = $request->duration;
         $fee = $request->fee;
@@ -130,7 +141,9 @@ class CourseController extends Controller
         
 
 
-        $course->update(compact('name','duration','fee','instructor_id','details','avatar_id'));
+        $course->update(compact('name','duration','fee','details','avatar_id'));
+
+        $course->instructors()->sync($instructors);
 
         return redirect()->route('course.index');
     }

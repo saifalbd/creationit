@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('achivements', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('sub_title');
-            $table->longText('description');
+            $table->string('sub_title')->nullable();
+            $table->longText('description')->nullable();
             $table->string('photo');
             $table->enum('condition',['achive','institute']);
             $table->timestamps();

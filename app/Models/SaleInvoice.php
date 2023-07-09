@@ -10,7 +10,7 @@ class SaleInvoice extends Model
     protected  $table = 'sales';
 
     protected  $fillable = [
-        'date','customer_name','address','mobile','total','paid','due','remark'
+        'date','customer_name','student_id','address','mobile','total','paid','due','remark'
     ];
 
     public  function  details(){

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>::: explore Report Builder :::</title>
-    <link rel="stylesheet " href="../assets/css/print.css">
+    <link rel="stylesheet " href="{{asset('assets/css/print.css')}}">
 </head>
 <body>
 

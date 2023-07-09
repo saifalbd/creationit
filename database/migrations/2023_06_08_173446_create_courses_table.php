@@ -18,10 +18,17 @@ return new class extends Migration
             $table->string('name');
             $table->tinyInteger('duration');
             $table->double('fee');
-            $table->foreignId('instructor_id');
+           
             $table->foreignId('avatar_id');
             $table->text('details')->nullable();
             $table->timestamps();
+        });
+
+        Schema::create('course-instructor', function (Blueprint $table) {
+         
+            $table->foreignId('course_id');
+            $table->foreignId('instructor_id');
+          
         });
     }
 

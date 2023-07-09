@@ -74,7 +74,7 @@
 
                     </div>
                     <div class="card-footer">
-                        <input type="submit" value="Save" class="btn btn-primary ">
+                        <input type="submit" value="Update" class="btn btn-primary ">
                         <button type="reset" class="btn btn-secondary">Reset</button>
 
                     </div>

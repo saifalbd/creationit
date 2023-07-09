@@ -16,8 +16,9 @@
            
     <div style="box-shadow: 0px 0px 5px rgb(120 125 129 / 30%); background: #2a095f;">
         <header class="header">
-            <img src="/assets/img/logo.png" height="80" alt="" />
-            <h4 style="margin-bottom: 0;"> eTCMS </h4>
+           
+            <img src="{{asset('/assets/img/logosqure.jpeg')}}" height="80" alt="" />
+            <h4 style="margin-bottom: 0;"> CIT </h4>
         </header>
         <div class="form-area login-form">
             <form action="{{route('login.store')}}" method="post">

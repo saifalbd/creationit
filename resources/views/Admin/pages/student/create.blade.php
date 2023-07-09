@@ -124,13 +124,13 @@
                             <div class="form-group col-md-6">
                                 <label for="inputCity">Present Address</label>
                                 <textarea class="form-control @error('present_address') is-invalid @enderror" name="present_address"
-                                          value="{{ old('present_address') }}"> </textarea>
+                                          >{{ old('present_address') }}</textarea>
                                 @error('present_address') <div class="invalid-feedback">{{$message}}</div> @enderror
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputCity">Permanent Address</label>
                                 <textarea class="form-control @error('permanent_address') is-invalid @enderror" name="permanent_address"
-                                          value="{{ old('permanent_address') }}"> </textarea>
+                                          >{{ old('permanent_address') }}</textarea>
                                 @error('permanent_address') <div class="invalid-feedback">{{$message}}</div> @enderror
                             </div>
 
@@ -151,20 +151,20 @@
                                         required class="js-select2 form-control @error('type') is-invalid @enderror"
                                         occupation>
                                     <option value="">---</option>
-                                    <option value="Certificate">   Certificate </option>
-                                    <option value="Non-Certificate">    Non-Certificate </option>
-                                    <option value="Others">  Others </option>
+                                    <option value="Certificate" @selected(old('type') =='Certificate')>   Certificate </option>
+                                    <option value="Non-Certificate" @selected(old('type') =='Non-Certificate')>    Non-Certificate </option>
+                                    <option value="Others" @selected(old('type') == 'Others')>  Others </option>
 
                                 </select>
                                 @error('type') <div class="invalid-feedback">{{$message}}</div> @enderror
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputEmail4">Course</label>
-                                <select name="course_id" value="{{ old('course_id') }}"
+                                <select name="course_id" 
                                         class="form-control js-select2 @error('course_id') is-invalid @enderror">
                                     <option value="">---</option>
                                     @foreach($courses as $course)
-                                        <option value="{{$course->id}}">{{$course->name}}</option>
+                                        <option value="{{$course->id}}" @selected(old('course_id') ==$course->id)>{{$course->name}}</option>
                                     @endforeach
 
 
@@ -177,7 +177,7 @@
                                         class="form-control js-select2 @error('batch_id') is-invalid @enderror">
                                     <option value="">----</option>
                                     @foreach($batches as $batch)
-                                        <option value="{{$batch->id}}">{{$batch->title}}</option>
+                                        <option value="{{$batch->id}}" @selected($batch->id == old('batch_id'))>{{$batch->title}}</option>
                                     @endforeach
                                 </select>
                                 @error('batch_id') <div class="invalid-feedback">{{$message}}</div> @enderror

@@ -42,11 +42,11 @@ return new class extends Migration
             $table->string('education')->nullable();
             $table->string('occupation');
             $table->string('mobile',15);
-            $table->string('guardian_mobile',15);
+            $table->string('guardian_mobile',15)->nullable();
             $table->string('email');
             $table->foreignId('avatar_id');
             $table->text('present_address');
-            $table->text('permanent_address');
+            $table->text('permanent_address')->nullable();
             $table->foreignId('course_id');
             $table->timestamps();
         });
@@ -64,11 +64,11 @@ return new class extends Migration
             $table->double('fee');
             $table->double('discount');
             $table->double('first_ins');
-            $table->date('first_ins_date');
-            $table->double('second_ins');
-            $table->date('second_ins_date');
-            $table->double('third_ins');
-            $table->date('third_ins_date');
+            $table->date('first_ins_date')->nullable();
+            $table->double('second_ins')->nullable();
+            $table->date('second_ins_date')->nullable();
+            $table->double('third_ins')->nullable();
+            $table->date('third_ins_date')->nullable();
             $table->timestamps();
         });
 
@@ -76,9 +76,9 @@ return new class extends Migration
         Schema::create('student_references', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id');
-            $table->string('ref');
-            $table->string('ref_address');
-            $table->string('ref_mobile');
+            $table->string('ref')->nullable();
+            $table->string('ref_address')->nullable();
+            $table->string('ref_mobile')->nullable();
 
             $table->timestamps();
         });

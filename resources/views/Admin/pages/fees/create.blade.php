@@ -23,7 +23,7 @@
 
 								<div class="form-group col-md-6">
 									<label for="inputAddress2">Admission ID</label>
-									<select name="student_id" class="form-control js-select2 @error('student_id') is-invalid @enderror" @disabled(!!$byStudent_id)>
+									<select name="student_id" value="{{$byStudent_id}}" class="form-control js-select2 @error('student_id') is-invalid @enderror" @disabled(!!$byStudent_id)>
 										<option value="">---</option>
 									
 										@foreach($students as $student)

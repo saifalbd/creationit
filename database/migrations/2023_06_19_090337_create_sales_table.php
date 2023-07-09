@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->string('customer_name');
+            $table->foreignId('student_id')->nullable();
             $table->text('address');
             $table->string('mobile');
             $table->double('total');

@@ -16,11 +16,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-//        if(config('app.app_online')){
-//            $this->app->bind('path.public', function () {
-//                return base_path('public_html');
-//            });
-//        }
+    //    if(config('app.app_online')){
+          
+    //    }
+
+    //    $this->app->bind('path.public', function () {
+    //     return base_path('public_html');
+    // });
+
+    // // dd(public_path());
 
     }
 

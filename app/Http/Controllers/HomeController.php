@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PendingStudent;
 use App\Models\Student;
 use App\Services\ChartInfoService;
 use Illuminate\Http\Request;
@@ -34,11 +35,13 @@ class HomeController extends Controller
     {
 
         $due = $this->duePaymentStudent();
-        $currentStudent = Student::query()->count();
-        $expireStudent = Student::query()->count();
+        $currentStudent = Student::query()->where('status',1)->count();
+        $expireStudent = Student::query()->where('status',2)->count();
+        $pendingStudent = PendingStudent::query()->count();
+
         $rep = new ChartInfoService();
         $courseWiseChats = $rep->courseWiseAdmission();
-        $data = compact('due','currentStudent','expireStudent','courseWiseChats');
+        $data = compact('due','currentStudent','expireStudent','courseWiseChats','pendingStudent');
         return view('Admin.pages.home',$data);
     }
 

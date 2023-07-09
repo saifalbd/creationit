@@ -9,11 +9,12 @@ class Course extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','duration','fee','instructor_id','details','avatar_id'];
+    protected $fillable = ['name','duration','fee','details','avatar_id'];
 
 
-    public function instructor(){
-        return $this->belongsTo(Instructor::class,'instructor_id');
+    public function instructors(){
+        return $this->belongsToMany(Instructor::class,'course-instructor','instructor_id','course_id');
+       // return $this->belongsTo<(Instructor::class,'instructor_id');
     }
 
     public function inrolls(){

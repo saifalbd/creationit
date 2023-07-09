@@ -17,12 +17,10 @@
     <link href="/assets/css/typography.css" rel="stylesheet" />
     <script src="{{ asset('assets/js/font-awesome/5.13.0/js/all.min.js') }}" crossorigin="anonymous"></script>
 
-    <style>
   
-    </style>
-    @isset($style)
+    @if(isset($style))
         {{ $style }}
-    @endisset
+    @endif
 
 </head>
 

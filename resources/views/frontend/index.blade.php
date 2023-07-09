@@ -34,6 +34,7 @@
 
 
 <!-- Features Area -->
+@if($hero)
 <section class="features-area section-bg">
     <div class="container">
 
@@ -42,9 +43,8 @@
                 <div class="col-sm-12 col-md-6">
                     <div class="section-title  style2 text-center">
                         <div class="section-top">
-                            <h1><b>ক্যারিয়ার শুরু হোক দক্ষতার আত্নবিশ্বাসে</b></h1>
-                            <p> অভিজ্ঞ মেন্টর আপডেটেড কারিকুলাম নিয়ে ক্রিয়েশন ইনস্টিউট অফ টেকনোলজি
-                    প্রস্তুত আপনার ক্যারিয়ার গড়ার অগ্রযাত্রায় । আমাদের ৯টির ও বেশি টেন্ডি কোর্স থেকে আজই বেচে নিন আপনার পছন্দের কোর্স ।</p>
+                            <h1><b>{{$hero->title}}</b></h1>
+                            <p> {{$hero->description}}</p>
                         </div>
                     </div>
                     <div class="right-bar">
@@ -72,8 +72,8 @@
                     <!--/ End Right Bar -->
                 </div><!--/ End Single Feature --><!-- Single Feature -->                 
                  <div class=" col-sm-12 col-md-6">
-                     <div class="single-feature">
-                         <img src="/frontend/img/event-1.jpg" alt="">
+                     <div class="intro-feature">
+                         <img src="/{{$hero->photo}}" alt="">
                      </div>
                  </div><!--/ End Single Feature -->
         </div>
@@ -82,11 +82,11 @@
         
     </div>
 </section>
+@endif
 <!--/ End Features Area -->
 
 
 
-{{-- !-- Features Area --> --}}
 		<section class="features-area section-bg">
 			<div class="container">
 				<div class="row">
@@ -107,7 +107,7 @@
 					<div class="col-lg-3 col-md-6 col-12">
 						<!-- Single Feature -->
 						<div class="single-feature">
-							<div class="icon-head"><img  src="/frontend/img/founder.png" style="height: 150px;" alt="#"></div>
+							<div class="icon-head"><img  src="/frontend/img/team.png" style="height: 150px;" alt="#"></div>
 							<h4><a href="{{route('founder')}}" target="_blank">Our Founder</a></h4>
 							<p> <p>The mission of the IT Institute is to provide students with the knowledge and skills necessary to become success</p>
 							<div class="button">
@@ -116,20 +116,7 @@
 						</div>
 						<!--/ End Single Feature -->
 					</div>
-					 		 		  					
-					<div class="col-lg-3 col-md-6 col-12">
-						<!-- Single Feature -->
-						<div class="single-feature">
-							<div class="icon-head"><img  src="/frontend/img/targer-4.jpg" style="height: 150px;" alt="#"></div>
-							<h4><a href="{{route('success.student')}}" target="_blank">successful student</a></h4>
-							<p> <p> Regular practice of skills: We encourage students to practice work regularly. So at any time, in any need, we a</p>
-							<div class="button">
-								<a href="{{route('success.student')}}" class="bizwheel-btn" target="_blank"><i class="fas fa-arrow-circle-right"></i>Read More</a>
-							</div>
-						</div>
-						<!--/ End Single Feature -->
-					</div>
-					 		 		  					
+ 		  					
 					<div class="col-lg-3 col-md-6 col-12">
 						<!-- Single Feature -->
 						<div class="single-feature">
@@ -142,12 +129,24 @@
 						</div>
 						<!--/ End Single Feature -->
 					</div>
+                    <div class="col-lg-3 col-md-6 col-12">
+						<!-- Single Feature -->
+						<div class="single-feature">
+							<div class="icon-head"><img  src="/frontend/img/targer-4.jpg" style="height: 150px;" alt="#"></div>
+							<h4><a href="{{route('success.student')}}" target="_blank">successful student</a></h4>
+							<p> <p> Regular practice of skills: We encourage students to practice work regularly. So at any time, in any need, we a</p>
+							<div class="button">
+								<a href="{{route('success.student')}}" class="bizwheel-btn" target="_blank"><i class="fas fa-arrow-circle-right"></i>Read More</a>
+							</div>
+						</div>
+						<!--/ End Single Feature -->
+					</div>
 					 		 		  					 
 					 
 				</div>
 			</div>
 		</section>
-		<!--/ End Features Area -->
+<!--/ End Features Area -->
 
 
 <!-- Services -->
@@ -170,19 +169,21 @@
         </div>
         <div class="row">
             @foreach($courses as $item)
-            <div class="col-sm-6 col-md-4 col-lg-3 my-3">
-                <div class="course-item">
-                    <div class="course-content">
-                        <img src="{{$item->avatar->url}}" alt="">
-                    </div>
-                    <div class="course-title">
-                        <h4>{{$item->name}}</h4>
-                    </div>
-                    <div class="course-fee">
-                        <strong>কোর্স ফি ‍<span> {{$item->fee}} </span></strong>
-                    </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 my-3">
+                    <a href="{{url('course-detail')}}/{{$item->id}}" style="text-decoration: none">
+                        <div class="course-item">
+                            <div class="course-content">
+                                <img src="{{$item->avatar->url}}" alt="">
+                            </div>
+                            <div class="course-title">
+                                <h4>{{$item->name}}</h4>
+                            </div>
+                            <div class="course-fee">
+                                <strong>কোর্স ফি ‍<span> {{$item->fee}} </span></strong>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </div>
             @endforeach
             
         </div>
@@ -198,7 +199,7 @@
                     <div class="icon"><i class="fa fa-book"></i></div>
                     <div class="conter-content">
                         <div class="counter-head">
-                            <h3><b class="number">7</b><span></span></h3>
+                            <h3><b class="number">{{$courses->count()}}</b><span></span></h3>
                         </div>
                         <p> Current Course</p>
                     </div>
@@ -211,7 +212,7 @@
                     <div class="icon"><i class="fa fa-user"></i></div>
                     <div class="conter-content">
                         <div class="counter-head">
-                            <h3><b class="number">7</b><span> </span></h3>
+                            <h3><b class="number">{{$instructor->count()}}</b><span> </span></h3>
                         </div>
                         <p>Instructor</p>
                     </div>
@@ -224,7 +225,7 @@
                     <div class="icon"><i class="fa fa-users"></i></div>
                     <div class="conter-content">
                         <div class="counter-head">
-                            <h3><b class="number">122</b><span>+</span></h3>
+                            <h3><b class="number">{{$students->count()}}</b><span>+</span></h3>
                         </div>
                         <p>Current Student</p>
                     </div>
@@ -237,7 +238,7 @@
                     <div class="icon"><i class="fa fa-check-circle"></i></div>
                     <div class="conter-content">
                         <div class="counter-head">
-                            <h3><b class="number">81</b><span>+</span></h3>
+                            <h3><b class="number">{{$completeStudents->count()}}</b><span>+</span></h3>
                         </div>
                         <p>Course Completed</p>
                     </div>

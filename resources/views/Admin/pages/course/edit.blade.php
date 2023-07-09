@@ -1,4 +1,31 @@
 <x-admin-layout>
+   @slot('style')
+   <style>
+       .form-group .avarar-box{
+           display: none;
+       }
+       .form-group.with-avatar{
+           display: grid;
+           grid-template-columns: 100px auto;
+       }
+
+       .form-group.with-avatar .avarar-box{
+           display: flex;
+           justify-content: center;
+           align-items: center;
+       }
+       .form-group.with-avatar .avarar-box img{
+           max-width: 90px;
+           max-height: 90px;
+       }
+       .ck-rounded-corners .ck.ck-editor__main > .ck-editor__editable, .ck.ck-editor__main > .ck-editor__editable.ck-rounded-corners {
+	border-radius: var(--ck-border-radius);
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	height: 200px;
+}
+   </style>
+   @endslot
    <main>
    <div class="container-fluid"> 
     
@@ -36,20 +63,28 @@
                    <input type="text" class="form-control @error('fee') is-invalid @enderror"   name="fee" value="{{$course->fee}}"  required>
                    @error('fee')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
-                     <div class="form-group col-md-4">
-                   <label for="inputAddress2">Instructor</label>
-                   
-                   <select name="instructor_id" class="form-control js-select2 @error('instructor_id') is-invalid @enderror"   required>
-                       <option value="">---</option>
-                       @foreach($instructors as $instructor)
-                       <option value="{{$instructor->id}}" @selected($course->instructor_id==$instructor->id)>{{$instructor->name}}</option>
-                       @endforeach
-                   </select>
-                   @error('instructor_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                <div id="insMulti">
+                  @foreach($course->instructors->pluck('id')->toArray() as $id)
+                  <input type="hidden" name="instructors[]" value="{{$id}}">
+                  @endforeach
                 </div>
+                <div class="form-group col-md-12">
+                  
+                  <label for="inputAddress2">Instructor</label>
+                <select name="field1" id="field1" multiple 
+                onchange="insMulti(Array.from(this.selectedOptions).map(x=>x.value??x.text))" 
+                multiselect-hide-x="true" name="instructor_id" class="form-control @error('instructors') is-invalid @enderror"   required>
+                @foreach($instructors as $instructor)
+                <option value="{{$instructor->id}}" @selected(in_array($instructor->id,$course->instructors->pluck('id')->toArray()))>{{$instructor->name}}</option>
+                @endforeach
+                </select>
+                @error('instructors')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+
+                    
                  <div class="form-group col-md-12">
                    <label for="inputEmail4">Details</label>
-                   <textarea name="details"  class="form-control @error('details') is-invalid @enderror" cols="20" rows="6" 
+                   <textarea name="details" id="text_editor" class="form-control @error('details') is-invalid @enderror" cols="20" rows="6" 
                    id="code_preview0">{{$course->details}}</textarea>
                    @error('details')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
@@ -75,5 +110,18 @@
        </div>
     </div>
      </main>
+     @slot('script')
+     <script src="{{asset('assets/js/multi-select.js')}}"></script>
+     <script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
+   <script>
+   ClassicEditor
+       .create( document.querySelector( '#text_editor' ) )
+       .catch( error => {
+           console.error( error );
+       } );
+ </script>
+
+
+     @endslot
     
    </x-admin-layout>

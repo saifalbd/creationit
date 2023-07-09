@@ -2,16 +2,20 @@
     <main>
         <div class="container-fluid">
             <form name="frmUser" method="get" action="{{ route('showStudentByForm') }}" enctype="multipart/form-data">
+             
+        
+               
                 <div class="mt-4 mb-3 page-title">
 
                     <div class="row">
 
                         <div class="col-md-7 m-auto">
-                            Welcome to explore E-TCMS 1.0.1
+                            Welcome to Creation IT
                         </div>
                         <div class="col-md-3 text-right">
-                            <input type="number" class="form-control @error('id') is-invalid @endError" name="id"
-                                Placeholder="Enter Admission ID" autofocus>
+                            <input  class="form-control @error('id') is-invalid @endError" name="id"
+                                Placeholder="Enter Admission ID or Name or Mobile" autofocus>
+                                @error('id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
                         <div class="col-md-2 text-right">
                             <input type="submit" name="submit" Value="Search" class="btn btn-primary btn-block ">
@@ -31,7 +35,7 @@
 
 
                         <br><a class="text-dark"href="list_new_applicaion.php">Pending Admission <span class="f-right">
-                                2 </a></span>
+                                {{$pendingStudent}} </a></span>
 
 
                         <br><a class="text-dark" href="list_free_collection_unverified.php"> Unauthorised Payment <span

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentCreateRequest;
 use App\Models\Attachment;
 use App\Models\Batch;
 use App\Models\Course;
@@ -24,6 +25,7 @@ class StudentController extends Controller
             return $q->with(['batch:id,title', 'course']);
         })->runing()->latest()->paginate();
        
+        return $students;
 
         return view('Admin.pages.student.currentStudents', compact('students'));
     }
@@ -58,45 +60,10 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StudentCreateRequest $request)
     {
-        $request->validate([
-            "name" => ['required', 'string'],
-            "father_name" => ['required', 'string'],
-            "mother_name" => ['required', 'string'],
-            "gender" => ['required', 'string'],
-            "date_of_birth" => ['required', 'date'],
-            "education" => ['required', 'string'],
-            "occupation" => ['required', 'string'],
-            "mobile" => ['required', 'numeric',new BdPhone,Rule::unique('students')],
-            "guardian_mobile" => ['required', 'string',Rule::unique('students')],
-            "email" => ['required', 'email'],
-            "present_address" => ['required', 'string'],
-            "permanent_address" => ['required', 'string'],
-            "type" => ['required', 'string'],
-            "course_id" => ['required', 'numeric'],
-            "batch_id" => ['required', 'numeric'],
-            "roll" => ['required', 'numeric'],
-            "registration_no" => ['required', 'string'],
-            "academic_year" => ['required', 'string'],
-            "session" => ['required', 'numeric'],
-            "fee" => ['required', 'numeric'],
-            "discount" => ['nullable', 'numeric'],
-            "payable" => ['required', 'numeric'],
-            "first" => ['required', 'numeric'],
-            "first_date" => ['required', 'date'],
-            "second" => ['required', 'numeric'],
-            "second_date" => ['required', 'date'],
-            "third" => ['required', 'numeric'],
-            "third_date" => ['required', 'date'],
-            "ref" => ['nullable', 'string'],
-            "ref_address" => ['nullable', 'string'],
-            "ref_mobile" => ['required', 'numeric'],
-            'photo' => ['nullable', 'image','mimes:jpg,bmp,png'],
-           'avatar_id'=>['nullable','numeric'], // for pending aproved
-           'remove_pending'=>['nullable','numeric'],// for pending aproved
-        ]);
-
+       
+        $request->validate(['mobile'=>['required',Rule::unique('students')], "email" => ['required', 'email',Rule::unique('students')]]);
 
         $avatar_id = $request->get('avatar_id',1);
         if ($request->hasFile('photo')) {
@@ -158,9 +125,11 @@ class StudentController extends Controller
             }
 
             
+            $name =   $student->name;
             $mobile = $student->mobile;
             $comName = comInfo('institute');
-            (new MessageSender)->sendSingle($mobile,"$comName n/ Sussfully Registard Your Student Account You Login Password is $pass");
+            $message = "Dear $name,\n Welcome to $comName, Your admission has been confirm.\n Your Login Password \n $pass";
+            (new MessageSender)->sendSingle($mobile,$message);
             return  redirect()->route('student.index');
         });
     }
@@ -175,20 +144,52 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $student->load(['courses.course', 'reference']);
-        // return $student;
-        return view('Admin.pages.student.show', compact('student'));
+        $student->load(['courses.course', 'reference','vouchers','attendances.attendLedger']);
+        
+       
+
+         $atns =  $student->attendances->where('isAfter',false)->groupBy('attendance_id')->map(function($items){
+            $batch = Batch::findOrFail($items->first()->attendLedger->batch_id);
+            return compact('batch','items');
+         })->values();
+        $courses = $student->courses->map(function($c)use($student){
+          
+            $c->paid =  $student->vouchers->pluck('details')->collapse()->whereIn('course_id',$c->course_id)->sum('amount');
+            $c->due = $c->fee -$c->paid;
+
+          return $c;
+
+        });
+
+       
+
+        return view('Admin.pages.student.show', compact('student','courses','atns'));
     }
 
     public function showStudentByForm(Request $request){
         $request->validate([
-            'id'=>['required','numeric',Rule::exists('students')]
+            'id'=>['required']
         ]);
 
-        $student = Student::find($request->id);
+
+
+
+        $col = 'id';
+        if(is_bd_phone($request->id)){
+            $col = 'mobile';
+        }else if(is_numeric($request->id)){
+            $col = 'id';
+        }else{
+            $col = 'name';  
+        }
+
+        $student = Student::query()->where($col,$request->id)->first();
+        if(!$student){
+            return redirect()->back()->withErrors(['id'=>'Student Not Found On Server']);
+        }
         $student->load(['courses.course', 'reference']);
 
-        return view('Admin.pages.student.show', compact('student'));
+        return redirect()->route('student.show',['student'=>$student->id]);
 
     }
 
@@ -257,44 +258,13 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Student $student)
+    public function update(StudentCreateRequest $request, Student $student)
     {
-        $request->validate([
-            "name" => ['required', 'string'],
-            "father_name" => ['required', 'string'],
-            "mother_name" => ['required', 'string'],
-            "gender" => ['required', 'string'],
-            "date_of_birth" => ['required', 'date'],
-            "education" => ['required', 'string'],
-            "occupation" => ['required', 'string'],
-            "mobile" => ['required', 'numeric',new BdPhone,Rule::unique('students')->whereNot('id',$student->id)],
-            "guardian_mobile" => ['required', 'string'],
-            "email" => ['required', 'email',Rule::unique('students')->whereNot('id',$student->id)],
-            "present_address" => ['required', 'string'],
-            "permanent_address" => ['required', 'string'],
-            "type" => ['required', 'string'],
-            "course_id" => ['required', 'numeric'],
-            "batch_id" => ['required', 'numeric'],
-            "roll" => ['required', 'numeric'],
-            "registration_no" => ['required', 'string'],
-            "academic_year" => ['required', 'string'],
-            "session" => ['required', 'string'],
-            "fee" => ['required', 'numeric'],
-            "discount" => ['nullable', 'numeric'],
-            "payable" => ['required', 'numeric'],
-            "first" => ['required', 'numeric'],
-            "first_date" => ['required', 'date'],
-            "second" => ['required', 'numeric'],
-            "second_date" => ['required', 'date'],
-            "third" => ['required', 'numeric'],
-            "third_date" => ['required', 'date'],
-            "ref" => ['nullable', 'string'],
-            "ref_address" => ['nullable', 'string'],
-            "ref_mobile" => ['required', 'numeric'],
-            'photo' => ['nullable', 'image','mimes:jpg,bmp,png'],
-            'status'=>['required','in:0,1,2'],
-           
-        ]);
+
+
+        $request->validate(['mobile'=>['required',Rule::unique('students')->whereNot('id',$student->id)],
+         "email" => ['required', 'email',Rule::unique('students')->whereNot('id',$student->id)]]);
+       
 
 
         $avatar_id = $student->avatar_id;

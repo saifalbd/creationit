@@ -1,24 +1,5 @@
 <x-frontend-layout>
-    <!-- Breadcrumb -->
-<div class="breadcrumbs" >
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="bread-inner">
-                    <!-- Bread Menu -->
-                    <div class="bread-menu">
-                        <ul>
-                            <li><a href="{{route('frontend')}}">Home <i class="fas fa-angle-right"></i></a> </li>
-                            <li><a href="{{route('frontend.instructor')}}"> Instructors </a></li>
-                        </ul>
-                    </div>
-                     
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- / End Breadcrumb -->
+
 
     <section class="team team-archive section-bg section-space">
         <div class="container">
@@ -26,21 +7,21 @@
                 <div class="col-12">
                     <div class="section-title  style2 text-center">
                         <div class="section-top">
-                            <h1><span>Our Teams</span><b>Our Teams </b></h1><h4>Our experts Our Teams are waiting for you.</h4>
+                            <h1><b>আমাদের দক্ষ শিক্ষকরা </b> </h1> 
                         </div>
                          
                     </div>
                 </div>
             </div>
-            <div class="row">
-                     @foreach ($data as  $item)
+            <div class="row custom-grid">
+            @foreach ($data as  $item)
                          
                     
-                <div class="col-lg-4 col-md-6 col-12">
+                <div class="col-md-4 col-lg-3">
                     <!-- Single Team -->
                     <div class="single-team">
                         <div class="team-head">
-                            <img src="{{$item->avatar->url}}" alt="#">
+                            <img src="/assets/img/{{$item->avatar->path}}" alt="#">
                             <ul class="team-social">
                                 <li><a href="#"><i class="fa fa-facebook-official"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter-square"></i></a></li>
