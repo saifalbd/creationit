@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
+use App\Models\AttendanceStudent;
 use App\Models\Batch;
 use App\Models\Course;
 use App\Models\FeeReceiptVoucher;
@@ -9,6 +11,8 @@ use App\Models\Student;
 use App\Models\Voucher;
 use App\Models\VoucherLedger;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Validation\ValidationException;
 use Nette\Schema\Elements\Structure;
 
 class ReportController extends Controller
@@ -175,6 +179,40 @@ class ReportController extends Controller
     }
 
 
+
+    public function batchWiseAttendence(Request $request){
+        
+        $date = $request->from;
+        $batch_id = $request->batch_wise_id;
+     
+        $d = Carbon::create($date);
+        $month = $d->format('m');
+        $year = $d->format('Y');
+       
+
+
+      
+
+        $attend = Attendance::query()->where('batch_id',$batch_id)->where('month',$month)
+        ->where('year',$year)
+        ->with(['list'=>fn($q)=>$q->where('date',$date)->with('student:id,name,mobile'),'batch'])->first();
+
+        if(!$attend){
+            throw ValidationException::withMessages(['error'=>'Batch are Not Found Attendance on those date']);
+        }
+
+    
+        return view('Admin.pages.report.preview_attendance_by_batch_wise',compact('attend','date'));
+    }
+
+
+    public function attendanceSummary(Request $request){
+        $date = $request->date;
+
+        $list = AttendanceStudent::where('date',$date)->with('student:id,name,mobile')->get();
+
+        return view('Admin.pages.report.preview_attendance_summary',compact('list','date'));
+    }
 
 
 

@@ -3,115 +3,94 @@
 <section class="call-action"  >
     <div class="container">
     
-<form name="frmUser" method="post" action="{{route('pendingStore')}}" enctype="multipart/form-data"  style="background: #eeeeeea8;border: 1px solid #ccc; padding: 30px;">
- @csrf
-
- <x-error-alert></x-error-alert>
-       <div class="row">
-        <div class="form-group col-md-4">
-            <label for="inputEmail4">Course</label>
-            <select name="course_id" value="{{ old('course_id') }}"
-                    class="form-control js-select2 @error('course_id') is_invalid @enderror">
-                <option value="">---</option>
-                @foreach(\App\Models\Course::all() as $course)
-                    <option value="{{$course->id}}">{{$course->name}}</option>
-                @endforeach
-
-
+<form name="frmUser" method="post" action="" enctype="multipart/form-data"  style="background: #eeeeeea8;border: 1px solid #ccc; padding: 30px;">
+ <div class="form-row">
+    <div class="form-group col-md-4">
+        <label for="inputEmail4">Course</label>
+        <select name="course" class="form-control js-select2"  required>
+                <option value="" >---</option>
+                <option value="1">Diploma In Graphic Design/4 Months</option>
             </select>
-            @error('course_id') <div class="invalid-feedback">{{$message}}}</div> @enderror
+        </div>	
+                
+
+        <div class="form-group col-md-4">
+        <label for="inputEmail4">Name</label>
+        <input type="text" class="form-control" required  name="name" required>
         </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Name</label>
-                                <input type="text" class="form-control @error('name') is_invalid @enderror" required name="name"
-                                       value="{{ old('name') }}">
-                                @error('name') <div class="invalid-feedback">{{$message}}}</div> @enderror
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputpresent_address2">Father's/Husband Name</label>
-                                <input type="text" class="form-control @error('father_name') is_invalid @enderror" required
-                                       name="father_name" value="{{ old('father_name') }}">
-                                @error('father_name') <div class="invalid-feedback">{{$message}}}</div> @enderror
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputpresent_address2">Mother's Name</label>
-                                <input type="text" class="form-control @error('mother_name') is_invalid @enderror" name="mother_name"
-                                       value="{{ old('mother_name') }}">
-                                @error('mother_name') <div class="invalid-feedback">{{$message}}}</div> @enderror
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputpresent_address2">Gender</label>
-                                <select class="form-control" name="gender" value="{{ old('gender') }}">
-                                    <option value="Male"> Male </option>
-                                    <option value="Female"> Female </option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputpresent_address2">Date of Birth</label>
-                                <input type="date" class="form-control @error('date_of_birth') is_invalid @enderror" name="date_of_birth"
-                                       value="{{ old('date_of_birth') }}">
-                                @error('date_of_birth') <div class="invalid-feedback">{{$message}}}</div> @enderror
-                            </div>
 
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">Highest Educational Qualification</label>
-                                <input type="text" class="form-control @error('education') is_invalid @enderror" name="education"
-                                       value="{{ old('education') }}" placeholder="Ex: HSC with GPA 4.50">
-                                @error('education') <div class="invalid-feedback">{{$message}}}</div> @enderror
-                            </div>
-
-                            <div class="form-group col-md-3">
-                                <label for="inputCity">Occupation </label>
-                                <select class="form-control @error('occupation') is_invalid @enderror" name="occupation"
-                                        value="{{ old('occupation') }}">
-                                    <option value="Student"> Student </option>
-                                    <option value="Job"> Job </option>
-                                    <option value="Bussiness"> Bussiness </option>
-                                </select>
-                                @error('occupation') <div class="invalid-feedback">{{$message}}}</div> @enderror
-                            </div>
-
-                            <div class="form-group col-md-3">
-                                <label for="inputCity">Mobile</label>
-                                <input type="number" class="form-control @error('mobile') is_invalid @enderror"  name="mobile"  value="{{ old('mobile') }}">
-                                @error('mobile') <div class="invalid-feedback">{{$message}}}</div> @enderror
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputCity">Guardian's Mobile</label>
-                                <input type="number" class="form-control @error('guardian_mobile') is_invalid @enderror"
-                                       name="guardian_mobile" value="{{ old('guardian_mobile') }}">
-                                @error('guardian_mobile') <div class="invalid-feedback">{{$message}}}</div> @enderror
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputCity">E-mail</label>
-                                <input type="email" class="form-control @error('email') is_invalid @enderror" id="email" name="email"
-                                       value="{{ old('email') }}">
-                                @error('email') <div class="invalid-feedback">{{$message}}}</div> @enderror
-                            </div>
-
-                            <div class="form-group col-md-4">
-                                <label for="inputEmail4">Photo (Maximum 50 KB) </label>
-                                <input type="file" class="form-control" name="photo"
-                                       value="{{ old('photo') }}">
-                            </div>
-
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">Present Address</label>
-                                <textarea class="form-control @error('present_address') is_invalid @enderror" name="present_address"
-                                          value="{{ old('present_address') }}"> </textarea>
-                                @error('present_address') <div class="invalid-feedback">{{$message}}}</div> @enderror
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">Permanent Address</label>
-                                <textarea class="form-control @error('permanent_address') is_invalid @enderror" name="permanent_address"
-                                          value="{{ old('permanent_address') }}"> </textarea>
-                                @error('permanent_address') <div class="invalid-feedback">{{$message}}}</div> @enderror
-                            </div>
-
-
-                        </div>
-        <hr>
         
+
+        <div class="form-group col-md-4">
+        <label for="inputpresent_address2">Father's/Husband Name</label>
+        <input type="text" class="form-control" required  name="father_name" required >
+        </div>
+        <div class="form-group col-md-4">
+        <label for="inputpresent_address2">Mother's Name</label>
+        <input type="text" class="form-control" name="mother_name" required>
+        </div>
+        <div class="form-group col-md-2">
+        <label for=" ">Gender</label>
+        
+        <select  class="form-control" name="gender" required>
+            <option value="Male"> Male </>
+            <option value="Female"> Female </>
+        </select>
+        
+        </div>
+        <div class="form-group col-md-2">
+        <label for="inputpresent_address2">Date of Birth</label>
+        <input type="date" class="form-control" name="dob" required>
+        </div>
+        
+        <div class="form-group col-md-4">
+        <label for="inputCity">Occupation </label>
+            <select  class="form-control" name="occupation" required>
+            <option value="Student"> Student </>
+        </select>
+        </div>
+        
+        <div class="form-group col-md-4">
+        <label for="inputCity">Highest Educational Qualification</label>
+        <input type="text" class="form-control"  name="qualification" placeholder="Ex: HSC with GPA 4.50" required>
+        </div>
+        <div class="form-group col-md-2">
+        <label for="inputCity">Mobile</label>
+        <input type="number" class="form-control"  name="mobile" required>
+        </div>
+        <div class="form-group col-md-2">
+        <label for="inputCity">Guardian's Mobile</label>
+        <input type="number" class="form-control"  name="guardian_mobile">
+        </div>
+        <div class="form-group col-md-4">
+        <label for="inputCity">E-mail</label>
+        <input type="email" class="form-control"  id="email"  name="email">
+        </div>
+
+        <div class="form-group col-md-6">
+        <label for="inputCity">Present Address</label>
+
+        <textarea class="form-control" name="present_address" required> </textarea> 
+        </div>
+        <div class="form-group col-md-6">
+        <label for="inputCity">Permanent Address</label>
+        <textarea class="form-control" name="permanent_address"> </textarea> 
+    
+        </div>
+
+        <div class="form-group col-md-6">
+        <label for="inputEmail4">Photo (Maximum 50 KB) </label>
+        <input type="file" class="form-control" name="avatar_id" >
+        </div>	  
+        
+        <div class="form-group col-md-6">
+        <label for="inputEmail4"> Application Date </label>
+            <input type="date" class="form-control"   name="d_ate" required >
+        </div>
+
+        </div>
+        <hr>
+        <input type="hidden" class="form-control" readonly name="d_ate" value="2023-06-16"  required >
         <input type="submit" name="submit" value="Submit" id="register" class="bizwheel-btn">
 
         </form>

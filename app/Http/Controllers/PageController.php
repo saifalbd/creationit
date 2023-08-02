@@ -152,7 +152,7 @@ class PageController extends Controller
             $imgExt = $image->getClientOriginalExtension();
             $imgName = Str::random().time().'.'.$imgExt;
             $image->move('upload/page/',$imgName);
-            $storeImg = 'upload/attachment/'.$imgName;
+            $storeImg = 'upload/page/'.$imgName;
             $check->photo = $storeImg;
         }else{
             $storeImg = $check->photo;

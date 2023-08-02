@@ -186,8 +186,8 @@
                     </div>
 
                     <div id="8" class="report" style="display:none">
-                        <form method="get" action="preview_attendance_by_course_wise.php">
-                            preview_attendance_by_course_wise.php
+                        <form method="get" action="{{route('report.batchWiseAttendence')}}">
+                        
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="form-group">
@@ -200,7 +200,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Batch: </label>
-                                        <select type="text" class="form-control" name="batch" required>
+                                        <select type="text" class="form-control @error('batch_wise_id') is-invalid @enderror" name="batch_wise_id" required>
                                             <option value="">----</option>
                                             @foreach ($batches as $batch)
                                             <option value="{{$batch->id}}">{{$batch->title}}</option>
@@ -217,8 +217,8 @@
                     </div>
 
                     <div id="9" class="report" style="display:none">
-                        <form method="get" action="preview_attendance_summary.php">
-                            preview_attendance_summary.php
+                        <form method="get" action="{{route('report.attendanceSummary')}}">
+                            
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="form-group">
@@ -304,6 +304,20 @@
     @slot('script')
 
         <script>
+
+            @error('error')
+
+            
+
+            swal({
+          position: 'center',
+          icon: 'error',
+          title: "{{$message}}",
+          showConfirmButton: false,
+         
+        })
+
+            @enderror
             $(function() {
                 $('#reportelector').change(function(){
                     $('.report').hide();

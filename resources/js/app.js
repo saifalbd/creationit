@@ -1,6 +1,8 @@
 require('./bootstrap');
 
 
+import './scripts';
+
 
 
 

@@ -17,14 +17,11 @@
                     <div class="alert alert-danger mt-2">{{$message}}</div>
                 @endif
             <div class="row mt-5 mb-5">
-                
-                <div class="col-4">
-                 
-                </div><div class="col-4">
+                <div class="col-sm-12 col-md-6 mx-auto">
                       
                     <form  action="{{route('check.verification')}}" method="post">
                         @csrf
-                        <input type="number" required name="mobile" value="" class="form-control" placeholder="Check By Mobile Number"/> <br> 
+                        <input type="text" required name="mobile" value="" class="form-control" placeholder="check verification via mobile or name or email"/> <br> 
                         <button type="submit" class="btn btn-info" ><i class="fa fa-search"></i> Search </button>
                     </form>
                                          

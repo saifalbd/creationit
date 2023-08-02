@@ -147,11 +147,62 @@
                     <div class="card-body">
                         <div style="overflow-y: scroll; max-height: 175px; padding-right: 30px;">
 
+                            @if($fees->count())
+
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th style="background: #172c9b;
+                                        color: #fff;
+                                        font-weight: 500;
+                                        padding: 3px;
+                                        text-transform: uppercase;
+                                        border: 1px solid #000309;">Course</th>
+                                    <th style="background: #172c9b;
+                                    color: #fff;
+                                    font-weight: 500;
+                                    padding: 3px;
+                                    text-transform: uppercase;
+                                    border: 1px solid #000309;">Student</th>
+                                    <th style="background: #172c9b;
+                                    color: #fff;
+                                    font-weight: 500;
+                                    padding: 3px;
+                                    text-transform: uppercase;
+                                    border: 1px solid #000309;">Amount</th>
+                                    <th style="background: #172c9b;
+                                    color: #fff;
+                                    font-weight: 500;
+                                    padding: 3px;
+                                    text-transform: uppercase;
+                                    border: 1px solid #000309;">Method</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($fees as $fee)
+                                        
+                                   
+                                    <tr>
+                                        <td>{{$fee->course->name}}</td>
+                                        <td>{{$fee->voucher->student->name}}</td>
+                                        <td style="text-align: right;">{{$fee->voucher->amount}}</td>
+                                        <td>{{$fee->trx_mode}}</td>
+                                    </tr>
+
+                                    @endforeach
+
+                                </tbody>
+                            </table>
+
+
+                            @else
+
 
                             <ul>
 
                                 There are no installments today
                             </ul>
+                            @endif
                         </div>
                     </div>
                 </div>

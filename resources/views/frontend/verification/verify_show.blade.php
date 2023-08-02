@@ -5,21 +5,23 @@
            <div class="col-12">
                <div class="section-title  style2 text-center">
                  <div class="section-top">
-                    <h1><span>Student</span><b> Verfication</b></h1>
+                    <h1><span>Student</span><b> Verification</b></h1>
                     <h4></h4>
                  </div>
               </div>
            </div>
         </div>
         
-        <h4 style="margin: 0;padding: 5px;padding-left:0px;">
-        Admission ID:    {{$data->id}}  <br>
-        Student Name:   {{$data->name}}  
-     </h4>
+        <div class="verify-heding">
+         <h4 style="margin: 0;padding: 5px;padding-left:0px;">
+            Admission ID:    {{$data->id}}  <br>
+            Student Name:   {{$data->name}}  
+         </h4>
+        </div>
       
      <hr>
      
-     <table width="100%" border="0" cellpadding="0" cellspacing="0">
+     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="font-family">
         <tr>
            <td width="20%" nowrap>Date of Birth</td>
            <td width="5%" align="center">: </td>
@@ -65,26 +67,29 @@
         </tr>
      </table>
 
-     
-     <h4>
-        Course Information  
-        <hr>
-     </h4>
+     <div class="verify-heding">
+        <h4>
+           Course Information  
+           <hr>
+        </h4>
+     </div>
      <div>
            <!-- Basic Plan -->
-           <ul>
-             <li> <span > Course Title:  <strong> {{$course->name}}</strong> </span> </li>
-             <li> <span > Type:   <strong> {{$data->courses[0]->type}}</strong></span> </li>
-             <li> <span > Dureation:    <strong> {{$course->duration}} Month</strong></span></li>
-             <li> <span > Session:   <strong> {{$data->courses[0]->session}}</strong></span> </li>
-             <li> <span > Roll:    <strong> {{$data->courses[0]->roll}}</strong></span> </li>
-             <li> <span > Reg:   <strong> {{$data->courses[0]->registration_no}}</strong></span> </li>
-             <li> <span > Academic Year:   <strong> {{$data->courses[0]->academic_year}}</strong></span> </li>
-             <hr>
-             <div style="display:none"> 
-             <li> <span > Grade:   <strong> </strong></span> </li>
-             <li> <span > Course Completed Date:   <strong> 0000-00-00</strong></span> </li>
-            </ul>
+          <div class="crse-text">
+            <ul>
+               <li> <span > Course Title:  <strong> {{$course->name}}</strong> </span> </li>
+               <li> <span > Type:   <strong> {{$data->courses[0]->type}}</strong></span> </li>
+               <li> <span > Duration:    <strong> {{$course->duration}} Months</strong></span></li>
+               <li> <span > Session:   <strong> {{$data->courses[0]->session}}</strong></span> </li>
+               <li> <span > Roll:    <strong> {{$data->courses[0]->roll}}</strong></span> </li>
+               <li> <span > Reg:   <strong> {{$data->courses[0]->registration_no}}</strong></span> </li>
+               <li> <span > Academic Year:   <strong> {{$data->courses[0]->academic_year}}</strong></span> </li>
+               <hr>
+               <div style="display:none"> 
+               <li> <span > Grade:   <strong> </strong></span> </li>
+               <li> <span > Course Completed Date:   <strong> 0000-00-00</strong></span> </li>
+              </ul>
+          </div>
       </div>
       
       <div>
@@ -105,5 +110,25 @@
      </section>
 
 
-    </x-frontend-layout>
+<style>
+.font-family tr, td, strong {
+	font-family: "Poppins",serif !important;
+}
+
+
+.verify-heding h4 {
+	font-family: "Poppins",serif !important;
+}
+
+.crse-text ul li span {
+	font-family: "Poppins",serif !important;
+}
+
+
+
+
+
+</style>
+
+</x-frontend-layout>
     

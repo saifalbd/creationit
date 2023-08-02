@@ -23,19 +23,18 @@
 
 								<div class="form-group col-md-6">
 									<label for="inputAddress2">Admission ID</label>
+									@if($byStudent_id)
+									<input name="student_id" value="{{$byStudent_id}}" class="form-control"  type="hidden">
+									
+									@endif
 									<select name="student_id" value="{{$byStudent_id}}" class="form-control js-select2 @error('student_id') is-invalid @enderror" @disabled(!!$byStudent_id)>
 										<option value="">---</option>
 									
 										@foreach($students as $student)
 										<option value="{{$student->id}}" @selected($student->id == $byStudent_id?$byStudent_id: old('student_id'))> {{$student->id}}/ {{$student->name}}/ {{$student->mobile}}</option>
 										@endforeach
-										
-										
-
-										
-										
-
 									</select>
+									
                                     @error('student_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
 								</div>
 								<div class="form-group col-md-6">

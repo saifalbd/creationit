@@ -37,7 +37,8 @@ class UserPolicy
     public function view(User $user)
     {
        
-     
+        
+       
         if($user->isSuper){
             return Response::allow();
    
@@ -71,6 +72,8 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
+
+      
         if($user->isSuper){
             return Response::allow();
    

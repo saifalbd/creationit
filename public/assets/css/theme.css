@@ -1,4 +1,4 @@
-
+ 
 
 /* CSS Document */
 body {
@@ -14,7 +14,7 @@ body {
     max-width: 150px;
 }
 
-
+ 
 .navbar-light .navbar-nav .nav-link {
     color: #0032ab;
 }
@@ -22,21 +22,22 @@ body {
 }
 
 .page-title {
-	background: #ffffff;
-	padding: 10px;
-	border-radius: 0px;
-	font-size: 1.1em;
-	color: #192433;
-	box-shadow: 0px 0 8px #9e9e9e8c;
-	/* margin-bottom: 1.5rem; */
-	padding-left: 12px;
-	box-shadow: 0px 0 4px #bcbabf8c;
-	/* border-radius: 0.25rem; */
-	border: none;
-	border-right: 5px solid #ea4d38;
-	border-left: 5px solid #ea4d38;
-	font-weight: 500;
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 0px;
+    font-size: 1.1em;
+    color: #192433;
+    box-shadow: 0px 0 8px #9e9e9e8c;
+    /* margin-bottom: 1.5rem; */
+    padding-left: 12px;
+    box-shadow: 0px 0 4px #bcbabf8c;
+    /* border-radius: 0.25rem; */
+    border: none;
+    border-right: 5px solid var(--yellow);
+    border-left: 5px solid var(--yellow);
+    font-weight: 500;
 }
+
 .card {
     margin-bottom: 30px;
     -webkit-transition: all 0.3s ease-in-out;
@@ -79,15 +80,15 @@ body {
   transform: rotate(-0deg);
   transition: transform .15s linear;
   margin-bottom:25px;
-
+   
 }
 
 .note-header { background: #eef259; padding:5px;}
 
-.note-body {
+.note-body { 
 padding:5px;
 font-size: 14px!important;
-
+ 
 }
 
 .note-footer {
@@ -104,18 +105,19 @@ transform: rotate(0deg);
 }
 
 
-.btn-primary {
-	background: linear-gradient(#efd78f, #ea4d38);
-	color: darkblue;
-	font-weight: 500;
-	border: none;
+ .btn-primary {
+    background: linear-gradient(to right, var(--yellow) , var(--yellow));
+    border-color: var(--yellow);
+    color: #3d2109;
+    font-weight: 500;
 }
+
 .btn-info {
     color: #fff;
     background-color: var(--teal);
     border-color: var(--teal);
 }
-
+ 
 
  .btn-outline-primary {
     color: #0032ab;
@@ -127,7 +129,7 @@ transform: rotate(0deg);
     color: rgb(112 55 8 / 80%);
     /* text-shadow: 0px 0px 1px #838383; */
     font-weight: 500;
-    font-size: 1.2em;
+    font-size: 0.9em;
 }
 .bg-dark {background-color: #343a40 !important;}
 .sb-sidenav .sb-sidenav-menu .nav .nav-link {
@@ -155,11 +157,11 @@ transform: rotate(0deg);
 }
 
 .sb-sidenav-light {
-	background-color: #044775;
-	/* color: #212529; */
-	/* background: url('bg.png'); */
-	/* box-shadow: 0px 0 1px #58595947; */
-	/* background-image: linear-gradient(to right, #9c2222 , var(--blue)); */
+    background-color: darkblue;
+    /* color: #212529; */
+    /* background: url('bg.png'); */
+    /* box-shadow: 0px 0 1px #58595947; */
+    /* background-image: linear-gradient(to right, #9c2222 , var(--blue)); */
 }
 
 .navbar-light .navbar-brand {
@@ -170,7 +172,7 @@ transform: rotate(0deg);
 }
 
 .sb-sidenav .sb-sidenav-menu .nav .nav-link .sb-nav-link-icon {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #007bff;
     padding-right: 8px;
 }
@@ -214,7 +216,7 @@ table.dataTable {
  border-top: 1px solid rgb(238, 238, 238);
  border-bottom: 1px solid rgb(238, 238, 238);
 }
-
+ 
 .RFtable {
     width: 100%;
     border-collapse: collapse;
@@ -276,7 +278,9 @@ table.dataTable {
 }
 
 
-
+.bg-primary {
+#6610f226!important;
+}
 
 .input-group>.form-control:not(:last-child),
 .input-group>.custom-select:not(:last-child) {
@@ -361,9 +365,13 @@ table.dataTable {
 }
 
 .thumb-sm {
-	width: 100%;
-	margin-bottom: 16px;
+   
+width: 100%;
+margin-bottom: 16px;
+
 }
+
+
 
 .badge-soft-warning {
     background-color: rgba(248, 201, 85, .2);
@@ -382,10 +390,8 @@ table.dataTable {
 .order-card {
 }
 
-.wedget-statistic {
-	background: linear-gradient(#efd78f, #ea4d38);
-	color: darkblue;
-}
+.wedget-statistic {background: linear-gradient(#efd78f, var(--warning));color: darkblue;} 
+	
 .bg-c-blue {border-right: 1px dashed #fcefc5;padding: 20px;background: none;box-shadow: none;}
 .bg-c-green {
     background: linear-gradient(45deg, #2ed8b6, #59e0c5);
@@ -412,8 +418,7 @@ table.dataTable {
 }
 
 .f-right {
-	float: right;
-	font-size: 12px;
+    float: right;
 }
 
 #qrcode {
@@ -427,22 +432,21 @@ table.dataTable {
 }
 
 .sb-sidenav .sb-sidenav-menu .nav .nav-link {
-	display: flex;
-	align-items: center;
-	padding-top: 0.4rem;
-	padding-bottom: 0.4rem;
-	position: relative;
-	font-weight: 500;	
-    font-size: 1em;
+    display: flex;
+    align-items: center;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    position: relative;
+    font-weight: 500;
+    font-size: .95em;
 }
-
+ 
 
 .sb-topnav .navbar-brand {
-	width: 225px;
-	font-weight: bold;
-	font-size: 21px !important;
+    width: 225px;
+    font-weight: bold;
+    font-size: 21px !important;
 }
-
 .sb-topnav.navbar-light #sidebarToggle {
     color: #828282;
 }
@@ -505,17 +509,17 @@ div.sticky {
 
 /* Track */
 ::-webkit-scrollbar-track {
-	background: #f1f1f1;
+	background: #f1f1f1; 
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: #888;
+	background: #888; 
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-	background: #555;
+	background: #555; 
 }
 
 

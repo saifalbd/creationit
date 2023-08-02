@@ -46,9 +46,11 @@
                            <td>{{$item->remark}}</td>
                            <td>{{format($item->date)}}</td>
                            <td nowrap>
-                              <a href="{{route('fee.show',['fee'=>$item->id])}}" class="btn btn-info btn-sm"> <i class="fa fa-print"> </i></a>
-                              <a href="{{route('fee.edit',['fee'=>$item->id])}}" class="btn btn-success btn-sm"> <i class="fa fa-edit"> </i></a>
+                              <div style="display: flex;">
+                                 <a href="{{route('fee.show',['fee'=>$item->id])}}" class="btn btn-info btn-sm mr-2"> <i class="fa fa-print"> </i></a>
+                              <a href="{{route('fee.edit',['fee'=>$item->id])}}" class="btn btn-success btn-sm mr-2"> <i class="fa fa-edit"> </i></a>
                               <x-remove-btn :action="route('fee.destroy',['fee'=>$item->id])" title="Are You Sure? Delete Batch {{$item->student->name}}"></x-remove-btn>
+                              </div>
                            </td>
                         </tr>
                         @endforeach

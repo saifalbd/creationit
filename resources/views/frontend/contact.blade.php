@@ -105,5 +105,23 @@
         </div>
     </div>
 </section>	
+
+<style>
+
+.c-text h4 {
+	font-size: ;
+	font-family: "Poppins",serif !important;
+}
+
+.contact-form-area h4 {
+	font-family: "Poppins",serif !important;
+}
+
+
+.bizwheel-btn.theme-2 {
+	font-family: "Poppins",serif !important;
+}
+
+</style>
 </x-frontend-layout>
     

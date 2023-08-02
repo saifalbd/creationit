@@ -4,7 +4,8 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SuccessStudentController;
 use App\Http\Controllers\AchivementController;
-use App\Http\Controllers\VideoController;
+use App\Http\Controllers\Frontend\SeminarController;
+
 
 
 
@@ -23,9 +24,14 @@ Route::get('/team', [FrontendController::class, "instructor"])->name('frontend.i
 Route::view('/contact', 'frontend/contact')->name('frontend.contact');
 Route::post('/store', [FrontendController::class, 'store'])->name('contact.store');
 Route::get('/freelancing', [FrontendController::class, 'freelancing'])->name('course.freelancing');
+Route::get('/freelancing/post/{id}', [FrontendController::class, 'singleFreelancing'])->name('single.freelancing');
 Route::get('/course', [FrontendController::class, "course"])->name('frontend.course');
 Route::get('/course-detail/{id}', [FrontendController::class, "courseDetail"])->name('single.course');
-
+Route::get('apply/seminar',[SeminarController::class, 'create'])->name('seminar.create');
+Route::post('seminar/store',[SeminarController::class, 'store'])->name('seminar.store');
+Route::get('seminar/applies',[SeminarController::class, 'index'])->name('seminar.index');
+Route::get('seminar/destroy/{id}',[SeminarController::class, 'destroy'])->name('seminar.student.destroy');
+Route::post('seminar/status',[SeminarController::class, 'changeStatus'])->name('change.status');
 
 Route::get('/syllabus', [FrontendController::class, "syllabus"])->name('frontend.syllabus');
 // Route::get('/verification-result', [FrontendController::class, "verificationResult"])->name('frontend.verification.result');
@@ -39,6 +45,7 @@ Route::get('/success-student',[FrontendController::class, "StudentSuccess"])->na
 Route::post('/student-search',[FrontendController::class, "searchStudent"])->name('student.search');
 Route::get('about-us', [FrontendController::class, "aboutUs"])->name('about.us');
 Route::get('founder', [FrontendController::class, "founder"])->name('founder');
+Route::get('other-institute', [FrontendController::class, "otherInstitute"])->name('other.institute');
 Route::get('other-institute', [FrontendController::class, "otherInstitute"])->name('other.institute');
 
 

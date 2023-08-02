@@ -43,6 +43,8 @@
       <td align="left" nowrap>News Post</td>
       @elseif ($item->menu == 3)
       <td align="left" nowrap>Testimonial Post</td>
+      @elseif ($item->menu == 5)
+      <td align="left" nowrap>Freelancing</td>
       @endif
       @if(empty($item->description))
       <td align="left">Don`t Have description</td>

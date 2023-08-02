@@ -22,16 +22,23 @@ class AdmissionController extends Controller
 
 
 public function checkVerification(Request $request){
+
+        if(preg_match('/(^([+]{1}[8]{2}|0088)?(01){1}[3-9]{1}\d{8})$/', $request->mobile)){
+            $col = 'mobile';
+        }else if(preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $request->mobile)){
+            $col = 'email';
+        }else{
+            $col = 'name';  
+        }
+
+
     $data = Student::with(['courses','avatar'])
-    ->where('mobile',$request->mobile)
+    ->where($col,$request->mobile)
     ->where('status',1)
     ->orWhere('status',2)
     ->first();
 
-    
-    
 
-// dd($course);
     if(!empty($data)){
         $courseId = $data->courses[0]->course_id;
         $course = Course::where('id',$courseId)->first();

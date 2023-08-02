@@ -41,6 +41,11 @@ Route::get('/add', [UtilityController::class, 'addCaches']);
 
 Route::post('/student-addmition', [PendingStudentController::class, 'store'])->name('pendingStore');
 
+Route::post('/fee-store',[FeesController::class,'storeByFront'])->name('fee.storeByFront');
+
+
+Route::view('/payment','frontend.payment')->name('frontend.payment');
+
 Route::controller(AuthController::class)->group(function () {
 
     Route::get('/login', 'loginPage')->name('login');
@@ -53,7 +58,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware('auth')->prefix('/admin')->group(function () {
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::resource('/users', UserController::class)->names('user');
 
@@ -116,6 +121,9 @@ Route::middleware('auth')->prefix('/admin')->group(function () {
         Route::get('', 'index')->name('index');
         Route::get('/preview_admission_date_wise', 'admissionDateWise')->name('admissionDateWise');
         Route::get('/preview_admission_course_date_wise', 'admissionDateCourseWise')->name('admissionDateCourseWise');
+
+        Route::get('/batch-wise-attendence','batchWiseAttendence')->name('batchWiseAttendence');
+        Route::get('/attendance-summary','attendanceSummary')->name('attendanceSummary');
 
         Route::get('/earn-expense-report', 'earnExpenseReport')->name('earnExpenseReport');
         Route::get('/transaction-summary-report', 'transactionSummaryReport')->name('transactionSummaryReport');

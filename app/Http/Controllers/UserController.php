@@ -90,7 +90,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $this->authorize('update');
+        $this->authorize('update',$user);
         return view('Admin.pages.user.edit',compact('user'));
     }
 

@@ -13,6 +13,7 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/attend-form.js', 'public/assets/js')
     .js('resources/js/table-script.js', 'public/assets/js')
+    .js('resources/js/app.js', 'public/assets/js')
     // .postCss('resources/css/app.css', 'public/css', [
     //     require("tailwindcss"),
     // ])

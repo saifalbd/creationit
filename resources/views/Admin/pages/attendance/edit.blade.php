@@ -29,10 +29,10 @@
 
                                 @foreach ($students as $item)
                                     <tr>
-                                        <td rowspan="{{ $item->list->count() }}">{{ $item->id }}</td>
-                                        <td rowspan="{{ $item->list->count() }}"> <a
-                                                href="preview_student.php?id=38">{{ $item->name }}</a></td>
-                                        <td rowspan="{{ $item->list->count() }}">{{ $item->mobile }}</td>
+                                        <td >{{ $item->id }}</td>
+                                        <td > <a
+                                                >{{ $item->name }}</a></td>
+                                        <td >{{ $item->mobile }}</td>
                                         <td><button class="btn btn-info" data-toggle="modal"
                                                 data-target="#attModal-{{ $item->id }}">Show Details</button></td>
                                     </tr>

@@ -29,7 +29,6 @@
                             </div-->
                             <div class="content-inner">
                                 <h4 class="name"><span>{{$item->name}}</span></h4>
-                                <h5 class=""><span>{{$item->course}}</span></h5>
                                 <span class="designation"> {{$item->designation}}</span>
                                 
                             </div>
@@ -48,6 +47,17 @@
 .form-group {
     display: flex;
 }
+
+.content-inner h4, span {
+	font-family: "poppins",serf !important;
+    text-transform: capitalize
+}
+
+.content-inner h4 a{
+    font-family: "poppins",serf !important;
+}
+
+
 </style>
 
 </x-frontend-layout>

@@ -25,7 +25,7 @@ class StudentController extends Controller
             return $q->with(['batch:id,title', 'course']);
         })->runing()->latest()->paginate();
        
-        return $students;
+     //   return $students;
 
         return view('Admin.pages.student.currentStudents', compact('students'));
     }
@@ -144,8 +144,10 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $student->load(['courses.course', 'reference','vouchers','attendances.attendLedger']);
+        $student->load(['courses.course', 'reference','vouchers','attendances.attendLedger','avatar']);
         
+
+   
        
 
          $atns =  $student->attendances->where('isAfter',false)->groupBy('attendance_id')->map(function($items){

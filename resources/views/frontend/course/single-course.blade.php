@@ -22,7 +22,7 @@
 			<div class="row">
 				<div class="col-lg-4 offset-lg-1 col-md-5 col-12">
 					<!-- About Video -->
-					<div class="founer">
+					<div class="modern-img-feature">
 						<img src="/assets/img/{{$data->avatar->path}}" alt="#">
 					</div>
 					<!--/End About Video  -->

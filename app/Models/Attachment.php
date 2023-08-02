@@ -40,6 +40,7 @@ class Attachment extends Model
 
 
 
+    // dd(Storage::disk($disk)->url($path));
 
 
 

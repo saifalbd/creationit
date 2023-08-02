@@ -193,6 +193,7 @@
              </a>
              <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                <nav class="sb-sidenav-menu-nested nav">
+                   <a class="nav-link" href="{{route('seminar.index')}}">Seminar</a>
                            <a class="nav-link" href="{{route('page.create')}}">Add Page</a>
                            <a class="nav-link" href="{{route('page.index')}}">Page Archive</a>
                            <a class="nav-link" href="{{route('slider.create')}}">Slider</a>

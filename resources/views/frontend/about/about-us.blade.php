@@ -1,69 +1,113 @@
 
 <x-frontend-layout>
 	<style>
-		.custom-row {
-			display: flex;
-		}
-		.custom-item {
-			width: 40%;
-		}
-	
+.about-us {
+	padding: 0px;
+}
 
-		h2{
-			text-transform: uppercase;
-			font-weight: bold;
-			font-size: 30px;
-			color: #666;
-		}
-
-	
-	.founer {
-		margin-right: 20px;
-		box-shadow: 1px 1px 2px 3px rgba(0,0,0,.1);
-		border-radius: 2px;
-		margin-top: 20px;
-		padding: 5px;
+.custom-row {
+		display: flex;
+	}
+	.custom-item {
+		width: 40%;
 	}
 
-	.founer img{
-		height: 300px;
+
+	h2{
+		text-transform: uppercase;
+		font-weight: bold;
+		font-size: 30px;
+		color: #666;
 	}
+
+
+.founer {
+	margin-right: 20px;
+	box-shadow: 1px 1px 2px 3px rgba(0,0,0,.1);
+	border-radius: 2px;
+	margin-top: 20px;
+	padding: 5px;
+}
+
+.founer img{
+	height: 300px;
+}
+
+.text p {
+	font-family: "Tiro Bangla",serif !important
+}
+
+.section-title {
+	margin-bottom: 0px;
+}
+
+.btn-primary {
+	margin: 20px 0px;
+}
+
+
 	
 		
 	/* responsive */
-	@media(max-width:768px){
-	
-	.custom-item {
-		width: 100%;
-	}
-	
-	.custom-item {
-		width: 100%;
-		display: block;
-	}
+@media(max-width:768px){
 
-.section-top h1 {
-	margin-bottom: 0;
-	margin-top: 50px;
+.custom-item {
+	width: 100%;
 }
 
-	
-	}
+.custom-item {
+	width: 100%;
+	display: block;
+}
+
+
+.section-top {
+	margin-top: 20px;
+}
+.section-top h4 {
+	font-size: 15px;
+}
+.section-top h1{
+    font-size: 22px !important;
+    margin-top: 0px;
+}
+
+
+
+.section-title {
+	margin-bottom: 0px;
+}
+
+
+
+}
 	
 		
 </style>
 	<!-- About Us -->
-	<section class="about-us section-space mt-3">
+	<section class="about-us ">
 		<div class="container">
+			<div class="row">
+				<div class="col-12 m-0 p-0">
+					<div class="section-title  style2 text-center">
+						<div class="section-top">
+							<h1><span>আমাদের সম্পর্কে</span></h1>
+							
+						</div>
+						 
+					</div>
+				</div>
+			</div>
+
 			@if($data == null)
 			<h2>data not found</h2>
 			@else
 
 			<div class="row">
-				<div class="col-lg-4 offset-lg-1 col-md-5 col-12">
+				<div class="col-lg-4 col-md-5 col-12">
 					<!-- About Video -->
-					<div class="founer">
-						<img src="/{{$data[0]->photo}}" alt="#">
+					<div class="modern-img-feature">
+						<img src="{{$data[0]->photo}}" alt="#">
 					</div>
 					<!--/End About Video  -->
 				</div>

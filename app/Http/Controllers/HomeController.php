@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FeeReceipt;
 use App\Models\PendingStudent;
 use App\Models\Student;
 use App\Services\ChartInfoService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class HomeController extends Controller
 {
@@ -34,6 +36,17 @@ class HomeController extends Controller
     public function index()
     {
 
+        $today = Carbon::today()->toDateString();
+     
+       
+
+        $fees = FeeReceipt::query()->with(['course:id,name','voucher'=>fn($q)=>$q->with('student:id,name')])->where('date',$today)->get();
+
+     
+
+    
+       
+
         $due = $this->duePaymentStudent();
         $currentStudent = Student::query()->where('status',1)->count();
         $expireStudent = Student::query()->where('status',2)->count();
@@ -41,7 +54,7 @@ class HomeController extends Controller
 
         $rep = new ChartInfoService();
         $courseWiseChats = $rep->courseWiseAdmission();
-        $data = compact('due','currentStudent','expireStudent','courseWiseChats','pendingStudent');
+        $data = compact('due','currentStudent','expireStudent','courseWiseChats','pendingStudent','fees');
         return view('Admin.pages.home',$data);
     }
 

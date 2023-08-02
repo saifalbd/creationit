@@ -34,7 +34,7 @@
       <div class="wraper">
 
   <!-- Header -->
-  			<img src="../uploads/logo2023-04-25-20-05-54_6447de42b19de.png" width="50" alt="" style="float: left; position: absolute;"> 
+  			<img src="{{comInfo('avatar')->url}}" width="50" alt="" style="float: left; position: absolute;"> 
 			<div style="text-align: center; "> 
 			<h2 style="margin:0">{{comInfo('institute')}}</h2>
 			<div class="address">{{comInfo('address')}}</div>
