@@ -14,7 +14,7 @@
             </div>
             <div class="card mb-4">
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="padding-bottom:300px">
                         <br>
                         <table class="table table-hover " id="dataTable" width="100%" cellspacing="0">
                             <thead>
@@ -26,7 +26,7 @@
                                     <th> Course</th>
                                     <th> Batch </th>
                                     <th> Mobile</th>
-                                    <th width="10%"> </th>
+                                    <th>Option</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,7 +42,7 @@
                                     <td>{{$student->mobile}}</td>
 
 
-                                    <td nowrap>
+                                   
 
 
                                     <td nowrap>

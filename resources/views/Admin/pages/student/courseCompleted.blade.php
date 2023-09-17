@@ -12,7 +12,7 @@
             </div>
             <div class="card mb-4">
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="padding-bottom:300px">
                         <br>
                         <table class="table table-hover " id="dataTable" width="100%" cellspacing="0">
                             <thead>

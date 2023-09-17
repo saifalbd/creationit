@@ -81,7 +81,6 @@ class SliderController extends Controller
             'link' => "required",
             'photo' => "required",
         ]);
-
         $data = Video::find(1);
 
         if($request->hasFile('photo')){
@@ -93,7 +92,13 @@ class SliderController extends Controller
             $data->photo = $storeImg;
         }
         
-        $data->update(['link'=>$request->link,'photo'=>$storeImg]);
+        $data->update(
+            [
+                'short_text'=>$request->short_text,
+                'link'=>$request->link,
+                'photo'=>$storeImg
+            ]
+        );
         return redirect()->route('video.create');
 
     }

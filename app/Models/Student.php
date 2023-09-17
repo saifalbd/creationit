@@ -12,9 +12,31 @@ class Student extends Model
 
 
 
-    protected $fillable = ['name','father_name','mother_name','gender',
+    protected $fillable = ['serial','name','father_name','mother_name','gender',
     'date_of_birth','education','occupation','mobile','guardian_mobile',
     'email','avatar_id','present_address','permanent_address','status'];
+
+
+    protected static function boot()
+{
+    parent::boot();
+
+    // auto-sets values on creation
+    static::creating(function ($query) {
+
+
+        $serial = 10001;
+        $last = Student::query()->latest()->first();
+        if($last){
+            $serial = $last->serial+1;
+        }
+
+        $query->serial = $serial;
+
+    });
+}
+
+
 
 
     public function avatar(){

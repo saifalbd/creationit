@@ -9,6 +9,8 @@ use App\Models\Course;
 use App\Models\PendingStudent;
 use App\Models\Student;
 use App\Rules\BdPhone;
+use App\Services\Cert;
+use App\Services\IdCard;
 use App\Services\MessageSender;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -54,6 +56,8 @@ class StudentController extends Controller
         return view('Admin.pages.student.create', compact('batches', 'courses'));
     }
 
+    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -63,7 +67,7 @@ class StudentController extends Controller
     public function store(StudentCreateRequest $request)
     {
        
-        $request->validate(['mobile'=>['required',Rule::unique('students')], "email" => ['required', 'email',Rule::unique('students')]]);
+        $request->validate(['mobile'=>['required',Rule::unique('students')], "email" => ['nullable', 'email',Rule::unique('students')]]);
 
         $avatar_id = $request->get('avatar_id',1);
         if ($request->hasFile('photo')) {
@@ -98,7 +102,7 @@ class StudentController extends Controller
 
         $feeInfo = [
             'fee' => $request->fee,
-            'discount' => $request->discount,
+            'discount' => $request->discount?$request->discount:0,
             'first_ins' => $request->first,
             'first_ins_date' => $request->first_date,
             'second_ins' => $request->second,
@@ -198,7 +202,11 @@ class StudentController extends Controller
   
     public function idCard(Student $student){
 
-        return view('Admin.pages.student.id_card',compact('student'));
+        $rep = new IdCard;
+
+        return $rep->make($student);
+
+        
 
     }
 
@@ -229,7 +237,9 @@ class StudentController extends Controller
         $request->validate(['course'=>['required','numeric',Rule::exists('student_courses','course_id')->where('student_id',$student->id)]]);
         $studentCourse = $student->courses()->where('course_id',$request->course)->with(['course','batch'])->first();
       
-        return view('Admin.pages.student.certification',compact('student','studentCourse'));  
+        $rep = new Cert;
+        return $rep->make($student,$studentCourse);
+        // return view('Admin.pages.student.certification',compact('student','studentCourse'));  
     }
 
     /**

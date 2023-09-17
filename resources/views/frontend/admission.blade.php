@@ -3,13 +3,19 @@
 <section class="call-action"  >
     <div class="container">
     
-<form name="frmUser" method="post" action="" enctype="multipart/form-data"  style="background: #eeeeeea8;border: 1px solid #ccc; padding: 30px;">
- <div class="form-row">
+<form name="frmUser" method="post" action="{{route('pendingStore')}}" enctype="multipart/form-data"  style="background: #eeeeeea8;border: 1px solid #ccc; padding: 30px;">
+ 
+ @csrf
+ <x-error-alert></x-error-alert>
+    <div class="form-row">
     <div class="form-group col-md-4">
         <label for="inputEmail4">Course</label>
-        <select name="course" class="form-control js-select2"  required>
-                <option value="" >---</option>
-                <option value="1">Diploma In Graphic Design/4 Months</option>
+        <select name="course_id" class="form-control js-select2"  required>
+            
+               <option value="" >---</option>
+                @foreach ($courses as $item)
+                <option value="{{$item->id}}">{{$item->name}}</option>  
+                @endforeach
             </select>
         </div>	
                 
@@ -33,26 +39,28 @@
         <label for=" ">Gender</label>
         
         <select  class="form-control" name="gender" required>
-            <option value="Male"> Male </>
-            <option value="Female"> Female </>
+            <option value="Male"> Male </option>
+            <option value="Female"> Female </option>
         </select>
         
         </div>
         <div class="form-group col-md-2">
         <label for="inputpresent_address2">Date of Birth</label>
-        <input type="date" class="form-control" name="dob" required>
+        <input type="date" class="form-control" name="date_of_birth" required>
         </div>
         
         <div class="form-group col-md-4">
         <label for="inputCity">Occupation </label>
             <select  class="form-control" name="occupation" required>
-            <option value="Student"> Student </>
+               <option value="Student"> Student </option>
+            <option value="Job"> Job </option>
+            <option value="Bussiness"> Bussiness </option>
         </select>
         </div>
         
         <div class="form-group col-md-4">
         <label for="inputCity">Highest Educational Qualification</label>
-        <input type="text" class="form-control"  name="qualification" placeholder="Ex: HSC with GPA 4.50" required>
+        <input type="text" class="form-control"  name="education" placeholder="Ex: HSC with GPA 4.50" required>
         </div>
         <div class="form-group col-md-2">
         <label for="inputCity">Mobile</label>
@@ -80,7 +88,7 @@
 
         <div class="form-group col-md-6">
         <label for="inputEmail4">Photo (Maximum 50 KB) </label>
-        <input type="file" class="form-control" name="avatar_id" >
+        <input type="file" class="form-control" name="photo" >
         </div>	  
         
         <div class="form-group col-md-6">

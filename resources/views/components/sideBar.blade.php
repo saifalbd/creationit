@@ -113,7 +113,18 @@
              <a class="nav-link" href="{{route('instructor.index')}}"> Instructor List</a>
                 </nav>
              </div>
-
+   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#invoice" aria-expanded="false" aria-controls="collapsePages">
+               <div class="sb-nav-link-icon"><i class="fas fa-file-invoice"></i></div>
+           Shop
+               <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+            </a>
+            <div class="collapse" id="invoice" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+               <nav class="sb-sidenav-menu-nested nav">
+            <a class="nav-link" href="{{route('category.index')}}">Categories</a>
+            <a class="nav-link" href="{{route('product.index')}}">Products</a>
+             <a class="nav-link"  href="{{route('order.index')}}">Sales</a>
+               </nav>
+            </div>
 
 
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#invoice" aria-expanded="false" aria-controls="collapsePages">

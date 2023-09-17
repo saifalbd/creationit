@@ -12,7 +12,7 @@
 </div>
 <div class="card mb-4">
    <div class="card-body">
-      <div class="table-responsive">
+      <div class="table-responsive" style="padding-bottom:300px">
          <br>
          <table class="table table-hover " id="dataTable" width="100%" cellspacing="0">
             <thead>
@@ -31,7 +31,7 @@
                <tr>
                   <td width="0%" ><samp >{{$student->id}}</samp></td>
                   <td width="0%" > {{format($student->created_at->toDateString())}} </td>
-                  <td> <a href="{{route('student.show',['student'=>$student->id])}}" >{{$student->name}} </a></td>
+                  <td> <a >{{$student->name}} </a></td>
 
 				  <td>{{$student->course->name}}</td>
 			

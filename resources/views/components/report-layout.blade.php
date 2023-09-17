@@ -17,8 +17,8 @@
 <div class="wraper">
 
     <!-- Header -->
-    <img src="{{comInfo('avatar')->url}}" width="50" alt="" style="float: left; position: absolute;">
-    <div style="text-align: center; ">
+    <img src="{{comInfo('avatar')->url}}" width="150" alt="" style="float: left; position: absolute;">
+    <div style="text-align: center;padding-bottom:10px; ">
         <h2 style="margin:0">{{comInfo('institute')}}</h2>
         <div class="address">{{comInfo('address')}}</div>
     </div>

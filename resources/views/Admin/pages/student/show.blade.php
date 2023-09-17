@@ -46,7 +46,7 @@
 <div style="float: right; margin: 0;">
   <svg id="barcode" :value="sku"  ></svg>
 </div>
-<h3 style="margin: 0;padding: 5px;padding-left:0px;"> Admission ID: {{$student->id}} <br>
+<h3 style="margin: 0;padding: 5px;padding-left:0px;"> Admission ID: {{$student->serial}} <br>
   Student Name: {{$student->name}} </h3>
 <br>
 <hr>

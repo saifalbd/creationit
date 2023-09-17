@@ -109,6 +109,7 @@ class MessageController extends Controller
 
         $rep = new MessageSender();
         $rep->sendBulk($list);
+        return redirect()->back();
     }
     public function attendance(){
         $batches = Batch::query()->select(['id','title','active'])->whereActive(true)->get();

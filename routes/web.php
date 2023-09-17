@@ -9,11 +9,14 @@ use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\FeesController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OptionController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PendingStudentController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SuccessStudentController;
@@ -21,7 +24,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UtilityController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\VoucherLedgerController;
-
+use App\Models\Student;
+use App\Services\Cert;
+use App\Services\IdCard;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,8 +42,13 @@ use App\Http\Controllers\VoucherLedgerController;
 Route::get('/clear', [UtilityController::class, 'clearCaches'])->name('clear');
 Route::get('/add', [UtilityController::class, 'addCaches']);
 
+Route::get('/qr-code',[UtilityController::class,'QRCode'])->name('qrCode');
 
 
+
+
+
+Route::get('/sales-invoice/{order}',[OrderController::class,'show'])->name('sale.invoice');
 Route::post('/student-addmition', [PendingStudentController::class, 'store'])->name('pendingStore');
 
 Route::post('/fee-store',[FeesController::class,'storeByFront'])->name('fee.storeByFront');
@@ -72,6 +82,8 @@ Route::middleware('auth')->prefix('/admin')->group(function () {
     Route::resource('/holidays', HolidayController::class)->names('holiday');
     // course
     Route::resource('/courses', CourseController::class)->names('course');
+
+    Route::post('/course-roll-reg',[CourseController::class,'courseRollAndReg'])->name('courseRollAndReg');
     // Batch
     Route::resource('/batches', BatchController::class)->names('batch');
     Route::get('/batch-active-toggle/{batch}', [BatchController::class, 'toggleActive'])->name('batch.toggleActive');
@@ -83,6 +95,8 @@ Route::middleware('auth')->prefix('/admin')->group(function () {
         Route::get('/info-id-card/{student}', 'idCard')->name('idCard');
         Route::get('/info-attendance/{student}', 'attendance')->name('attendance');
         Route::get('/student-add-payment/{student}', 'addPayment')->name('addPayment');
+        Route::get('/student-add-course/{student}', 'addCourse')->name('addCourse');
+        Route::post('/student-add-course/{student}', 'storeCourse')->name('addCourse.store');
         Route::get('/student-certification/{student}', 'certification')->name('certification');
         Route::get('/student-certification/{student}/view', 'certificationView')->name('certification.view');
     });
@@ -131,6 +145,13 @@ Route::middleware('auth')->prefix('/admin')->group(function () {
         Route::get('/transaction-report', 'transactionReport')->name('transactionReport');
         Route::get('/date-wise-fee-collection', 'dateWiseFeeCollection')->name('dateWiseFeeCollection');
         Route::get('/fee-due-report', 'feeDueReport')->name('feeDueReport');
+    });
+
+
+    Route::prefix('/shop')->group(function(){
+        Route::resource('/categories', CategoryController::class)->names('category');
+        Route::resource('/products', ProductController::class)->names('product');
+        Route::resource('/orders', OrderController::class)->names('order');
     });
 
 

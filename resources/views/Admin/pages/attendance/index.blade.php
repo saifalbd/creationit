@@ -31,7 +31,7 @@
                                     <tr>
 
                                         <td> <a
-                                                href="list_attendance_recordes.php?d_ate=2023-03-13&batch=">{{ $attendance->monthYear }}</a>
+                                            href="{{ route('attendance.edit', ['attendance' => $attendance->id]) }}">{{ $attendance->monthYear }}</a>
                                         </td>
                                         <td>{{ $attendance->batch->title }}</td>
                                         <td> </td>

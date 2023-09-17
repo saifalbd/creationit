@@ -16,7 +16,7 @@
     
       <div class="row">
     
-        <div class="col-md-8">
+        <div class="col-md-12">
           <div class="card mb-4">
             <div class="card-body">
             <div class="row">
@@ -48,7 +48,7 @@
           </div>
         </div>
     
-          <div class="col-md-4">
+          <div class="col-md-12">
             <div class="card mb-4">
               <div class="card-body">
           
@@ -56,8 +56,18 @@
               <form enctype="multipart/form-data" method="post" action="{{route('video.update')}}">
                 @csrf
                 <div class="form-group"> 
+                  <label> Short Text:</label>
+                    <textarea name="short_text" type="text" class="form-control"></textarea>
+                    @error('short_text')
+                    <div class="alert alert-danger  mt-2">
+                      <span>{{$message}}</span>
+                    </div>
+                  @enderror
+                  </div>
+                  
+                <div class="form-group"> 
                 <label> Caption:</label>
-                  <input name="link" type="text" class="form-control" pattern="[^&lt;&gt;,]+" size="50"/ placeholder="https://www.youtube.com/embed/LhSDxp0oQK8">
+                  <input name="link" type="text" class="form-control" pattern="[^&lt;&gt;,]+" size="50"/ placeholder="https://www.youtube.com/embed/LhSDxp0oQK8" value="{{old('link')}}">
                   @error('link')
                   <div class="alert alert-danger  mt-2">
                     <span>{{$message}}</span>

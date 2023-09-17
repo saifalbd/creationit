@@ -6,6 +6,7 @@ use App\Models\Attachment;
 use App\Models\Course;
 use App\Models\Instructor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
@@ -20,6 +21,32 @@ class CourseController extends Controller
         // return $items;
         return view('Admin.pages.course.index',compact('items'));
     }
+
+
+    public function courseRollAndReg(Request $request){
+        $request->validate([
+            'course_id'=>['required','numeric'],
+            'batch_id'=>['required','numeric']
+        ]);
+
+        $course_id = $request->course_id;
+        $batch_id = $request->batch_id;
+
+        $has = DB::table('student_courses')->where(compact('course_id','batch_id'))->latest('id')->first();
+
+        $roll = 1;
+        $reg = 10000;
+
+        if($has){
+            $roll = $has->roll +1;
+            $reg =  $has->registration_no+1;
+        }
+
+        return compact('roll','reg');
+    
+    }
+
+  
 
     /**
      * Show the form for creating a new resource.

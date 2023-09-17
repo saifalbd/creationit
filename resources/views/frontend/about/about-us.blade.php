@@ -34,15 +34,23 @@
 }
 
 .text p {
-	font-family: "Tiro Bangla",serif !important
+	font-family: "Tiro Bangla",serif !important;
+	text-align: justify !important;
 }
+
+
+
+.section-title p {
+	text-align: justify;
+}
+
 
 .section-title {
 	margin-bottom: 0px;
 }
 
 .btn-primary {
-	margin: 20px 0px;
+	margin-bottom: 20px;
 }
 
 
@@ -72,6 +80,11 @@
     margin-top: 0px;
 }
 
+.text p {
+	text-align: justify !important;
+	margin-bottom: 15px !important;
+	font-size: 15px !important;
+}
 
 
 .section-title {

@@ -47,7 +47,7 @@
         <tr>
            <td width="20%" nowrap>{{$data->occupation}}</td>
            <td width="5%" align="center">: </td>
-           <td><strong>Student</strong> </td>
+           <td><strong>Occupation</strong> </td>
         </tr>
       
         <tr>
@@ -77,13 +77,13 @@
            <!-- Basic Plan -->
           <div class="crse-text">
             <ul>
-               <li> <span > Course Title:  <strong> {{$course->name}}</strong> </span> </li>
-               <li> <span > Type:   <strong> {{$data->courses[0]->type}}</strong></span> </li>
+               <li> <span > Course Title:  <strong> {{$course->course->name}}</strong> </span> </li>
+               <li> <span > Type:   <strong> {{$course->type}}</strong></span> </li>
                <li> <span > Duration:    <strong> {{$course->duration}} Months</strong></span></li>
-               <li> <span > Session:   <strong> {{$data->courses[0]->session}}</strong></span> </li>
-               <li> <span > Roll:    <strong> {{$data->courses[0]->roll}}</strong></span> </li>
-               <li> <span > Reg:   <strong> {{$data->courses[0]->registration_no}}</strong></span> </li>
-               <li> <span > Academic Year:   <strong> {{$data->courses[0]->academic_year}}</strong></span> </li>
+               <li> <span > Session:   <strong> {{$course->session}}</strong></span> </li>
+               <li> <span > Roll:    <strong> {{$course->roll}}</strong></span> </li>
+               <li> <span > Reg:   <strong> {{$course->registration_no}}</strong></span> </li>
+               <li> <span > Academic Year:   <strong> {{$course->academic_year}}</strong></span> </li>
                <hr>
                <div style="display:none"> 
                <li> <span > Grade:   <strong> </strong></span> </li>
@@ -99,7 +99,7 @@
               <div> 
                @if($data->status == 2)
               <li> <span > Course Status:   <strong  style="color:green;border:1px solid;padding:0px 5px">Completed </strong></span> </li>
-              <li> <span> Course Completed Date:   <strong> {{\Carbon\Carbon::parse($data[0]->updated_at)->format('d/m/Y')}}</strong></span> </li>
+              <li> <span> Course Completed Date:   <strong> {{\Carbon\Carbon::parse($course->updated_at)->format('d/m/Y')}}</strong></span> </li>
                @else
                <li> <span > Course Status: <strong style="color:orange;border:1px solid;padding:0px 5px"> Running</strong></span> </li>
                @endif

@@ -42,32 +42,32 @@
                         <x-error-alert></x-error-alert>
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label for="inputEmail4">Name</label>
+                                <label for="inputEmail4">Name <b style="color:red;">**</b></label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" required name="name"
                                        value="{{ old('name') }}">
                                 @error('name') <div class="invalid-feedback">{{$message}}</div> @enderror
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputpresent_address2">Father's/Husband Name</label>
+                                <label for="inputpresent_address2">Father's/Husband Name <b style="color:red;">**</b></label>
                                 <input type="text" class="form-control @error('father_name') is-invalid @enderror" required
                                        name="father_name" value="{{ old('father_name') }}">
                                 @error('father_name') <div class="invalid-feedback">{{$message}}</div> @enderror
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputpresent_address2">Mother's Name</label>
+                                <label for="inputpresent_address2">Mother's Name <b style="color:red;">**</b></label>
                                 <input type="text" class="form-control @error('mother_name') is-invalid @enderror" name="mother_name"
                                        value="{{ old('mother_name') }}">
                                 @error('mother_name') <div class="invalid-feedback">{{$message}}</div> @enderror
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="inputpresent_address2">Gender</label>
+                                <label for="inputpresent_address2">Gender <b style="color:red;">**</b></label>
                                 <select class="form-control" name="gender" value="{{ old('gender') }}">
                                     <option value="Male"> Male </option>
                                     <option value="Female"> Female </option>
                                 </select>
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="inputpresent_address2">Date of Birth</label>
+                                <label for="inputpresent_address2">Date of Birth <b style="color:red;">**</b></label>
                                 <input type="date" class="form-control @error('date_of_birth') is-invalid @enderror" name="date_of_birth"
                                        value="{{ old('date_of_birth') }}">
                                 @error('date_of_birth') <div class="invalid-feedback">{{$message}}</div> @enderror
@@ -92,7 +92,7 @@
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="inputCity">Mobile</label>
+                                <label for="inputCity">Mobile <b style="color:red;">**</b></label>
                                 <input type="number" class="form-control @error('mobile') is-invalid @enderror"  name="mobile"  value="{{ old('mobile') }}">
                                 @error('mobile') <div class="invalid-feedback">{{$message}}</div> @enderror
                             </div>
@@ -146,7 +146,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label for="inputEmail4"> Type  </label>
+                                <label for="inputEmail4"> Type  <b style="color:red;">**</b> </label>
                                 <select name="type" id="type" value="{{ old('type') }}"
                                         required class="js-select2 form-control @error('type') is-invalid @enderror"
                                         occupation>
@@ -159,8 +159,8 @@
                                 @error('type') <div class="invalid-feedback">{{$message}}</div> @enderror
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputEmail4">Course</label>
-                                <select name="course_id" 
+                                <label for="inputEmail4">Course <b style="color:red;">**</b></label>
+                                <select name="course_id" id="course_id_input"
                                         class="form-control js-select2 @error('course_id') is-invalid @enderror">
                                     <option value="">---</option>
                                     @foreach($courses as $course)
@@ -172,8 +172,8 @@
                                 @error('course_id') <div class="invalid-feedback">{{$message}}</div> @enderror
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="inputthird2">Batch</label>
-                                <select name="batch_id" value="{{ old('batch_id') }}"
+                                <label for="inputthird2">Batch <b style="color:red;">**</b></label>
+                                <select name="batch_id"  id="batch_id_input" value="{{ old('batch_id') }}"
                                         class="form-control js-select2 @error('batch_id') is-invalid @enderror">
                                     <option value="">----</option>
                                     @foreach($batches as $batch)
@@ -183,25 +183,25 @@
                                 @error('batch_id') <div class="invalid-feedback">{{$message}}</div> @enderror
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="inputEmail4">Roll No.</label>
-                                <input type="number" class="form-control @error('roll') is-invalid @enderror" name="roll"
+                                <label for="inputEmail4">Roll No. <b style="color:red;">**</b></label>
+                                <input type="number" id="roll_input" class="form-control @error('roll') is-invalid @enderror" name="roll"
                                        value="{{ old('roll') }}">
                                 @error('roll') <div class="invalid-feedback">{{$message}}</div> @enderror
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="inputEmail4">Registration No.</label>
+                                <label for="inputEmail4">Registration No. <b style="color:red;">**</b></label>
                                 <input type="number" class="form-control @error('registration_no') is-invalid @enderror"
-                                       name="registration_no" value="{{ old('registration_no') }}">
+                                       name="registration_no" id="registration_no_input" value="{{ old('registration_no') }}">
                                 @error('registration_no') <div class="invalid-feedback">{{$message}}</div> @enderror
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="inputthird2">Academic Year</label>
+                                <label for="inputthird2">Academic Year <b style="color:red;">**</b></label>
                                 <input type="text" class="form-control @error('academic_year') is-invalid @enderror" name="academic_year"
                                        value="{{ old('academic_year') }}">
                                 @error('academic_year') <div class="invalid-feedback">{{$message}}</div> @enderror
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="inputthird2">Session</label>
+                                <label for="inputthird2">Session <b style="color:red;">**</b></label>
                                 <input type="text" class="form-control @error('session') is-invalid @enderror" name="session"
                                        value="{{ old('session') }}">
                                 @error('session') <div class="invalid-feedback">{{$message}}</div> @enderror
@@ -320,6 +320,42 @@
 
 @slot('script')
 <script>
+
+const courseInput = document.getElementById('course_id_input');
+const batchInput = document.getElementById('batch_id_input');
+const rollInput = document.getElementById('roll_input');
+const regInput = document.getElementById('registration_no_input');
+
+async function setter(course_id,batch_id){
+    try {
+        const url = '/admin/course-roll-reg';
+        const {data} = await window.axios.post(url,{course_id,batch_id});
+        rollInput.value = data.roll;
+        regInput.value = data.reg;
+
+        
+    } catch (error) {
+        console.error(error)
+    }
+
+}
+
+courseInput.addEventListener('change',function(){
+    const course_id = this.value;
+    const batch_id = batchInput.value;
+    if(course_id && batch_id){
+        setter(course_id,batch_id)
+    }
+});
+
+batchInput.addEventListener('change',function(){
+    const course_id = courseInput.value;
+    const batch_id =this.value;
+    if(course_id && batch_id){
+        setter(course_id,batch_id)
+    }
+});
+
     const discount = document.getElementById('discount');
     const fee = document.getElementById('fee');
     const payable = document.getElementById('payable');

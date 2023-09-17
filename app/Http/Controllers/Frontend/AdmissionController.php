@@ -11,7 +11,8 @@ use App\Models\StudentCourse;
 class AdmissionController extends Controller
 {
     public function create(){
-        return view('frontend.admission');
+             $courses = Course::query()->select(['id','name'])->get();
+        return view('frontend.admission',compact('courses'));
     }
 
 
@@ -32,7 +33,7 @@ public function checkVerification(Request $request){
         }
 
 
-    $data = Student::with(['courses','avatar'])
+    $data = Student::with(['courses.course','avatar'])
     ->where($col,$request->mobile)
     ->where('status',1)
     ->orWhere('status',2)
@@ -40,8 +41,10 @@ public function checkVerification(Request $request){
 
 
     if(!empty($data)){
-        $courseId = $data->courses[0]->course_id;
-        $course = Course::where('id',$courseId)->first();
+        $course = $data->courses->first();
+
+       
+      
         return view("frontend.verification.verify_show",compact(['data','course']));
     }else{
         return redirect()->route("frontend.verification.create")->with('danger'," Your Admission is not verify ! ");

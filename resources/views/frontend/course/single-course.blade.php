@@ -13,7 +13,7 @@
 	} 
 </style>
 	<!-- About Us -->
-	<section class="about-us section-space mt-3">
+	<section class="about-us section-space mt-3 mb-4">
 		<div class="container">
 			@if($data == null)
 			<h2>data not found</h2>

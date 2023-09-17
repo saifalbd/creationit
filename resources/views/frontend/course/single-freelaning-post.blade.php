@@ -3,6 +3,21 @@
      font-size: 27px !important;
      line-height: 40px !important;
  } 
+
+
+ .text p {
+	font-family: "Tiro Banlga",serif !important;
+}
+
+.section-top h1{
+    font-family: "Tiro Banlga",serif !important;
+}
+
+.section-top b{
+    font-family: "Tiro Banlga",serif !important;
+}
+
+
  </style>
      <x-frontend-layout>
          <!-- About Us -->

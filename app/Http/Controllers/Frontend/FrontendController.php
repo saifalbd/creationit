@@ -169,10 +169,18 @@ public function otherInstitute(){
 }
 
 
+
 public function freelancing(){
     $data = Video::latest()->get();
+    $courses = Course::query()->latest('id')->with('avatar')->get();
     $freelanings = Page::where('menu',5)->get();
-    return view('frontend.course.freelancing', compact(['data','freelanings']));
+    $instructor = Instructor::latest()->get();
+    $students = Student::latest()->get();
+    $completeStudents = Student::where('status',2)->get();
+    return view('frontend.course.freelancing', compact(
+        ['data','freelanings','courses',
+        'instructor','students','completeStudents'
+        ]));
 }
 
 public function singleFreelancing($id){

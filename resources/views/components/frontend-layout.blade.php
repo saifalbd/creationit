@@ -37,8 +37,17 @@
 		<!-- Bizwheel Colors -->
 		<link rel="stylesheet" href="/frontend/css/skins.css">
 
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&family=REM:wght@100;200;400&display=swap" rel="stylesheet">
+
+
 
 <style>
+
+.popins { 
+	font-family: 'Poppins', Courier, monospace !important;
+}
 
 .link-lg{
 	display: none !important;
@@ -60,9 +69,82 @@
 	display: none !important;
 }
 
+.counter-head b, span {
+	font-family: "Poppins";
+}
+
+@media(max-width: 1200px){
+.header .nav li {
+    margin-left: 10px !important;
+    margin-right: 7px !important;
+}
+
+}
+
+
+
+
+
+
+@media(max-width: 1072px){
+.header .nav li {
+    margin-left: 10px !important;
+    margin-right: 7px !important;
+}
+
+}
+
+
+
+
+@media(max-width: 925px){
+	.header .nav li {
+    margin-left: 2px !important;
+    margin-right: 7px !important;
+}
+
+.header .nav li a {
+	font-size: 13px;
+}
+
+
+.custom-container {
+    max-width: 100% !important;
+    margin: 0;
+	padding-left: 30px;
+}
+
+
+
+}
+
+@media only screen and (min-width: 925px) and (max-width: 985px){
+.header .nav li {
+    margin-left: 4px !important;
+    margin-right: 7px !important;
+}
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 816px){
+.header .nav li {
+	margin-left: 0px !important;
+	margin-right: 5px !important;
+	
+}
+
+.header .nav li a {
+	font-size: 13px;
+}
+
+}
+
+
 
 
 @media(max-width: 768px){
+
+	
 .sm-none {
 	display: none !important;
 }
@@ -84,6 +166,12 @@
 	margin-left: 10px;
 	font-size: 20px;
 }
+
+.md-device {
+	max-width: 10.667 !important%;
+}
+
+
 
 
 .socil-link {
@@ -156,8 +244,8 @@
 							<!-- Top Contact -->
 							<div class="top-contact"> 
 								<div class="single-contact">
-									<li><i class="fas fa-phone"></i> <a href="tel:+8801777560463"> 01777560463</a> </li>
-									<li> <i class="fas fa-clock"> </i> 9:30AM - 8:30PM</li>
+									<li><i class="fas fa-phone"></i> <a class="popins" href="tel:+8801777560463"> 01777560463</a> </li>
+									<li  class="popins"> <i class="fas fa-clock"> </i> 9:30AM - 8:30PM</li>
 									<li class="social-sm-head">
 										<a target="_blank" href="https://web.facebook.com/CreationITechnology"><i class="fab fa-facebook-f"></i></a>
 										<a target="_blank" href="https://www.instagram.com/creation_institute/?fbclid=IwAR15MZNbZHK9Bwj7hLxNC7390FjcukMYEt5DgGQRXVuLIMs8sT3cGxHqMWs"><i class="fab fa-instagram"></i></a>
@@ -166,8 +254,8 @@
 								</div> 
 
 								<div class="single-contact sm-none">
-									<a href="{{route('frontend.verification.create')}}" class="header-link"><i class="fas fa-search"></i>  Verification</a>
-									<a href="{{route('frontend.admission')}}" class="header-link"> <i class="far fa-file"> </i> Admission</a>
+									<a href="{{route('frontend.verification.create')}}" class="header-link popins"><i class="fas fa-search"></i>  Verification</a>
+									<a href="{{route('frontend.admission')}}" class="header-link popins"> <i class="far fa-file"> </i> Admission</a>
 								</div> 
 							</div>
 							<!-- End Top Contact -->
@@ -179,12 +267,12 @@
 			<!--/ End Topbar -->
 			<!-- Middle Header -->
 			<div class="middle-header">
-				<div class="container">
+				<div class="container custom-container">
 					<div class="row">
-						<div class="col-12">
+						<div class="col-12 md-device">
 							<div class="middle-inner">
 								<div class="row">
-									<div class="col-lg-2 col-md-2 col-12">
+									<div class="col-lg-2 col-md-2 col-12 md-device">
 										<!-- Logo -->
 										<div class="logo">
 											<!-- Image Logo -->
@@ -200,7 +288,7 @@
 											
 										<div class="mobile-nav"></div>
 									</div>
-									<div class="col-lg-8 col-md-8 col-12">
+									<div class="col-lg-8 col-md-8 col-12 md-device">
 										<div class="menu-area">
 											<!-- Main Menu -->
 											<nav class="navbar navbar-expand-lg">
@@ -333,7 +421,8 @@
 						<div class="col-12">
 							<div class="copyright-content">
 								<!-- Copyright Text -->
-								<p>© Copyright <a href="#">Creation Institute of Technology</a>. Design &amp; Development By <a target="_blank" href="https://web.facebook.com/NSITCompnay">NS IT</a></p>
+								<p>Copyright © 2021 Creation Institute of Technology. All right reserved</p>
+								
 							</div>
 						</div>
 					</div>

@@ -27,6 +27,22 @@
      padding: 40px 0px;
  }
  
+
+ .invisble{
+    visibility: hidden;
+    margin-top: -50px;
+ }
+ @media (max-width: 767px) {
+    .section-top p {
+     margin-top: 15px;
+ }
+
+ .invisble{
+    visibility: visible;
+    margin-top: 20px;
+ }
+
+}
  
  
  
@@ -42,7 +58,6 @@
             <div class="container">
                 <div class="row">
             
-
                     <div class="col-lg-7 col-md-8 col-12">
                         <div class="welcome-text"> 
                             <div class="hero-text"> 
@@ -74,10 +89,18 @@
         <div class="row">               
              <!-- Single Feature -->                 
                 <div class="col-sm-12 col-md-6">
+                    <div class="section-title  style2 text-center mb-0 invisble">
+						<div class="section-top mt-4">
+							<h1><span>আমাদের সম্পর্কে</span></h1>
+							
+						</div>
+						 
+					</div>
                     <div class="section-title  style2 text-center">
-                        <div class="section-top">
+                        <div class="section-top mt-0">
+                            
                             <h1><b>{{$hero->title}}</b></h1>
-                            <p> {{$hero->description}}</p>
+                            <p style="margin-top: 15px;"> {{$hero->description}}</p>
                         </div>
                     </div>
                     <div class="right-bar">
@@ -90,7 +113,7 @@
                 
                     <div class="row mt-1">
                         <div class="col-sm-2 col-md-2">
-                            <div class="bd-tech-board-img">
+                            <div class="bd-tech-board-img mt-2">
                                 <img src="/frontend/img/ict-logo.png" alt="">
                             </div>
                           </div>
@@ -98,6 +121,7 @@
                             <div class="bd-tech-board mt-2">
                                 <p>বাংলাদেশ সরকার অনুমোদিত</p>
                                 <p>কারিগরি আইসিটি বাংলাদেশ কর্তৃক পরিচালিত প্রতিষ্ঠান </p>
+                                <p>ইন্সটিটিউট কোড: ৭২২০৫</p>
                             </div>
                           </div> 
                     </div>

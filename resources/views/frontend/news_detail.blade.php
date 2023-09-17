@@ -3,6 +3,40 @@
 	font-size: 27px !important;
 	line-height: 40px !important;
 } 
+
+
+.section-top h1 {
+	font-family: 'Tiro Bangla', serif !important;
+}
+
+.text p {
+	font-family: 'Tiro Bangla', serif !important;
+    text-align: justify;
+}
+
+.text b {
+	font-family: 'Tiro Bangla', serif !important;
+}
+
+
+.text a,b,p{
+    font-family: 'Tiro Bangla', serif !important;
+}
+
+@media(max-width:768px){
+.section-top {
+	margin-bottom: 10px;
+}
+
+.text {
+	margin-bottom: 40px;
+}
+
+
+}
+
+
+
 </style>
     <x-frontend-layout>
         <!-- About Us -->
@@ -31,14 +65,7 @@
                                  
                                 </div>
                             </div>
-                            
-                         <hr>
-                            <samp>
-                            @if($data->file)
-                            <a class="btn btn-link" href="/{{$data->file}}" >	 <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download Attachment	</a>	
-                            @endif
-    
-                            </samp>
+
     
                         </div>
                     </div>
